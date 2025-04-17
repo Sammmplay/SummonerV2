@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "NuevaReceta", menuName = "Inventario/Receta")]
 public class CraftRecipe : ScriptableObject {
-    [IDSelector("Consumibles")]
+    [IDSelector("Craft")]
     public string resultadoID; // ID del item que se va a crear
     public int resultadoCantidad;// cantidad que se va a crear
 
     [System.Serializable]
     public class Ingrediente {
-        [IDSelector("Consumibles")]
+        [IDSelector("Craft")]
         public string itemID; // Id del item Requerido
         public int cantidad; // cantidad requerida
     }
