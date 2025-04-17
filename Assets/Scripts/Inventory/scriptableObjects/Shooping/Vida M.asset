@@ -15,6 +15,6 @@ MonoBehaviour:
   _id: Posion de Vida (M)
   type: 2
   _icon: {fileID: -1711492895, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
-  _precioCompra: 10
-  _precioVenta: 15
+  _precioCompra: 15
+  _precioVenta: 10
   _cantidadXVenta: 1
