@@ -39,7 +39,7 @@ MonoBehaviour:
       - rid: 620659161331400940
       - rid: 620659161331400941
       - rid: 620659161331400942
-      - rid: 620659161331400943
+      - rid: 620659320850219287
       - rid: 620659161331400944
       - rid: 620659161331400945
       - rid: 620659161331400946
@@ -124,11 +124,6 @@ MonoBehaviour:
         m_xrOcclusionMeshPS: {fileID: 4800000, guid: 4431b1f1f743fbf4eb310a967890cbea, type: 3}
         m_xrMirrorViewPS: {fileID: 4800000, guid: d5a307c014552314b9f560906d708772, type: 3}
         m_xrMotionVector: {fileID: 4800000, guid: f89aac1e4f84468418fe30e611dff395, type: 3}
-    - rid: 620659161331400943
-      type: {class: URPDefaultVolumeProfileSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
-      data:
-        m_Version: 0
-        m_VolumeProfile: {fileID: 11400000, guid: 43fe61d87ec66684880449bc37075a28, type: 2}
     - rid: 620659161331400944
       type: {class: UniversalRenderPipelineEditorShaders, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
@@ -255,3 +250,8 @@ MonoBehaviour:
         m_setupCS: {fileID: 7200000, guid: 33be2e9a5506b2843bdb2bdff9cad5e1, type: 3}
         m_preTaaCS: {fileID: 7200000, guid: a679dba8ec4d9ce45884a270b0e22dda, type: 3}
         m_taaCS: {fileID: 7200000, guid: 3923900e2b41b5e47bc25bfdcbcdc9e6, type: 3}
+    - rid: 620659320850219287
+      type: {class: URPDefaultVolumeProfileSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_Version: 0
+        m_VolumeProfile: {fileID: 11400000, guid: 49c1cfea0e4fac541a85ddee3a6c1d74, type: 2}
