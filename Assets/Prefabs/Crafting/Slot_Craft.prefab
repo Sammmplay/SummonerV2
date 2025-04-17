@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 5820079064579303210}
   - component: {fileID: 8308628259885386307}
   - component: {fileID: 6455981489506560603}
-  - component: {fileID: 2066652839451350922}
+  - component: {fileID: 8590990460266340972}
   m_Layer: 5
   m_Name: Slot_Craft
   m_TagString: Untagged
@@ -375,7 +375,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2066652839451350922
+--- !u!114 &8590990460266340972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -384,13 +384,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4686979420930886796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c162a2bb9b457f14c9a370d227a9da74, type: 3}
+  m_Script: {fileID: 11500000, guid: f86a95705ae1f8a48a72e2c730b82481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon_Result: {fileID: 5477537342035485412}
-  _nameResult: {fileID: 0}
+  _nameResult: {fileID: 6869088574916284826}
   botonSeleccionar: {fileID: 6455981489506560603}
-  receta: {fileID: 11400000, guid: 9848e0b1213c24d41be7d0ceb2d9d437, type: 2}
+  receta: {fileID: 11400000, guid: 5d5c8772637b57745a8f9403e39d54fd, type: 2}
   ingredientesParent: {fileID: 3008369150841949839}
   ingredientePrefab: {fileID: 6794976517601765893, guid: 097a0ea0f4c4e0740ab72e8f5f6b00a3, type: 3}
 --- !u!1 &5370747780409367134
@@ -552,6 +552,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3008369150841949839}
     m_Modifications:
+    - target: {fileID: 4523189753655379406, guid: 097a0ea0f4c4e0740ab72e8f5f6b00a3, type: 3}
+      propertyPath: m_fontSize
+      value: 27.95
+      objectReference: {fileID: 0}
     - target: {fileID: 6794976517601765893, guid: 097a0ea0f4c4e0740ab72e8f5f6b00a3, type: 3}
       propertyPath: m_Name
       value: Slot_Receta

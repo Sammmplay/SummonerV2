@@ -11,11 +11,13 @@ public class ShopManager : MonoBehaviour
     public Transform _contentScroll;
     public int _goldPlayer = 20;
 
-    public TextMeshProUGUI _textGold;
+    [SerializeField] private Button _botonComprar;
 
+    public TextMeshProUGUI _textGold;
+    [Header("Seleccion de Item")]
     [SerializeField] private ShopItemData _itemSeleccionado;
     [SerializeField] private TextMeshProUGUI _precioSeleccionado;
-    [SerializeField] private Button _botonComprar;
+    
     [SerializeField] private TMP_InputField _inputCantidad; // o botones + / -
     private void Awake() {
         Instance = this;

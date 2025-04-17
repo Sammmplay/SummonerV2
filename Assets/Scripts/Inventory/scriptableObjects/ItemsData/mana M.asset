@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80b400bdb549a2f4a9db210a9805312e, type: 3}
+  m_Script: {fileID: 11500000, guid: a22844c98c626af4294d23c754734a1d, type: 3}
   m_Name: Mana M
   m_EditorClassIdentifier: 
-  _id: Posion de Mana (M)
+  _id: Posion de Vida (M)
   _description: Posion de Mana Mediana
   _type: 2
   _cantItems: 1

@@ -8,7 +8,7 @@ public enum TypeItem {
 
 [Serializable]
 public class saveData { // esta clase se usa para serializar si lo queremos hacer a futuro
-    [IDSelector("Consumibles")] public string _id;// categoria definida en IDDataBase
+    [IDSelector("Inventario")] public string _id;// categoria definida en IDDataBase
     public String _description;
     public TypeItem _type;
     public int _cant;
@@ -18,7 +18,7 @@ public class saveData { // esta clase se usa para serializar si lo queremos hace
 }
 [CreateAssetMenu(fileName = "Inventory",  menuName = "Inventory/item")]
 public class itemsData : ScriptableObject {
-    [IDSelector("Consumibles")]
+    [IDSelector("Inventario")]
     public string _id;
     public String _description;
     public TypeItem _type;

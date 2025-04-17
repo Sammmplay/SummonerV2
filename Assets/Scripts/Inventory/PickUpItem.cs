@@ -3,8 +3,8 @@ using UnityEngine;
 public class PickUpItem : MonoBehaviour
 {
     public itemsData data;
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Player")) {
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Player")) {
             InventoryManager.Instance.AddItem(data);
             Destroy(gameObject);
         }
