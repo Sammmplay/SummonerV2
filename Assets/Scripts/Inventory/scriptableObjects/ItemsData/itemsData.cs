@@ -1,0 +1,29 @@
+using System;
+using UnityEngine;
+public enum TypeItem {
+    None,
+    Hierbas,
+    posion
+}
+
+[Serializable]
+public class saveData { // esta clase se usa para serializar si lo queremos hacer a futuro
+    [IDSelector("Consumibles")] public string _id;// categoria definida en IDDataBase
+    public String _description;
+    public TypeItem _type;
+    public int _cant;
+    public int _precioCU;
+    public int _slotPosition;
+    public Sprite _sprite;
+}
+[CreateAssetMenu(fileName = "Inventory",  menuName = "Inventory/item")]
+public class itemsData : ScriptableObject {
+    [IDSelector("Consumibles")]
+    public string _id;
+    public String _description;
+    public TypeItem _type;
+    public int _cantItems;
+    public int _precioCU;
+    public int _slotPosition;
+    public Sprite _sprite;
+}
