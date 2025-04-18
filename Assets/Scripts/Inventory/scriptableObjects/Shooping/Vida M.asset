@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f787c866e8197df4a976beaa1aae51dc, type: 3}
   m_Name: Vida M
   m_EditorClassIdentifier: 
-  _id: Posion de Vida (M)
+  _id: PVM
   type: 2
   _icon: {fileID: -1711492895, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
   _precioCompra: 15

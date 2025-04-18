@@ -27,10 +27,15 @@ public class ShopManager : MonoBehaviour
     }
     public void MostrarItems() {
         foreach(Transform child in _contentScroll) {
-            Destroy(child); // destruimos los items q   ue puedan haber en un principio en nuestro contend para mantener un entorno limpio
+            Destroy(child); // destruimos los items que puedan haber en un principio en nuestro contend para mantener un entorno limpio
         }
         foreach (ShopItemData item in _itemsEnVenta) {
             GameObject slot = Instantiate(_slptPrefab, _contentScroll);
+            RectTransform heigh = _contentScroll.GetComponent<RectTransform>();
+            Vector2 size = heigh.sizeDelta; // obtener el tamaño actual
+            size.y += 210f; // modificar la altura
+            heigh.sizeDelta = size;
+
             slot.GetComponent<ShopSlotUI>().Configurar(item);
         }
         //ActualizarTextGold();

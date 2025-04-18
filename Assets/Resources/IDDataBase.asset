@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: IDDataBase
   m_EditorClassIdentifier: 
   idInventory:
-  - Posion de Vida (S)
-  - Posion de Vida (M)
-  - Posion de Mana (S)
-  - Posion de Mana (M)
+  - PVS
+  - PVM
+  - PMS
+  - PMM
   idShop:
-  - Posion de Vida (S)
-  - Posion de Vida (M)
-  - Posion de Mana (S)
-  - Posion de Mana (M)
+  - PVS
+  - PVM
+  - PMS
+  - PMM
   IdsCraft:
-  - Posion de Vida (S)
-  - Posion de Vida (M)
-  - Posion de Mana (S)
-  - Posion de Mana (M)
+  - PVS
+  - PVM
+  - PMS
+  - PMM

@@ -8,13 +8,13 @@ public class UI_RecipeSlot : MonoBehaviour
     public Image icon_Result;
     public TextMeshProUGUI _nameResult;
     public Button botonSeleccionar;
-    [SerializeField] CraftRecipe receta; // receta que representa este slot
+    [SerializeField] CraftRecipe _receta; // receta que representa este slot se agrega mediante script
     [Header("Ingredientes")]
     public Transform ingredientesParent; // contenedor de los iconos de ingredientes
     public GameObject ingredientePrefab; // prefab para cada Ingrediente
 
     public void Configurar(CraftRecipe receta, itemsData itemResult) {
-        this.receta = receta;
+        _receta = receta;
         icon_Result.sprite = itemResult._sprite;
         //_nameResult.text = itemResult._id;
         //asignamos el metodo al boton
@@ -30,7 +30,7 @@ public class UI_RecipeSlot : MonoBehaviour
         foreach(var ingrediente in receta.ingredientes) {
             GameObject icono = Instantiate(ingredientePrefab, ingredientesParent);
 
-            itemsData itemBase = InventoryManager.Instance._itemsBase.Find(x => x._id == ingrediente.itemID);
+            itemsData itemBase = InventoryManager.Instance._items._itemsBase.Find(x => x._id == ingrediente.itemID);
             if(itemBase != null) {
                 icono.GetComponent<Image>().sprite = itemBase._sprite;
                 icono.GetComponentInChildren<TextMeshProUGUI>().text = ingrediente.cantidad.ToString();

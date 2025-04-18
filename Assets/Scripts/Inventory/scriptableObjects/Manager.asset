@@ -12,33 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e8b6258fcbcc74bae19746a87d08b1, type: 3}
   m_Name: Manager
   m_EditorClassIdentifier: 
-  _items:
-  - _id: Posion de Vida (S)
-    _description: "Posion de Vida Peque\xF1a"
-    _type: 2
-    _cant: 2
-    _precioCU: 3
-    _slotPosition: 1
-    _sprite: {fileID: 1797380056, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
-  - _id: Posion de Mana (S)
-    _description: "Posion de Mana Peque\xF1a"
-    _type: 2
-    _cant: 2
-    _precioCU: 3
-    _slotPosition: 2
-    _sprite: {fileID: 944716980, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
-  - _id: Posion de Mana (M)
-    _description: Posion de Mana Mediana
-    _type: 2
-    _cant: 2
-    _precioCU: 10
-    _slotPosition: 3
-    _sprite: {fileID: -750686929, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
-  - _id: Posion de Vida (M)
-    _description: Posion de Vida Mediana
-    _type: 2
-    _cant: 2
-    _precioCU: 10
-    _slotPosition: 4
-    _sprite: {fileID: -1711492895, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
+  _items: []
   _slotPrefab: {fileID: 2521455196494121335, guid: 9b6941467da0cca4394fa6ffef0bbef4, type: 3}
+  _itemsBase:
+  - {fileID: 11400000, guid: 4744532c41b16af4abf951bd74db0f16, type: 2}
+  - {fileID: 11400000, guid: c88e9172f6c71b74c9233eb8ad6f6106, type: 2}
+  - {fileID: 11400000, guid: c67e001777bcac14fba5a3c6501e1847, type: 2}
+  - {fileID: 11400000, guid: 0b5f6ffd2d3c2524daee83b42e96135d, type: 2}

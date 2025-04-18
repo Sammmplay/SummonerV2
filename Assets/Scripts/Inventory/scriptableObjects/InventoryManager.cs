@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
 
     public ManagerScripTableObjects _items;
 
-    public List<itemsData> _itemsBase; // lista de todos los scriptableObjects base
+   
     Dictionary<string,UISlot> _slotVisuales = new Dictionary<string,UISlot>(); // guardar en un diccionario para sumar directamente la cantidad de items que hay 
     public IDDataBase idDatabase; // ← arrastrás esto desde el Inspector
     public Transform _slotPather;

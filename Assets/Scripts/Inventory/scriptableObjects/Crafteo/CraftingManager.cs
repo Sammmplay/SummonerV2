@@ -27,7 +27,7 @@ public class CraftingManager : MonoBehaviour
         foreach(CraftRecipe receta in recetas) {
             GameObject slot = Instantiate(recetaSlotPrefab, contenedorRecetas);
             //busca el itemData resultado por ID (esto depende de como se guarde la base de items)
-            var itemResultado = InventoryManager.Instance._itemsBase.FirstOrDefault(x => x._id == receta.resultadoID);
+            itemsData itemResultado = InventoryManager.Instance._items._itemsBase.FirstOrDefault(x => x._id == receta.resultadoID);
             // le dice al slot visual que se configure con esta receta
             slot.GetComponent<UI_RecipeSlot>().Configurar(receta, itemResultado);
         }
@@ -69,7 +69,7 @@ public class CraftingManager : MonoBehaviour
             Debug.Log("No hay receta Selecionada");
             return;
         }
-        itemsData itemResultado = InventoryManager.Instance._itemsBase.Find(x => x._id == recetaSeleccionada.resultadoID);
+        itemsData itemResultado = InventoryManager.Instance._items._itemsBase.Find(x => x._id == recetaSeleccionada.resultadoID);
 
         if(itemResultado == null) {
             Debug.LogError("No se encontro el item Resultado");

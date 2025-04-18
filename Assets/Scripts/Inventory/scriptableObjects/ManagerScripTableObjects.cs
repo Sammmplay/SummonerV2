@@ -5,6 +5,6 @@ public class ManagerScripTableObjects : ScriptableObject {
 
     public List<saveData> _items;
     public GameObject _slotPrefab;
-
+    public List<itemsData> _itemsBase;
     
 }
