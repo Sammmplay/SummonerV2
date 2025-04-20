@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Vida M
   m_EditorClassIdentifier: 
   _id: PVM
+  _nameItem: Posion de Vida (M)
   type: 2
   _icon: {fileID: -1711492895, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
   _precioCompra: 15

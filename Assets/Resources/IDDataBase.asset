@@ -27,3 +27,8 @@ MonoBehaviour:
   - PVM
   - PMS
   - PMM
+  names:
+  - Posion de Vida (M)
+  - Posion de Vida (S)
+  - Posion de Mana (M)
+  - Posion de Mana (S)

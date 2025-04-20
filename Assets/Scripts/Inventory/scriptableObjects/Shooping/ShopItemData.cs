@@ -5,6 +5,8 @@ public class ShopItemData : ScriptableObject
 {
     [IDSelector("Shop")]
     public string _id;
+    [IDSelector("Names")]
+    public string _nameItem;
     public TypeItem type;
     public Sprite _icon;
     public int _precioCompra;

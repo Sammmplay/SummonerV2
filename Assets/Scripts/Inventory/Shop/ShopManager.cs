@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,16 +10,14 @@ public class ShopManager : MonoBehaviour
     public List<ShopItemData> _itemsEnVenta;
     public GameObject _slptPrefab;
     public Transform _contentScroll;
-    public int _goldPlayer = 20;
 
     [SerializeField] private Button _botonComprar;
 
-    public TextMeshProUGUI _textGold;
     [Header("Seleccion de Item")]
-    [SerializeField] private ShopItemData _itemSeleccionado;
-    [SerializeField] private TextMeshProUGUI _precioSeleccionado;
+    [SerializeField] private ShopSlotUI _itemSeleccionado;
+    //[SerializeField] private TextMeshProUGUI _precioSeleccionado;
     
-    [SerializeField] private TMP_InputField _inputCantidad; // o botones + / -
+    //[SerializeField] private TMP_InputField _inputCantidad; // o botones + / -
     private void Awake() {
         Instance = this;
     }
@@ -28,6 +27,7 @@ public class ShopManager : MonoBehaviour
     public void MostrarItems() {
         foreach(Transform child in _contentScroll) {
             Destroy(child); // destruimos los items que puedan haber en un principio en nuestro contend para mantener un entorno limpio
+            Debug.Log("limpieza de items");
         }
         foreach (ShopItemData item in _itemsEnVenta) {
             GameObject slot = Instantiate(_slptPrefab, _contentScroll);
@@ -40,33 +40,39 @@ public class ShopManager : MonoBehaviour
         }
         //ActualizarTextGold();
     }
-    public void Comprar(ShopItemData item) {
-        if (_goldPlayer < item._precioCompra) {
+    void Comprar(ShopSlotUI slot) {
+        int cantidad = slot.GetCantidad(); // obtiene el inputfield
+        int precioTotal = slot.data._precioCompra * cantidad;
+
+        if (GoldManager.instance.obtenerOro() < precioTotal)
+            return;
+        GoldManager.instance.QuitarOro(precioTotal);
+
+        //itemsData nuevo = ScriptableObject.CreateInstance<itemsData>();
+        itemsData nuevo = InventoryManager.Instance._items._itemsBase.FirstOrDefault(
+            x=> x._id == slot.data._id);
+        if(nuevo == null) {
+            Debug.LogWarning("Item no encontrado en:" + InventoryManager.Instance._items._itemsBase);
             return;
         }
-        _goldPlayer -= item._precioCompra;
-
-        //creamos itemData para nuestro inventario
-
-        itemsData nuevo = ScriptableObject.CreateInstance<itemsData>();
-
-        nuevo._id = item._id;
-        nuevo._type = item.type;
-        nuevo._sprite = item._icon;
-        nuevo._precioCU = item._precioCompra;
-        nuevo._cantItems = item._cantidadXVenta;
-
+        nuevo._cantItems = cantidad;
         // agregamos a nuestro inventario
         InventoryManager.Instance.AddItem(nuevo);
+        //SaleManager.instance.CargarItemVenta();
+        Debug.Log("ItemAgregado");
+        nuevo._cantItems = 1;
     }
-    public void ActualizarTextGold() {
-        _textGold.text = _goldPlayer.ToString();
+    public void ComprarSlotSeleccionado() {
+        if(_itemSeleccionado != null) {
+            Comprar(_itemSeleccionado);
+            Debug.Log("Item Comprado");
+        } else {
+            _botonComprar.interactable = false;
+        }
     }
-    public void SelecionarItem(ShopItemData item) {
-        _itemSeleccionado = item;
+    public void SelecionarItem(ShopSlotUI slot) {
+        _itemSeleccionado = slot;
 
-        _precioSeleccionado.text = item._precioCompra.ToString();
-        _inputCantidad.text = "1"; // por defecto
         _botonComprar.interactable = true;
     }
 }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Mana M
   m_EditorClassIdentifier: 
   _id: PMM
+  _nameItem: Posion de Mana (M)
   type: 2
   _icon: {fileID: -750686929, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
-  _precioCompra: 3
-  _precioVenta: 5
+  _precioCompra: 15
+  _precioVenta: 10
   _cantidadXVenta: 1
