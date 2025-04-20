@@ -127,4 +127,4 @@ MonoBehaviour:
   - {fileID: 8515819271021669614, guid: 2972caa37c4af6b48a5593e205c3e6a3, type: 3}
   - {fileID: 5933101845912531109, guid: 7a3d775159a527043b80a096af5f5395, type: 3}
   spawnChance: 5
-  spawnPositionTweak: {x: 0, y: 0.6, z: 0}
+  spawnPositionTweak: {x: 0, y: 0.5, z: 0}

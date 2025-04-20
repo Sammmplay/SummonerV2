@@ -20,7 +20,8 @@ public class ResourcesGenerator : MonoBehaviour
         if (spawnChance > Random.Range(0, 101))
         {
             int resourcesIndex = Random.Range(0, environmentResources.Length);
-            GameObject resourceSpawned = Instantiate(environmentResources[resourcesIndex], transform.position + spawnPositionTweak, Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 0f)), transform);     
+            Vector3 resourcePosition = transform.position + Vector3.one * environmentResources[resourcesIndex].transform.position.y + spawnPositionTweak;
+            GameObject resourceSpawned = Instantiate(environmentResources[resourcesIndex], resourcePosition, Quaternion.identity, transform);     
         }
     }
 }
