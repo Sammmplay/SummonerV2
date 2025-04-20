@@ -28,9 +28,11 @@ public class InventoryManager : MonoBehaviour
 
         if (existente != null) {
             existente._cant += data._cantItems;
+            Debug.Log("item con existencias");
         } else {
             saveData nuevo = ConvertirASaveData(data);
             _items._items.Add(nuevo);
+            Debug.Log("item sin existencias");
         }
 
         ActualizarVisualSlot(data._id);

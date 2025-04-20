@@ -9,7 +9,8 @@ public class IDDataBase : ScriptableObject
     public List<string> idShop;
     [Header("Ids de Craft")]
     public List<string> IdsCraft;
-
+    [Header("NameItems")]
+    public List<string> names;
     //metodo para obtener los Ids segun la categoria
     public static IDDataBase InstanciaGlobal; // Referencia global manual
     public List<string> GetIdXCategoria(string categoria) {
@@ -17,6 +18,7 @@ public class IDDataBase : ScriptableObject
             case "Inventario": return idInventory;
             case "Shop": return idShop;
             case "Craft": return IdsCraft;
+            case "Names": return names;
             default: return new List<string>();
         }
     }
