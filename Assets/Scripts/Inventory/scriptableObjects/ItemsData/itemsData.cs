@@ -10,6 +10,7 @@ public enum TypeItem {
 public class saveData { // esta clase se usa para serializar si lo queremos hacer a futuro
     [IDSelector("Inventario")] public string _id;// categoria definida en IDDataBase
     public String _description;
+    public string _nameItem;
     public TypeItem _type;
     public int _cant;
     public int _precioCU;
@@ -20,6 +21,8 @@ public class saveData { // esta clase se usa para serializar si lo queremos hace
 public class itemsData : ScriptableObject {
     [IDSelector("Inventario")]
     public string _id;
+    [IDSelector("Names")]
+    public string _nameItem;
     public String _description;
     public TypeItem _type;
     public int _cantItems;

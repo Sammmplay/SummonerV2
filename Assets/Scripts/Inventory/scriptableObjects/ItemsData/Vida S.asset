@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Vida S
   m_EditorClassIdentifier: 
   _id: PVS
+  _nameItem: Posion de Vida (S)
   _description: "Posion de Vida Peque\xF1a"
   _type: 2
   _cantItems: 1

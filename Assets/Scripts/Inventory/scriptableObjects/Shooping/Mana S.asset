@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mana S
   m_EditorClassIdentifier: 
   _id: PMS
+  _nameItem: Posion de Mana (S)
   type: 2
   _icon: {fileID: 944716980, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
   _precioCompra: 3
