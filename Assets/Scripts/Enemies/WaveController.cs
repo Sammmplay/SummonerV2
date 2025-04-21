@@ -32,12 +32,13 @@ public class EnemySpawner : MonoBehaviour
         if (timeTillSpawn <= 0)
         {
             Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            enemiesLeftToSpawn--;
             timeTillSpawn = spawnRate;
         }
         if (enemiesLeftToSpawn == 0)
         {
-            canStartWave = false;
             waveNumber += 1;
+            canStartWave = false;
         }
     }
     public void startNextWave()

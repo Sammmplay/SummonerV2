@@ -361,8 +361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2e9c22d0b817e4ea8500090e699a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObj: {fileID: 0}
-  velocidadEnemigos: 5
+  targetObj: {fileID: 680897046550098586, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
+  velocidadEnemigos: 2
 --- !u!1 &111344
 GameObject:
   m_ObjectHideFlags: 0

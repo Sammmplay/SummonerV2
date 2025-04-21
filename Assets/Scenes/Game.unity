@@ -174,7 +174,7 @@ PrefabInstance:
     - target: {fileID: 2775231441427374088, guid: 22624559461813446995d98bc309a680, type: 3}
       propertyPath: targetObj
       value: 
-      objectReference: {fileID: 45896793}
+      objectReference: {fileID: 426418318}
     - target: {fileID: 2775231441427374088, guid: 22624559461813446995d98bc309a680, type: 3}
       propertyPath: velocidadEnemigos
       value: 3
@@ -184,11 +184,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22624559461813446995d98bc309a680, type: 3}
---- !u!1 &45896793 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4139354219616657153, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
-  m_PrefabInstance: {fileID: 8653189072323964547}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &86376370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,7 +1299,7 @@ PrefabInstance:
     - target: {fileID: 7089008588293714914, guid: 69004ddfafdbced4eade02c4dba9877a, type: 3}
       propertyPath: targetObj
       value: 
-      objectReference: {fileID: 45896793}
+      objectReference: {fileID: 426418318}
     - target: {fileID: 7089008588293714914, guid: 69004ddfafdbced4eade02c4dba9877a, type: 3}
       propertyPath: velocidadEnemigos
       value: 2
