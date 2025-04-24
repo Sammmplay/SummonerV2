@@ -5,9 +5,9 @@ public class GridGenerator : MonoBehaviour
 {
     [Header("Grid Settings")]
     [SerializeField]
-    private int totalColumns;
+    public int totalColumns;
     [SerializeField]
-    private int totalRow;
+    public int totalRow;
     [SerializeField]
     private float gridStartPosX;
     [SerializeField]

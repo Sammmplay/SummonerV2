@@ -1246,6 +1246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2087681701}
   - component: {fileID: 2087681700}
+  - component: {fileID: 2087681702}
   m_Layer: 7
   m_Name: Camera Limits
   m_TagString: Untagged
@@ -1272,8 +1273,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 50, y: 50, z: 50}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 35, y: 50, z: 35}
+  m_Center: {x: 0, y: 0, z: -17.5}
 --- !u!4 &2087681701
 Transform:
   m_ObjectHideFlags: 0
@@ -1289,6 +1290,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2087681702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087681699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd42d7a5acd47604182cb1b68fb75b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraLimits: {fileID: 0}
+  gridGenerator: {fileID: 669485994}
+  xLimits: 0
+  yLimits: 0
+  zLimits: 0
+  zCenter: 0
 --- !u!1001 &1352185439244706769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1530,9 +1549,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6268229259447962859, guid: 698a63733b65b4b48b55146e80388e57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8567507004080178860, guid: 698a63733b65b4b48b55146e80388e57, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 5.84
       objectReference: {fileID: 0}
     - target: {fileID: 8567507004080178860, guid: 698a63733b65b4b48b55146e80388e57, type: 3}
       propertyPath: m_LocalPosition.y
