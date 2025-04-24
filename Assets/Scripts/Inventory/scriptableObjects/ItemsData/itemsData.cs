@@ -3,7 +3,7 @@ using UnityEngine;
 public enum TypeItem {
     None,
     Hierbas,
-    posion
+    pocion
 }
 
 [Serializable]
