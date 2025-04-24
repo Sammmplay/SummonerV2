@@ -1,3 +1,5 @@
+using Mono.Cecil;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,22 +45,18 @@ public class SaleManager : MonoBehaviour
             for (int i = child.childCount-1; i >= 0; i--) {
                 Destroy(child.GetChild(i).gameObject);
             }
-            
         }
-        int indexItem = 0;
-        foreach(var item in InventoryManager.Instance._items._items) {
-            for(int child =0; child < _content.childCount; child++) {
-                //Asegurarse de que hay suficientes slots disponibles
-                if(indexItem >= _content.childCount) {
-                    break;
-                }
-                Transform slot = _content.GetChild(indexItem);
 
-                GameObject instancia = Instantiate(ventaSlotPrefab, slot);
-                instance.GetComponent<UISlot>().Configurar(item);
-                indexItem++;
+        for (int i = 0; i < _content.childCount; i++) {
+            Transform child = _content.GetChild(i);
+            if (child.childCount == 0) {
+                GameObject slotGO = Instantiate(ventaSlotPrefab, child);
+                if(i>= InventoryManager.Instance._items._items.Count) {
+                    return;
+                }
             }
         }
+        
     }
     public void SeleccionarItem(saveData data) {
         itemSeleccionado = data;

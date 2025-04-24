@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Vida S
   m_EditorClassIdentifier: 
   _id: PVS
-  _nameItem: Posion de Vida (S)
+  _nameItem: Pocion de Vida (M)
   type: 2
   _icon: {fileID: 1797380056, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
   _precioCompra: 3

@@ -4,14 +4,15 @@ using UnityEngine.UI;
 
 public class UISlot : MonoBehaviour
 {
-    saveData dataslot;
+    [SerializeField]saveData dataslot;
     public TextMeshProUGUI _text;
     public Image _sprite;
     public void Configurar(saveData dataSlot) {
         
         dataslot = dataSlot;
         _sprite.sprite = dataSlot._sprite;
-        dataSlot._slotPosition = InventoryManager.Instance.GetFreeSlotPosition();
+        dataslot._nameItem = dataSlot._nameItem;
+        dataslot._slotPosition = InventoryManager.Instance.GetFreeSlotPosition()-1;
         _text.text = dataSlot._cant.ToString();
     }
     public void HideRefererence() {
