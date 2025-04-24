@@ -1,184 +1,231 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class PetMovement : MonoBehaviour
+[DisallowMultipleComponent]
+public class PetManager : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Referencias")]
     public Transform player;
     public Transform enemiesParent;
 
-    [Header("Movement Settings")]
-    public float minDistance = 1.5f;
-    public float maxDistance = 4f;
+    [Header("Colliders de Rango (Is Trigger)")]
+    public Collider rangeMinCollider; // cualquier collider en modo Is Trigger
+    public Collider rangeMaxCollider; // cualquier collider en modo Is Trigger
+
+    [Header("Distancias")]
+    public float minDistance = 1.5f;  // distancia interior mínima
+    public float maxDistance = 4f;    // distancia exterior máxima
+
+    [Header("Velocidades")]
     public Vector2 speedRange = new Vector2(1f, 5f);
-    public float checkInterval = 1.5f;
 
-    [Header("Enemy Detection")]
-    public float enemyDetectionRadius = 6f;
-
-    [Header("Behavior")]
+    [Header("Separación y Rotación")]
     public float separationForce = 1f;
-    public float rotationSmoothness = 5f;
+    public float rotationSpeed = 5f;
 
-    private List<Transform> pets = new List<Transform>();
-    private Dictionary<Transform, float> moveSpeeds = new Dictionary<Transform, float>();
-    private Vector3 lastPlayerPos;
-    private bool playerIsMoving;
-    private float timer;
+    [Header("Flotación (LeanTween)")]
+    public float floatAmplitude = 0.3f;
+    public float floatDuration = 1.5f;
+
+    // ----------------------------------------------
+    // Estructura interna para cada mascota
+    struct PetData
+    {
+        public Transform trans;
+        public float speed;
+    }
+    List<PetData> pets = new List<PetData>();
+    List<Transform> enemiesInRange = new List<Transform>();
+
+    Vector3 lastPlayerPos;
+    bool playerIsMoving;
+
+    void Awake()
+    {
+        // Añadimos el script RangeTrigger a los dos colliders de rango
+        rangeMinCollider.gameObject
+            .AddComponent<RangeTrigger>()
+            .Init(this, RangeTrigger.Type.RangoMin);
+        rangeMaxCollider.gameObject
+            .AddComponent<RangeTrigger>()
+            .Init(this, RangeTrigger.Type.RangoMax);
+    }
 
     void Start()
     {
-        UpdatePetList();
         lastPlayerPos = player.position;
+        InitializePets();
     }
 
     void Update()
     {
-        // Detectar si el jugador se ha movido
-        playerIsMoving = Vector3.Distance(player.position, lastPlayerPos) > 0.01f;
+        // 1) Detectar movimiento del jugador
+        playerIsMoving = (player.position - lastPlayerPos).sqrMagnitude > 0.0001f;
         lastPlayerPos = player.position;
 
-        // Verificar si se agregaron/eliminaron mascotas
-        if (transform.childCount != pets.Count)
+        // 2) Para cada mascota: Mover, Rotar, Separar
+        foreach (var pet in pets)
         {
-            UpdatePetList();
-        }
+            // Buscar el enemigo más cercano (solo en enemiesInRange)
+            Transform nearest = FindNearestEnemy(pet.trans);
 
-        // Actualizar comportamiento de mascotas
-        UpdatePets();
+            // Definir target: mitad entre player y enemigo, o posición aleatoria válida
+            Vector3 target = nearest != null
+                ? Vector3.Lerp(player.position, nearest.position, 0.5f)
+                : GetRandomPositionAround(player.position, pet.trans.position);
+
+            MovePet(pet, target);
+            RotatePet(pet, nearest);
+            ApplySeparation(pet);
+        }
     }
 
-    void UpdatePetList()
+    // Inicializa lista de mascotas y añade flotación
+    void InitializePets()
     {
         pets.Clear();
-        moveSpeeds.Clear();
-
-        foreach (Transform pet in transform)
+        foreach (Transform child in transform)
         {
-            pets.Add(pet);
-            moveSpeeds[pet] = Random.Range(speedRange.x, speedRange.y);
-            AssignRandomSize(pet);
+            // Ignorar los colliders de rango (pueden ser hijos)
+            if (child == rangeMinCollider.transform || child == rangeMaxCollider.transform)
+                continue;
+
+            var pd = new PetData
+            {
+                trans = child,
+                speed = Random.Range(speedRange.x, speedRange.y)
+            };
+            pets.Add(pd);
+
+            // Efecto de flotación con LeanTween (vaivén en Y)
+            LeanTween.moveY(child.gameObject,
+                child.position.y + floatAmplitude,
+                floatDuration)
+                .setLoopPingPong()
+                .setEase(LeanTweenType.easeInOutSine);
         }
     }
 
-    void UpdatePets()
+    // — Callbacks desde RangeTrigger — 
+
+    public void OnRangeTriggerEnter(RangeTrigger.Type type, Transform other)
     {
-        for (int i = 0; i < pets.Count; i++)
-        {
-            Transform pet = pets[i];
-            Transform enemy = FindNearestEnemy(pet);
-            float speed = moveSpeeds[pet];
+        bool isPet = other.parent == transform;
+        bool isEnemy = other.parent == enemiesParent;
 
-            HandlePetBehavior(pet, enemy, speed);
-            ApplySeparation(pet, i);
+        if (type == RangeTrigger.Type.RangoMax && isEnemy)
+        {
+            // Un enemigo entra al rango máximo: lo guardamos
+            if (!enemiesInRange.Contains(other))
+                enemiesInRange.Add(other);
+        }
+        else if (type == RangeTrigger.Type.RangoMin && isPet)
+        {
+            // Una pet penetra demasiado: la empujamos hacia fuera al minDistance
+            Vector3 dir = (other.position - player.position).normalized;
+            other.position = player.position + dir * minDistance;
         }
     }
 
-    /// <summary>
-    /// Controla el comportamiento completo de la mascota.
-    /// </summary>
-    void HandlePetBehavior(Transform pet, Transform enemy, float speed)
+    public void OnRangeTriggerExit(RangeTrigger.Type type, Transform other)
     {
-        Vector3 target;
+        bool isPet = other.parent == transform;
+        bool isEnemy = other.parent == enemiesParent;
 
-        if (enemy != null)
+        if (type == RangeTrigger.Type.RangoMax)
         {
-            // Posición entre el jugador y el enemigo
-            target = Vector3.Lerp(player.position, enemy.position, 0.5f);
-        }
-        else
-        {
-            // Posición aleatoria dentro del rango
-            target = GetPositionAroundPlayer(pet);
-        }
-
-        float distToPlayer = Vector3.Distance(pet.position, player.position);
-
-        // Solo se mueve si está fuera del rango mínimo o si el jugador se está moviendo
-        if (distToPlayer > minDistance || playerIsMoving)
-        {
-            pet.position = Vector3.MoveTowards(pet.position, target, speed * Time.deltaTime);
-        }
-
-        // Siempre mira al enemigo si está, si no, al jugador
-        Vector3 lookTarget = (enemy != null ? enemy.position : player.position);
-        Vector3 direction = lookTarget - pet.position;
-        direction.y = 0;
-
-        if (direction != Vector3.zero)
-        {
-            Quaternion lookRot = Quaternion.LookRotation(direction.normalized);
-            pet.rotation = Quaternion.Slerp(pet.rotation, lookRot, Time.deltaTime * rotationSmoothness);
+            if (isEnemy)
+                enemiesInRange.Remove(other);
+            else if (isPet)
+            {
+                // Una pet se sale de la jaula exterior: la traemos al maxDistance
+                Vector3 dir = (other.position - player.position).normalized;
+                other.position = player.position + dir * maxDistance;
+            }
         }
     }
 
-    /// <summary>
-    /// Calcula una posición cercana al jugador con separación aleatoria.
-    /// </summary>
-    Vector3 GetPositionAroundPlayer(Transform pet)
-    {
-        Vector3 offset = (pet.position - player.position).normalized;
-        if (offset == Vector3.zero) offset = Random.insideUnitSphere.normalized;
+    // — Lógica de movimiento, rotación y separación — 
 
-        float distance = Mathf.Clamp(Vector3.Distance(pet.position, player.position), minDistance, maxDistance);
-        return player.position + offset * distance;
-    }
-
-    /// <summary>
-    /// Encuentra al enemigo más cercano dentro del rango.
-    /// </summary>
     Transform FindNearestEnemy(Transform pet)
     {
         Transform closest = null;
-        float shortest = Mathf.Infinity;
-
-        foreach (Transform enemy in enemiesParent)
+        float bestSqr = maxDistance * maxDistance;
+        foreach (var e in enemiesInRange)
         {
-            float dist = Vector3.Distance(pet.position, enemy.position);
-            if (dist < enemyDetectionRadius && dist < shortest)
+            float sqr = (e.position - pet.position).sqrMagnitude;
+            if (sqr < bestSqr)
             {
-                closest = enemy;
-                shortest = dist;
+                bestSqr = sqr;
+                closest = e;
             }
         }
-
         return closest;
     }
 
-    /// <summary>
-    /// Separa mascotas muy cercanas entre sí.
-    /// </summary>
-    void ApplySeparation(Transform pet, int index)
+    Vector3 GetRandomPositionAround(Vector3 center, Vector3 petPos)
     {
-        for (int i = 0; i < pets.Count; i++)
+        Vector3 dir = (petPos - center).normalized;
+        if (dir == Vector3.zero) dir = Random.insideUnitSphere.normalized;
+        float dist = Mathf.Clamp((petPos - center).magnitude, minDistance, maxDistance);
+        return center + dir * dist;
+    }
+
+    void MovePet(PetData pet, Vector3 target)
+    {
+        float distToPlayer = Vector3.Distance(pet.trans.position, player.position);
+        if (distToPlayer > minDistance || playerIsMoving)
         {
-            if (i == index) continue;
+            pet.trans.position = Vector3.MoveTowards(
+                pet.trans.position, target, pet.speed * Time.deltaTime);
+        }
+    }
 
-            Transform other = pets[i];
-            float distance = Vector3.Distance(pet.position, other.position);
+    void RotatePet(PetData pet, Transform enemy)
+    {
+        Vector3 lookDir = ((enemy != null ? enemy.position : player.position)
+                            - pet.trans.position);
+        lookDir.y = 0;
+        if (lookDir.sqrMagnitude < 0.0001f) return;
 
-            if (distance < 1f)
+        Quaternion targetRot = Quaternion.LookRotation(lookDir.normalized);
+        pet.trans.rotation = Quaternion.Slerp(
+            pet.trans.rotation, targetRot, rotationSpeed * Time.deltaTime);
+    }
+
+    void ApplySeparation(PetData pet)
+    {
+        foreach (var other in pets)
+        {
+            if (other.trans == pet.trans) continue;
+            float sq = (other.trans.position - pet.trans.position).sqrMagnitude;
+            if (sq < 1f)
             {
-                Vector3 push = (pet.position - other.position).normalized;
-                pet.position += push * separationForce * Time.deltaTime;
+                Vector3 push = (pet.trans.position - other.trans.position).normalized;
+                pet.trans.position += push * separationForce * Time.deltaTime;
             }
         }
     }
 
-    /// <summary>
-    /// Asigna un tamaño aleatorio a la mascota.
-    /// </summary>
-    void AssignRandomSize(Transform pet)
+    // — Clase interna para disparar los triggers de rango — 
+
+    public class RangeTrigger : MonoBehaviour
     {
-        float size = Random.Range(0.8f, 1.4f);
-        pet.localScale = Vector3.one * size;
+        public enum Type { RangoMin, RangoMax }
+        public Type type;
+        PetManager manager;
+
+        public RangeTrigger Init(PetManager mgr, Type t)
+        {
+            manager = mgr;
+            type = t;
+            return this;
+        }
+
+        void OnTriggerEnter(Collider other)
+            => manager.OnRangeTriggerEnter(type, other.transform);
+
+        void OnTriggerExit(Collider other)
+            => manager.OnRangeTriggerExit(type, other.transform);
     }
 }
-
-
-
-
-
-
-
-
