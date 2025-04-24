@@ -22,8 +22,8 @@ public class SaleManager : MonoBehaviour
     public Button botonSumar;
     public Button botonRestar;
     public Button botonVender;
-
-    saveData itemSeleccionado;
+    [Tooltip("Referencia para nuestro item seleccionado en la tienda de venta")]
+    [SerializeField]saveData itemSeleccionado;
     int cantidadSeleccionada = 0;
     private void Awake() {
         if(instance == null) {
@@ -38,7 +38,7 @@ public class SaleManager : MonoBehaviour
         botonSumar.onClick.AddListener(SumarCantidad);
         botonRestar.onClick.AddListener(RestarCantidad);
         botonVender.onClick.AddListener(Vender);
-        inputCantidad.onValueChanged.AddListener(delegate { ActualizarPrecioTotal(); });
+        inputCantidad.onValueChanged.AddListener(ValidarInput);
     }
     public void CargarItemVenta() {
         foreach(Transform child in _content) {
@@ -46,14 +46,20 @@ public class SaleManager : MonoBehaviour
                 Destroy(child.GetChild(i).gameObject);
             }
         }
-
-        for (int i = 0; i < _content.childCount; i++) {
-            Transform child = _content.GetChild(i);
-            if (child.childCount == 0) {
-                GameObject slotGO = Instantiate(ventaSlotPrefab, child);
-                if(i>= InventoryManager.Instance._items._items.Count) {
-                    return;
-                }
+        // Para cada item guardado, instanciarlo en el slot según su posición
+        if(InventoryManager.Instance._items._items == null) {
+            return;
+        }
+        foreach (saveData item in InventoryManager.Instance._items._items) {
+            int posicion = item._slotPosition;
+            if(posicion<0 || posicion>= _content.childCount) {
+                Debug.LogWarning($"Posicion de slot fuera de rtango para item: {item._id}");
+                continue;
+            }
+            Transform slot = _content.GetChild(posicion);
+            GameObject visual = Instantiate(ventaSlotPrefab, slot);
+            if(visual.TryGetComponent<UISlot>(out var uislot)) {
+                uislot.Configurar(item);
             }
         }
         
@@ -61,9 +67,10 @@ public class SaleManager : MonoBehaviour
     public void SeleccionarItem(saveData data) {
         itemSeleccionado = data;
         cantidadSeleccionada = 1;
+        iconoSeleccionado.gameObject.SetActive(true);
         iconoSeleccionado.sprite = data._sprite;
         nombreTexto.text = data._id;
-        descripcionTexto.text = "(Aquí va una descripción si la tenés)";
+        descripcionTexto.text = data._description; //"(Aquí va una descripción si la tenés)";
         //precioUnitarioTexto.text = data._precioCU.ToString();
         inputCantidad.text = "1";
 
@@ -77,25 +84,24 @@ public class SaleManager : MonoBehaviour
         precioTotalTexto.text = total.ToString();
     }
     int GetCantidad() {
-        if (int.TryParse(inputCantidad.text, out int cant)) {
+        if (int.TryParse(inputCantidad.text, out int cant)) {// TryParse intenta convertir el texto a un numero entero
+            //uso out para devolver el numero ocnvertido 
+            // si la conversion funciona el tryparse devuelve tru y cant tendra valor numerico 
+            
             return Mathf.Clamp(cant, 1, itemSeleccionado._cant);
         }
         return 1;
     }
     void SumarCantidad() {
         int actual = GetCantidad();
-        if (actual >= itemSeleccionado._cant) {
-            inputCantidad.text = "0"; // rotar
-        } else {
+        if (actual < itemSeleccionado._cant) {
             inputCantidad.text = (actual + 1).ToString();
         }
         ActualizarPrecioTotal();
     }
     void RestarCantidad() {
         int actual = GetCantidad();
-        if (actual <= 1) {
-            inputCantidad.text = itemSeleccionado._cant.ToString(); // rotar
-        } else {
+        if (actual > 1) {
             inputCantidad.text = (actual - 1).ToString();
         }
         ActualizarPrecioTotal();
@@ -123,5 +129,10 @@ public class SaleManager : MonoBehaviour
         //precioUnitarioTexto.text = "";
         precioTotalTexto.text = "";
         inputCantidad.text = "";
+    }
+    void ValidarInput(string valor) {
+        int cantidad = GetCantidad();
+        inputCantidad.text = cantidad.ToString();// actualiza el valor clamped
+        ActualizarPrecioTotal();
     }
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f787c866e8197df4a976beaa1aae51dc, type: 3}
-  m_Name: Vida S
+  m_Name: Soul Gem
   m_EditorClassIdentifier: 
-  _id: PVS
-  _nameItem: Pocion de Vida (M)
-  type: 2
-  _icon: {fileID: 1797380056, guid: 9ac9ce449d4182348a8c2e54044d8c31, type: 3}
+  _id: SG
+  _nameItem: Soul Gem
+  type: 3
+  _icon: {fileID: 21300000, guid: 75c7cebab43f0c249a712ebd08ffa2e3, type: 3}
   _precioCompra: 3
   _precioVenta: 5
   _cantidadXVenta: 1
