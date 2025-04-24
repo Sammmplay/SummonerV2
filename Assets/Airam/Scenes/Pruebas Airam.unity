@@ -612,8 +612,16 @@ MonoBehaviour:
   gridStartPosY: -0.5
   gridStartPosZ: 24.5
   gridBlocks:
-  - {fileID: 3794851716638718398, guid: d6dfc2eaa2eee7f4491b1b074f74585e, type: 3}
-  - {fileID: 6178222666734773572, guid: f86e55be6bab0444a87346359e1a7120, type: 3}
+  - {fileID: 3916578002620736026, guid: 37cbbc78d3e07f14facc130a5c098029, type: 3}
+  - {fileID: 3916578002620736026, guid: 37cbbc78d3e07f14facc130a5c098029, type: 3}
+  - {fileID: 3916578002620736026, guid: 37cbbc78d3e07f14facc130a5c098029, type: 3}
+  - {fileID: 3916578002620736026, guid: 37cbbc78d3e07f14facc130a5c098029, type: 3}
+  - {fileID: 3916578002620736026, guid: 37cbbc78d3e07f14facc130a5c098029, type: 3}
+  - {fileID: 4964661365333145247, guid: 7bf44916aafa9c14081c702251dde223, type: 3}
+  - {fileID: 4964661365333145247, guid: 7bf44916aafa9c14081c702251dde223, type: 3}
+  - {fileID: 4964661365333145247, guid: 7bf44916aafa9c14081c702251dde223, type: 3}
+  - {fileID: 2180133318517345462, guid: dba9bf7ac2ba7bf40b17f3ef6846065d, type: 3}
+  - {fileID: 2180133318517345462, guid: dba9bf7ac2ba7bf40b17f3ef6846065d, type: 3}
 --- !u!4 &669485995
 Transform:
   m_ObjectHideFlags: 0
