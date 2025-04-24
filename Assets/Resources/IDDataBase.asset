@@ -17,18 +17,34 @@ MonoBehaviour:
   - PVM
   - PMS
   - PMM
+  - RF
+  - MSH
+  - GS
+  - SG
   idShop:
   - PVS
   - PVM
   - PMS
   - PMM
+  - RF
+  - MSH
+  - GS
+  - SG
   IdsCraft:
   - PVS
   - PVM
   - PMS
   - PMM
+  - RF
+  - MSH
+  - GS
+  - SG
   names:
-  - Pocion de Vida (M)
-  - Pocion de Vida (S)
-  - Pocion de Mana (M)
-  - Pocion de Mana (S)
+  - Posion de Vida (M)
+  - Posion de Vida (S)
+  - Posion de Mana (M)
+  - Posion de Mana (S)
+  - Red Flowers
+  - Mushrooms
+  - Golden Soul
+  - Soul Gem
