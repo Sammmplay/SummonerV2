@@ -1831,7 +1831,9 @@ GameObject:
   m_Component:
   - component: {fileID: 402234}
   - component: {fileID: 9568018}
-  - component: {fileID: 2775231441427374088}
+  - component: {fileID: 440563995408449059}
+  - component: {fileID: -5501690753505623421}
+  - component: {fileID: 2710382807946664541}
   m_Layer: 0
   m_Name: Muscomorph_LEGACY
   m_TagString: Untagged
@@ -1884,7 +1886,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2775231441427374088
+--- !u!114 &440563995408449059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1893,11 +1895,61 @@ MonoBehaviour:
   m_GameObject: {fileID: 165782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f2e9c22d0b817e4ea8500090e699a7d, type: 3}
+  m_Script: {fileID: 11500000, guid: aefaeeb94ffad2d4aafb903b76b42989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObj: {fileID: 680897046550098586, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
-  velocidadEnemigos: 3
+  enemyObjetive: {fileID: 4139354219616657153, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
+  speed: 5
+--- !u!54 &-5501690753505623421
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165782}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
+--- !u!136 &2710382807946664541
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165782}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &170074
 GameObject:
   m_ObjectHideFlags: 0
