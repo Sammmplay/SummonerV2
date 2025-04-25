@@ -42,7 +42,6 @@ public class GridGenerator : MonoBehaviour
                 generatedGrid[i].Add(gridCell);
             }
         }
-
     }
     public void DeleteGrid()
     {
