@@ -1,17 +1,26 @@
 using UnityEngine;
+using UnityEngine.AI;
 
-public class EnemiesScript : MonoBehaviour
+public class EnemyFollow : MonoBehaviour
 {
-    public Transform targetObj;
-    public int velocidadEnemigos = 5;
+    public Transform target;
+    private NavMeshAgent agent;
 
-    private void Start()
+    void Start()
     {
-
+        agent = GetComponent<NavMeshAgent>();
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            target = player.transform;
+        }
     }
-    // Update is called once per frame
+
     void Update()
     {
-        transform.position = Vector3.MoveTowards(this.transform.position, targetObj.position, velocidadEnemigos * Time.deltaTime);
+        if (target != null)
+        {
+            agent.SetDestination(target.position);
+        }
     }
 }
