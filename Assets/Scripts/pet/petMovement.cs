@@ -1,231 +1,175 @@
-using System.Collections.Generic;
-using UnityEngine;
+Ôªøusing UnityEngine;
+using System.Collections;
+using Random = UnityEngine.Random;
 
-[DisallowMultipleComponent]
+/// <summary>
+/// Mascotas que orbitan al jugador e invocan proyectiles (spawns) si detectan enemigos cerca.
+/// No disparan realmente, solo instancian el prefab del proyectil frente a ellas.
+/// C√≥digo modular y simple siguiendo la metodolog√≠a KISSGPT.
+/// </summary>
 public class PetManager : MonoBehaviour
 {
-    [Header("Referencias")]
-    public Transform player;
-    public Transform enemiesParent;
+    // --- Referencias esenciales ---
+    public Transform hero;                 // A qui√©n siguen las mascotas
+    public GameObject projPrefab;          // Proyectil que se instancia (no se dispara)
+    public Transform evilNest;             // Padre que contiene todos los enemigos
 
-    [Header("Colliders de Rango (Is Trigger)")]
-    public Collider rangeMinCollider; // cualquier collider en modo Is Trigger
-    public Collider rangeMaxCollider; // cualquier collider en modo Is Trigger
+    // --- Configuraci√≥n de movimiento ---
+    public float orbitMin = 2f;            // Distancia m√≠nima al jugador
+    public float orbitMax = 3.5f;          // Distancia m√°xima al jugador
+    public float zoomSpd = 3f;             // Velocidad de movimiento
 
-    [Header("Distancias")]
-    public float minDistance = 1.5f;  // distancia interior mÌnima
-    public float maxDistance = 4f;    // distancia exterior m·xima
-
-    [Header("Velocidades")]
-    public Vector2 speedRange = new Vector2(1f, 5f);
-
-    [Header("SeparaciÛn y RotaciÛn")]
-    public float separationForce = 1f;
-    public float rotationSpeed = 5f;
-
-    [Header("FlotaciÛn (LeanTween)")]
-    public float floatAmplitude = 0.3f;
-    public float floatDuration = 1.5f;
-
-    // ----------------------------------------------
-    // Estructura interna para cada mascota
-    struct PetData
-    {
-        public Transform trans;
-        public float speed;
-    }
-    List<PetData> pets = new List<PetData>();
-    List<Transform> enemiesInRange = new List<Transform>();
-
-    Vector3 lastPlayerPos;
-    bool playerIsMoving;
-
-    void Awake()
-    {
-        // AÒadimos el script RangeTrigger a los dos colliders de rango
-        rangeMinCollider.gameObject
-            .AddComponent<RangeTrigger>()
-            .Init(this, RangeTrigger.Type.RangoMin);
-        rangeMaxCollider.gameObject
-            .AddComponent<RangeTrigger>()
-            .Init(this, RangeTrigger.Type.RangoMax);
-    }
+    // --- Detecci√≥n y spawn ---
+    public float evilRange = 8f;           // Distancia para detectar enemigos
+    public float spawnLuck = 1f;           // Probabilidad de instanciar un proyectil por segundo
 
     void Start()
     {
-        lastPlayerPos = player.position;
-        InitializePets();
+        SetRandomPetSizes();
     }
 
     void Update()
     {
-        // 1) Detectar movimiento del jugador
-        playerIsMoving = (player.position - lastPlayerPos).sqrMagnitude > 0.0001f;
-        lastPlayerPos = player.position;
+        UpdateAllPets();
+    }
 
-        // 2) Para cada mascota: Mover, Rotar, Separar
-        foreach (var pet in pets)
+    /// <summary>
+    /// Asigna un tama√±o aleatorio a cada mascota para dar variedad visual.
+    /// </summary>
+    void SetRandomPetSizes()
+    {
+        for (int i = 0; i < transform.childCount; i++)
         {
-            // Buscar el enemigo m·s cercano (solo en enemiesInRange)
-            Transform nearest = FindNearestEnemy(pet.trans);
-
-            // Definir target: mitad entre player y enemigo, o posiciÛn aleatoria v·lida
-            Vector3 target = nearest != null
-                ? Vector3.Lerp(player.position, nearest.position, 0.5f)
-                : GetRandomPositionAround(player.position, pet.trans.position);
-
-            MovePet(pet, target);
-            RotatePet(pet, nearest);
-            ApplySeparation(pet);
+            Transform pet = transform.GetChild(i);
+            float size = Random.Range(0.85f, 1.3f);
+            pet.localScale = Vector3.one * size;
+            Debug.Log("Tama√±o aleatorio asignado a: " + pet.name);
         }
     }
 
-    // Inicializa lista de mascotas y aÒade flotaciÛn
-    void InitializePets()
+    /// <summary>
+    /// Actualiza el comportamiento de todas las mascotas en cada frame.
+    /// </summary>
+    void UpdateAllPets()
     {
-        pets.Clear();
-        foreach (Transform child in transform)
-        {
-            // Ignorar los colliders de rango (pueden ser hijos)
-            if (child == rangeMinCollider.transform || child == rangeMaxCollider.transform)
-                continue;
+        bool evilNear = IsEvilNearby();
 
-            var pd = new PetData
+        int total = transform.childCount;
+        for (int i = 0; i < total; i++)
+        {
+            Transform pet = transform.GetChild(i);
+            Vector3 orbitSpot = GetOrbitPosition(i, total);
+
+            MovePet(pet, orbitSpot);
+            TurnPet(pet, evilNear);
+            TrySpawnProjectile(pet, evilNear);
+        }
+    }
+
+    /// <summary>
+    /// Verifica si alg√∫n enemigo est√° cerca del h√©roe.
+    /// </summary>
+    bool IsEvilNearby()
+    {
+        foreach (Transform evil in evilNest)
+        {
+            float dist = Vector3.Distance(hero.position, evil.position);
+            if (dist <= evilRange) return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Calcula la posici√≥n orbital para cada mascota.
+    /// </summary>
+    Vector3 GetOrbitPosition(int index, int total)
+    {
+        float angle = (360f / total) * index;
+        Vector3 direction = Quaternion.Euler(0, angle, 0) * hero.forward;
+        float radius = Random.Range(orbitMin, orbitMax);
+        return hero.position + direction * radius;
+    }
+
+    /// <summary>
+    /// Mueve la mascota suavemente hacia su posici√≥n orbital.
+    /// </summary>
+    void MovePet(Transform pet, Vector3 destination)
+    {
+        pet.position = Vector3.MoveTowards(pet.position, destination, zoomSpd * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Hace que la mascota mire al jugador o al centro de los enemigos.
+    /// </summary>
+    void TurnPet(Transform pet, bool evilNear)
+    {
+        Vector3 target = evilNear ? GetEvilCenter() : hero.position;
+        Vector3 look = target - pet.position;
+        if (look != Vector3.zero)
+            pet.rotation = Quaternion.Slerp(pet.rotation, Quaternion.LookRotation(look), 5f * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Si hay enemigos cerca, intenta invocar (instanciar) proyectiles desde la mascota.
+    /// </summary>
+    void TrySpawnProjectile(Transform pet, bool evilNear)
+    {
+        if (evilNear && Random.value < spawnLuck * Time.deltaTime)
+        {
+            StartCoroutine(SpawnProjectileBurst(pet));
+            Debug.Log("Instanciando proyectil desde: " + pet.name);
+        }
+    }
+
+    /// <summary>
+    /// Calcula el punto medio entre los enemigos dentro del rango.
+    /// </summary>
+    Vector3 GetEvilCenter()
+    {
+        Vector3 sum = Vector3.zero;
+        int count = 0;
+
+        foreach (Transform evil in evilNest)
+        {
+            if (Vector3.Distance(hero.position, evil.position) <= evilRange)
             {
-                trans = child,
-                speed = Random.Range(speedRange.x, speedRange.y)
-            };
-            pets.Add(pd);
-
-            // Efecto de flotaciÛn con LeanTween (vaivÈn en Y)
-            LeanTween.moveY(child.gameObject,
-                child.position.y + floatAmplitude,
-                floatDuration)
-                .setLoopPingPong()
-                .setEase(LeanTweenType.easeInOutSine);
-        }
-    }
-
-    // ó Callbacks desde RangeTrigger ó 
-
-    public void OnRangeTriggerEnter(RangeTrigger.Type type, Transform other)
-    {
-        bool isPet = other.parent == transform;
-        bool isEnemy = other.parent == enemiesParent;
-
-        if (type == RangeTrigger.Type.RangoMax && isEnemy)
-        {
-            // Un enemigo entra al rango m·ximo: lo guardamos
-            if (!enemiesInRange.Contains(other))
-                enemiesInRange.Add(other);
-        }
-        else if (type == RangeTrigger.Type.RangoMin && isPet)
-        {
-            // Una pet penetra demasiado: la empujamos hacia fuera al minDistance
-            Vector3 dir = (other.position - player.position).normalized;
-            other.position = player.position + dir * minDistance;
-        }
-    }
-
-    public void OnRangeTriggerExit(RangeTrigger.Type type, Transform other)
-    {
-        bool isPet = other.parent == transform;
-        bool isEnemy = other.parent == enemiesParent;
-
-        if (type == RangeTrigger.Type.RangoMax)
-        {
-            if (isEnemy)
-                enemiesInRange.Remove(other);
-            else if (isPet)
-            {
-                // Una pet se sale de la jaula exterior: la traemos al maxDistance
-                Vector3 dir = (other.position - player.position).normalized;
-                other.position = player.position + dir * maxDistance;
+                sum += evil.position;
+                count++;
             }
         }
+
+        if (count == 0) return hero.position;
+        return sum / count;
     }
 
-    // ó LÛgica de movimiento, rotaciÛn y separaciÛn ó 
-
-    Transform FindNearestEnemy(Transform pet)
+    /// <summary>
+    /// Instancia entre 1 y 3 proyectiles frente a la mascota con una breve pausa entre cada uno.
+    /// </summary>
+    IEnumerator SpawnProjectileBurst(Transform pet)
     {
-        Transform closest = null;
-        float bestSqr = maxDistance * maxDistance;
-        foreach (var e in enemiesInRange)
+        int times = Random.Range(1, 4);
+        for (int i = 0; i < times; i++)
         {
-            float sqr = (e.position - pet.position).sqrMagnitude;
-            if (sqr < bestSqr)
-            {
-                bestSqr = sqr;
-                closest = e;
-            }
-        }
-        return closest;
-    }
-
-    Vector3 GetRandomPositionAround(Vector3 center, Vector3 petPos)
-    {
-        Vector3 dir = (petPos - center).normalized;
-        if (dir == Vector3.zero) dir = Random.insideUnitSphere.normalized;
-        float dist = Mathf.Clamp((petPos - center).magnitude, minDistance, maxDistance);
-        return center + dir * dist;
-    }
-
-    void MovePet(PetData pet, Vector3 target)
-    {
-        float distToPlayer = Vector3.Distance(pet.trans.position, player.position);
-        if (distToPlayer > minDistance || playerIsMoving)
-        {
-            pet.trans.position = Vector3.MoveTowards(
-                pet.trans.position, target, pet.speed * Time.deltaTime);
+            Instantiate(projPrefab, pet.position, pet.rotation);
+            Debug.Log("Proyectil #" + (i + 1) + " instanciado por " + pet.name);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
-    void RotatePet(PetData pet, Transform enemy)
+    /// <summary>
+    /// Dibuja en el editor un c√≠rculo que representa el √°rea de detecci√≥n de enemigos.
+    /// </summary>
+    void OnDrawGizmosSelected()
     {
-        Vector3 lookDir = ((enemy != null ? enemy.position : player.position)
-                            - pet.trans.position);
-        lookDir.y = 0;
-        if (lookDir.sqrMagnitude < 0.0001f) return;
-
-        Quaternion targetRot = Quaternion.LookRotation(lookDir.normalized);
-        pet.trans.rotation = Quaternion.Slerp(
-            pet.trans.rotation, targetRot, rotationSpeed * Time.deltaTime);
+        DrawVisionRadius();
     }
 
-    void ApplySeparation(PetData pet)
+    /// <summary>
+    /// Muestra la zona de detecci√≥n como una esfera roja semitransparente en la escena.
+    /// </summary>
+    void DrawVisionRadius()
     {
-        foreach (var other in pets)
-        {
-            if (other.trans == pet.trans) continue;
-            float sq = (other.trans.position - pet.trans.position).sqrMagnitude;
-            if (sq < 1f)
-            {
-                Vector3 push = (pet.trans.position - other.trans.position).normalized;
-                pet.trans.position += push * separationForce * Time.deltaTime;
-            }
-        }
-    }
-
-    // ó Clase interna para disparar los triggers de rango ó 
-
-    public class RangeTrigger : MonoBehaviour
-    {
-        public enum Type { RangoMin, RangoMax }
-        public Type type;
-        PetManager manager;
-
-        public RangeTrigger Init(PetManager mgr, Type t)
-        {
-            manager = mgr;
-            type = t;
-            return this;
-        }
-
-        void OnTriggerEnter(Collider other)
-            => manager.OnRangeTriggerEnter(type, other.transform);
-
-        void OnTriggerExit(Collider other)
-            => manager.OnRangeTriggerExit(type, other.transform);
+        Gizmos.color = new Color(1, 0, 0, 0.2f);
+        Gizmos.DrawSphere(hero != null ? hero.position : transform.position, evilRange);
     }
 }
