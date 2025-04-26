@@ -44,10 +44,12 @@ public class InventoryManager : MonoBehaviour
         if (_slotVisuales.TryGetValue(id, out UISlot slot)) {
             slot._text.text = item._cant.ToString();
         } else {
-            Transform pos = _slotPather.GetChild(GetFreeSlotPosition());
+            int posicion = GetFreeSlotPosition();
+            Transform pos = _slotPather.GetChild(posicion);
             GameObject instanceItemSlotUI = Instantiate(_items._slotPrefab, pos);
             UISlot nuevoSlot = instanceItemSlotUI.GetComponent<UISlot>();
             nuevoSlot.Configurar(item);
+            nuevoSlot.ConfigurarPosicion(posicion);
             _slotVisuales[item._id] = nuevoSlot;
         }
     }
