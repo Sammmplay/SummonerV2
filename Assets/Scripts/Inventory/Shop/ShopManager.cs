@@ -58,7 +58,7 @@ public class ShopManager : MonoBehaviour
         nuevo._cantItems = cantidad;
         // agregamos a nuestro inventario
         InventoryManager.Instance.AddItem(nuevo);
-        //SaleManager.instance.CargarItemVenta();
+        SaleManager.instance.CargarItemVenta();
         Debug.Log("ItemAgregado");
         nuevo._cantItems = 1;
     }

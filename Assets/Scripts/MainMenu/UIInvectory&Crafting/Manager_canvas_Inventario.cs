@@ -7,6 +7,7 @@ public class Manager_canvas_Inventario : MonoBehaviour
 
     [SerializeField] GameObject _panelInventory;
     [SerializeField] GameObject _panelCrafting;
+    [SerializeField] GameObject _panelShop;
     [SerializeField] bool _inventory;
     [SerializeField] bool _crafting;
 
@@ -31,5 +32,8 @@ public class Manager_canvas_Inventario : MonoBehaviour
         _crafting = !_crafting;
 
         _panelCrafting.SetActive(_crafting);
+    }
+    public bool tiendaActiva() {
+        return _panelShop.activeSelf;
     }
 }
