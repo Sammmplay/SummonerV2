@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2705618546053493561}
   - component: {fileID: 1809834865274754343}
   m_Layer: 0
-  m_Name: Mana M
+  m_Name: SoulGem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -32,7 +32,7 @@ public class SaleManager : MonoBehaviour
             Destroy(instance);
         }
     }
-    private void OnEnable() {
+    private void Start() {
         CargarItemVenta();
         LimpiarPanelInferior();
         botonSumar.onClick.AddListener(SumarCantidad);
@@ -92,14 +92,15 @@ public class SaleManager : MonoBehaviour
         }
         return 1;
     }
-    void SumarCantidad() {
+    public void SumarCantidad() {
+        Debug.Log("Sumar Cantidad Precionado");
         int actual = GetCantidad();
         if (actual < itemSeleccionado._cant) {
             inputCantidad.text = (actual + 1).ToString();
         }
         ActualizarPrecioTotal();
     }
-    void RestarCantidad() {
+    public void RestarCantidad() {
         int actual = GetCantidad();
         if (actual > 1) {
             inputCantidad.text = (actual - 1).ToString();
@@ -121,6 +122,8 @@ public class SaleManager : MonoBehaviour
         // Reiniciar panel
         LimpiarPanelInferior();
         CargarItemVenta();
+        //Ocultamos la imagen de referencia 
+        iconoSeleccionado.gameObject.SetActive(false);
     }
     void LimpiarPanelInferior() {
         iconoSeleccionado.sprite = null;
@@ -131,8 +134,10 @@ public class SaleManager : MonoBehaviour
         inputCantidad.text = "";
     }
     void ValidarInput(string valor) {
-        int cantidad = GetCantidad();
-        inputCantidad.text = cantidad.ToString();// actualiza el valor clamped
-        ActualizarPrecioTotal();
+        if(int.TryParse(valor, out int cantidad)) {
+            cantidad = Mathf.Clamp(cantidad, 1, itemSeleccionado._cant);
+            precioTotalTexto.text = (cantidad*itemSeleccionado._precioCU).ToString();
+        }
+        
     }
 }
