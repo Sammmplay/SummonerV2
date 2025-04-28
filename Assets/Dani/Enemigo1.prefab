@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6241351448131079771}
   - component: {fileID: 2387322543533050077}
   - component: {fileID: 1799757537599423719}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemigo1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 969518600716116959}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.5, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2e9c22d0b817e4ea8500090e699a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 680897046550098586, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
+  target: {fileID: 0}
 --- !u!195 &1799757537599423719
 NavMeshAgent:
   m_ObjectHideFlags: 0

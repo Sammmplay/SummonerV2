@@ -1,175 +1,132 @@
-﻿using UnityEngine;
-using System.Collections;
-using Random = UnityEngine.Random;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-/// <summary>
-/// Mascotas que orbitan al jugador e invocan proyectiles (spawns) si detectan enemigos cerca.
-/// No disparan realmente, solo instancian el prefab del proyectil frente a ellas.
-/// Código modular y simple siguiendo la metodología KISSGPT.
-/// </summary>
-public class PetManager : MonoBehaviour
+public class PetMovement : MonoBehaviour
 {
-    // --- Referencias esenciales ---
-    public Transform hero;                 // A quién siguen las mascotas
-    public GameObject projPrefab;          // Proyectil que se instancia (no se dispara)
-    public Transform evilNest;             // Padre que contiene todos los enemigos
+    [Header("Prefabs de Mascotas")]
+    [SerializeField] private List<GameObject> prefabList = new List<GameObject>();
 
-    // --- Configuración de movimiento ---
-    public float orbitMin = 2f;            // Distancia mínima al jugador
-    public float orbitMax = 3.5f;          // Distancia máxima al jugador
-    public float zoomSpd = 3f;             // Velocidad de movimiento
+    [Header("Asignaciones Globales")]
+    [SerializeField] private Transform player;
 
-    // --- Detección y spawn ---
-    public float evilRange = 8f;           // Distancia para detectar enemigos
-    public float spawnLuck = 1f;           // Probabilidad de instanciar un proyectil por segundo
+    [Header("Puntos de Formaciones")]
+    [SerializeField] private List<Transform> defenderPoints;
+    [SerializeField] private List<Transform> attackerPoints;
+    [SerializeField] private List<Transform> assassinPoints;
 
-    void Start()
+    [Header("Parámetros de Combate Globales")]
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float maxDetectionRange = 10f;
+    [SerializeField] private float minDetectionRange = 0f;
+
+    [Header("Proyectiles y Tamaños")]
+    [SerializeField] private GameObject attackerProjectile;
+    [SerializeField] private float attackerProjectileScale = 0.3f;
+    [SerializeField] private GameObject assassinProjectile;
+    [SerializeField] private float assassinProjectileScale = 0.15f;
+    [SerializeField] private GameObject defenderProjectile;
+    [SerializeField] private float defenderProjectileScale = 0.5f;
+
+    [Header("Parámetros de Spawn")]
+    [SerializeField] private float spawnRadius = 5f;
+    [SerializeField] private float minScale = 0.3f;
+    [SerializeField] private float maxScale = 0.6f;
+    [SerializeField] private float spawnAnimationTime = 0.5f;
+    [SerializeField] private float despawnAnimationTime = 0.5f;
+
+    private List<IPetBehavior> petBehaviors = new List<IPetBehavior>();
+    private List<GameObject> petInstances = new List<GameObject>();
+
+    private void Update()
     {
-        SetRandomPetSizes();
+        CheckPrefabChanges();
+        UpdatePets();
     }
 
-    void Update()
+    private void CheckPrefabChanges()
     {
-        UpdateAllPets();
-    }
-
-    /// <summary>
-    /// Asigna un tamaño aleatorio a cada mascota para dar variedad visual.
-    /// </summary>
-    void SetRandomPetSizes()
-    {
-        for (int i = 0; i < transform.childCount; i++)
+        if (prefabList.Count > petInstances.Count)
         {
-            Transform pet = transform.GetChild(i);
-            float size = Random.Range(0.85f, 1.3f);
-            pet.localScale = Vector3.one * size;
-            Debug.Log("Tamaño aleatorio asignado a: " + pet.name);
-        }
-    }
-
-    /// <summary>
-    /// Actualiza el comportamiento de todas las mascotas en cada frame.
-    /// </summary>
-    void UpdateAllPets()
-    {
-        bool evilNear = IsEvilNearby();
-
-        int total = transform.childCount;
-        for (int i = 0; i < total; i++)
-        {
-            Transform pet = transform.GetChild(i);
-            Vector3 orbitSpot = GetOrbitPosition(i, total);
-
-            MovePet(pet, orbitSpot);
-            TurnPet(pet, evilNear);
-            TrySpawnProjectile(pet, evilNear);
-        }
-    }
-
-    /// <summary>
-    /// Verifica si algún enemigo está cerca del héroe.
-    /// </summary>
-    bool IsEvilNearby()
-    {
-        foreach (Transform evil in evilNest)
-        {
-            float dist = Vector3.Distance(hero.position, evil.position);
-            if (dist <= evilRange) return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// Calcula la posición orbital para cada mascota.
-    /// </summary>
-    Vector3 GetOrbitPosition(int index, int total)
-    {
-        float angle = (360f / total) * index;
-        Vector3 direction = Quaternion.Euler(0, angle, 0) * hero.forward;
-        float radius = Random.Range(orbitMin, orbitMax);
-        return hero.position + direction * radius;
-    }
-
-    /// <summary>
-    /// Mueve la mascota suavemente hacia su posición orbital.
-    /// </summary>
-    void MovePet(Transform pet, Vector3 destination)
-    {
-        pet.position = Vector3.MoveTowards(pet.position, destination, zoomSpd * Time.deltaTime);
-    }
-
-    /// <summary>
-    /// Hace que la mascota mire al jugador o al centro de los enemigos.
-    /// </summary>
-    void TurnPet(Transform pet, bool evilNear)
-    {
-        Vector3 target = evilNear ? GetEvilCenter() : hero.position;
-        Vector3 look = target - pet.position;
-        if (look != Vector3.zero)
-            pet.rotation = Quaternion.Slerp(pet.rotation, Quaternion.LookRotation(look), 5f * Time.deltaTime);
-    }
-
-    /// <summary>
-    /// Si hay enemigos cerca, intenta invocar (instanciar) proyectiles desde la mascota.
-    /// </summary>
-    void TrySpawnProjectile(Transform pet, bool evilNear)
-    {
-        if (evilNear && Random.value < spawnLuck * Time.deltaTime)
-        {
-            StartCoroutine(SpawnProjectileBurst(pet));
-            Debug.Log("Instanciando proyectil desde: " + pet.name);
-        }
-    }
-
-    /// <summary>
-    /// Calcula el punto medio entre los enemigos dentro del rango.
-    /// </summary>
-    Vector3 GetEvilCenter()
-    {
-        Vector3 sum = Vector3.zero;
-        int count = 0;
-
-        foreach (Transform evil in evilNest)
-        {
-            if (Vector3.Distance(hero.position, evil.position) <= evilRange)
+            for (int i = petInstances.Count; i < prefabList.Count; i++)
             {
-                sum += evil.position;
-                count++;
+                SpawnPet(prefabList[i]);
             }
         }
-
-        if (count == 0) return hero.position;
-        return sum / count;
-    }
-
-    /// <summary>
-    /// Instancia entre 1 y 3 proyectiles frente a la mascota con una breve pausa entre cada uno.
-    /// </summary>
-    IEnumerator SpawnProjectileBurst(Transform pet)
-    {
-        int times = Random.Range(1, 4);
-        for (int i = 0; i < times; i++)
+        else if (prefabList.Count < petInstances.Count)
         {
-            Instantiate(projPrefab, pet.position, pet.rotation);
-            Debug.Log("Proyectil #" + (i + 1) + " instanciado por " + pet.name);
-            yield return new WaitForSeconds(0.1f);
+            for (int i = petInstances.Count - 1; i >= prefabList.Count; i--)
+            {
+                DespawnPet(petInstances[i]);
+                petInstances.RemoveAt(i);
+                petBehaviors.RemoveAt(i);
+            }
         }
     }
 
-    /// <summary>
-    /// Dibuja en el editor un círculo que representa el área de detección de enemigos.
-    /// </summary>
-    void OnDrawGizmosSelected()
+    private void SpawnPet(GameObject prefab)
     {
-        DrawVisionRadius();
+        if (prefab == null) return;
+
+        Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
+        Vector3 spawnPosition = new Vector3(randomCircle.x, 0f, randomCircle.y) + player.position;
+
+        GameObject petInstance = Instantiate(prefab, spawnPosition, Quaternion.identity, transform);
+
+        float randomScale = Random.Range(minScale, maxScale);
+        petInstance.transform.localScale = Vector3.zero;
+
+        LeanTween.scale(petInstance, Vector3.one * randomScale, spawnAnimationTime)
+                 .setEase(LeanTweenType.easeOutBack);
+
+        IPetBehavior behavior = petInstance.GetComponent<IPetBehavior>();
+        if (behavior != null)
+        {
+            GameObject projectileToUse = null;
+            float projectileScale = 1f;
+            List<Transform> references = null;
+
+            if (petInstance.GetComponent<GuardianControl>() != null)
+            {
+                projectileToUse = defenderProjectile;
+                projectileScale = defenderProjectileScale;
+                references = defenderPoints;
+            }
+            else if (petInstance.GetComponent<AtaquerControl>() != null)
+            {
+                projectileToUse = attackerProjectile;
+                projectileScale = attackerProjectileScale;
+                references = attackerPoints;
+            }
+            else if (petInstance.GetComponent<AssassinControl>() != null)
+            {
+                projectileToUse = assassinProjectile;
+                projectileScale = assassinProjectileScale;
+                references = assassinPoints;
+            }
+
+            behavior.AssignReferences(player, null, references, enemyLayer, projectileToUse, projectileScale);
+            petBehaviors.Add(behavior);
+        }
+
+        petInstances.Add(petInstance);
     }
 
-    /// <summary>
-    /// Muestra la zona de detección como una esfera roja semitransparente en la escena.
-    /// </summary>
-    void DrawVisionRadius()
+    private void DespawnPet(GameObject pet)
     {
-        Gizmos.color = new Color(1, 0, 0, 0.2f);
-        Gizmos.DrawSphere(hero != null ? hero.position : transform.position, evilRange);
+        if (pet == null) return;
+
+        LeanTween.scale(pet, Vector3.zero, despawnAnimationTime)
+                 .setEase(LeanTweenType.easeInBack)
+                 .setOnComplete(() => Destroy(pet));
+    }
+
+    private void UpdatePets()
+    {
+        foreach (var behavior in petBehaviors)
+        {
+            if (behavior == null) continue;
+
+            behavior.PerformAction();
+        }
     }
 }
