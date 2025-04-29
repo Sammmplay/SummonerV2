@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   environmentResources:
-  - {fileID: 4333244100510715796, guid: 02b8687317fbc964e8aae65843c15b54, type: 3}
+  - {fileID: 1181567786067931451, guid: cdfd385aa83762c41be367817dbaa484, type: 3}
   - {fileID: 4333244100510715796, guid: 02b8687317fbc964e8aae65843c15b54, type: 3}
   - {fileID: 4333244100510715796, guid: 02b8687317fbc964e8aae65843c15b54, type: 3}
   - {fileID: 4333244100510715796, guid: 02b8687317fbc964e8aae65843c15b54, type: 3}
