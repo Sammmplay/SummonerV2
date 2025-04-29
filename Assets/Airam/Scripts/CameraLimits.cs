@@ -10,17 +10,13 @@ public class CameraLimits : MonoBehaviour
     [SerializeField]
     private float xLimits;
     [SerializeField]
-    private float yLimits = 50f;
+    private float yLimits = 25f;
     [SerializeField]
     private float zLimits;
     [SerializeField]
-    private float lateralLimitsTweaks = 15f;
+    private float yCenter = 12.5f;
     [SerializeField]
-    private float frontalLimitsTweaks = 15f;
-    [SerializeField]
-    private float centerLimitsTweaks = 2.5f;
-    [SerializeField]
-    private float zCenter;
+    private float zCenter = -17.5f;
 
     private void Awake()
     {
@@ -30,9 +26,8 @@ public class CameraLimits : MonoBehaviour
 
     private void Start()
     {
-        xLimits = gridGenerator.totalColumns - lateralLimitsTweaks;
-        zLimits = gridGenerator.totalRow - frontalLimitsTweaks;
-        zCenter = -zLimits / 2 + centerLimitsTweaks;
+        xLimits = gridGenerator.totalColumns - 15f;
+        zLimits = gridGenerator.totalRows - 12.5f;
     }
 
     private void Update()
@@ -43,6 +38,6 @@ public class CameraLimits : MonoBehaviour
     public void CameraLimitsTweaks()
     {
         cameraLimits.size = new Vector3 (xLimits, yLimits, zLimits);
-        cameraLimits.center = new Vector3 (0f, 0f, zCenter);
+        cameraLimits.center = new Vector3 (0f, yCenter, zCenter);
     }
 }
