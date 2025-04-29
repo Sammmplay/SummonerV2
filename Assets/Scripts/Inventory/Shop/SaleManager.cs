@@ -1,3 +1,5 @@
+using Mono.Cecil;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,8 +22,8 @@ public class SaleManager : MonoBehaviour
     public Button botonSumar;
     public Button botonRestar;
     public Button botonVender;
-
-    saveData itemSeleccionado;
+    [Tooltip("Referencia para nuestro item seleccionado en la tienda de venta")]
+    [SerializeField]saveData itemSeleccionado;
     int cantidadSeleccionada = 0;
     private void Awake() {
         if(instance == null) {
@@ -30,42 +32,45 @@ public class SaleManager : MonoBehaviour
             Destroy(instance);
         }
     }
-    private void OnEnable() {
+    private void Start() {
         CargarItemVenta();
         LimpiarPanelInferior();
         botonSumar.onClick.AddListener(SumarCantidad);
         botonRestar.onClick.AddListener(RestarCantidad);
         botonVender.onClick.AddListener(Vender);
-        inputCantidad.onValueChanged.AddListener(delegate { ActualizarPrecioTotal(); });
+        inputCantidad.onValueChanged.AddListener(ValidarInput);
     }
     public void CargarItemVenta() {
         foreach(Transform child in _content) {
             for (int i = child.childCount-1; i >= 0; i--) {
                 Destroy(child.GetChild(i).gameObject);
             }
-            
         }
-        int indexItem = 0;
-        foreach(var item in InventoryManager.Instance._items._items) {
-            for(int child =0; child < _content.childCount; child++) {
-                //Asegurarse de que hay suficientes slots disponibles
-                if(indexItem >= _content.childCount) {
-                    break;
-                }
-                Transform slot = _content.GetChild(indexItem);
-
-                GameObject instancia = Instantiate(ventaSlotPrefab, slot);
-                instance.GetComponent<UISlot>().Configurar(item);
-                indexItem++;
+        // Para cada item guardado, instanciarlo en el slot según su posición
+        if(InventoryManager.Instance._items._items == null) {
+            return;
+        }
+        foreach (saveData item in InventoryManager.Instance._items._items) {
+            int posicion = item._slotPosition;
+            if(posicion<0 || posicion>= _content.childCount) {
+                Debug.LogWarning($"Posicion de slot fuera de rtango para item: {item._id}");
+                continue;
+            }
+            Transform slot = _content.GetChild(posicion);
+            GameObject visual = Instantiate(ventaSlotPrefab, slot);
+            if(visual.TryGetComponent<UISlot>(out var uislot)) {
+                uislot.Configurar(item);
             }
         }
+        
     }
     public void SeleccionarItem(saveData data) {
         itemSeleccionado = data;
         cantidadSeleccionada = 1;
+        iconoSeleccionado.gameObject.SetActive(true);
         iconoSeleccionado.sprite = data._sprite;
         nombreTexto.text = data._id;
-        descripcionTexto.text = "(Aquí va una descripción si la tenés)";
+        descripcionTexto.text = data._description; //"(Aquí va una descripción si la tenés)";
         //precioUnitarioTexto.text = data._precioCU.ToString();
         inputCantidad.text = "1";
 
@@ -79,25 +84,25 @@ public class SaleManager : MonoBehaviour
         precioTotalTexto.text = total.ToString();
     }
     int GetCantidad() {
-        if (int.TryParse(inputCantidad.text, out int cant)) {
+        if (int.TryParse(inputCantidad.text, out int cant)) {// TryParse intenta convertir el texto a un numero entero
+            //uso out para devolver el numero ocnvertido 
+            // si la conversion funciona el tryparse devuelve tru y cant tendra valor numerico 
+            
             return Mathf.Clamp(cant, 1, itemSeleccionado._cant);
         }
         return 1;
     }
-    void SumarCantidad() {
+    public void SumarCantidad() {
+        Debug.Log("Sumar Cantidad Precionado");
         int actual = GetCantidad();
-        if (actual >= itemSeleccionado._cant) {
-            inputCantidad.text = "0"; // rotar
-        } else {
+        if (actual < itemSeleccionado._cant) {
             inputCantidad.text = (actual + 1).ToString();
         }
         ActualizarPrecioTotal();
     }
-    void RestarCantidad() {
+    public void RestarCantidad() {
         int actual = GetCantidad();
-        if (actual <= 1) {
-            inputCantidad.text = itemSeleccionado._cant.ToString(); // rotar
-        } else {
+        if (actual > 1) {
             inputCantidad.text = (actual - 1).ToString();
         }
         ActualizarPrecioTotal();
@@ -117,6 +122,8 @@ public class SaleManager : MonoBehaviour
         // Reiniciar panel
         LimpiarPanelInferior();
         CargarItemVenta();
+        //Ocultamos la imagen de referencia 
+        iconoSeleccionado.gameObject.SetActive(false);
     }
     void LimpiarPanelInferior() {
         iconoSeleccionado.sprite = null;
@@ -125,5 +132,12 @@ public class SaleManager : MonoBehaviour
         //precioUnitarioTexto.text = "";
         precioTotalTexto.text = "";
         inputCantidad.text = "";
+    }
+    void ValidarInput(string valor) {
+        if(int.TryParse(valor, out int cantidad)) {
+            cantidad = Mathf.Clamp(cantidad, 1, itemSeleccionado._cant);
+            precioTotalTexto.text = (cantidad*itemSeleccionado._precioCU).ToString();
+        }
+        
     }
 }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb756367164e6441ba7030040938334, type: 3}
   m_Name: Mana M Receta
   m_EditorClassIdentifier: 
-  resultadoID: PMM
+  resultadoID: RF
   resultadoCantidad: 1
   ingredientes:
-  - itemID: PMS
+  - itemID: RF
     cantidad: 2

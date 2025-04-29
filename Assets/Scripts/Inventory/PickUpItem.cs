@@ -6,6 +6,7 @@ public class PickUpItem : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             InventoryManager.Instance.AddItem(data);
+            SaleManager.instance.CargarItemVenta();
             Destroy(gameObject);
         }
     }
