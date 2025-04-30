@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
-  MaxHealth: 10
+  MaxHealth: 2
   CurrentHealth: 10
   Defense: 0
   hitReactionDistance: 0.2
