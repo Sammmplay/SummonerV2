@@ -84,11 +84,13 @@ public abstract class PetBase : MonoBehaviour
     /// Cada frame mueve al agente hacia el destino calculado
     /// y ejecuta el comportamiento específico de la subclase.
     /// </summary>
-    protected virtual void Update()
-    {
+    protected virtual void Update() {
         if (jugador == null || agente == null) return;
 
-        agente.SetDestination(CalcularDestino());
+        if (agente.isActiveAndEnabled && agente.isOnNavMesh) {
+            agente.SetDestination(CalcularDestino());
+        }
+
         ComportamientoPersonalizado();
     }
 

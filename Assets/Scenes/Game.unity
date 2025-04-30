@@ -2551,18 +2551,6 @@ PrefabInstance:
       propertyPath: jugador
       value: 
       objectReference: {fileID: 426418318}
-    - target: {fileID: 1249903728946183303, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
-      propertyPath: maxScale
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1249903728946183303, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
-      propertyPath: minScale
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1249903728946183303, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
-      propertyPath: spawnRadius
-      value: 4.8
-      objectReference: {fileID: 0}
     - target: {fileID: 2347233316504086670, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25
@@ -2793,6 +2781,18 @@ PrefabInstance:
     - target: {fileID: 4139354219616657153, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
       propertyPath: m_Name
       value: PlayerController
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351508006875864590, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351508006875864590, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351508006875864590, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
