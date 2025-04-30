@@ -7,7 +7,7 @@ public class PickUpResource : MonoBehaviour, IPickUp
     void IPickUp.PickUpResource(GameObject resource)
     {
         Debug.Log(gameObject + " collected");
-        //InventoryManager.Instance.AddItem(data);
+        InventoryManager.Instance.AddItem(data);
         Destroy(this.gameObject);
     }
 }
