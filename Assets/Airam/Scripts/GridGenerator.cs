@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class GridGenerator : MonoBehaviour
@@ -20,11 +21,15 @@ public class GridGenerator : MonoBehaviour
     private GameObject[] gridLimitBlocks;
 
     private List<List<GameObject>> generatedGrid = new List<List<GameObject>>();
-
+    // Navmesh
+    NavMeshSurface _navMesh;
     private void Start()
     {
+        _navMesh = GetComponent<NavMeshSurface>();
         gridStartPosX = -totalColumns / 2f + 0.5f;
         gridStartPosZ = totalRows / 2f - 0.5f;
+        GridSpawner();
+        _navMesh.BuildNavMesh();
     }
 
     public void GridSpawner()

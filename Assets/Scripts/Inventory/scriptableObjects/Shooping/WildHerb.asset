@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f787c866e8197df4a976beaa1aae51dc, type: 3}
-  m_Name: Golden souls
+  m_Name: WildHerb
   m_EditorClassIdentifier: 
-  _id: GS
-  _nameItem: Golden Soul
-  type: 2
-  _icon: {fileID: 21300000, guid: b4f1c09d52a12204586c2ecf4fd6ca88, type: 3}
+  _id: WH
+  _nameItem: Wild Herb
+  type: 3
+  _icon: {fileID: 21300000, guid: 3b32e8d5ae985644f92d3512eaabc9e9, type: 3}
   _precioCompra: 5
   _precioVenta: 3
   _cantidadXVenta: 1

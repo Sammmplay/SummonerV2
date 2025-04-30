@@ -12,26 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9e8b6258fcbcc74bae19746a87d08b1, type: 3}
   m_Name: Manager
   m_EditorClassIdentifier: 
-  _items:
-  - _id: SG
-    _description: The cristalized soul of an enemy.
-    _nameItem: 
-    _type: 3
-    _cant: 2
-    _precioCU: 10
-    _slotPosition: 0
-    _sprite: {fileID: 21300000, guid: 75c7cebab43f0c249a712ebd08ffa2e3, type: 3}
-  - _id: RF
-    _description: A bundle of red flowers.
-    _nameItem: 
-    _type: 3
-    _cant: 1
-    _precioCU: 1
-    _slotPosition: 1
-    _sprite: {fileID: 21300000, guid: 565670d2706092b47a20387aece90527, type: 3}
+  _items: []
   _slotPrefab: {fileID: 2521455196494121335, guid: 9b6941467da0cca4394fa6ffef0bbef4, type: 3}
   _itemsBase:
   - {fileID: 11400000, guid: dc1179d19a37b8d4692f288abfc8115d, type: 2}
+  - {fileID: 11400000, guid: 7d37f44340b4b1543a1760a06422c5fa, type: 2}
   - {fileID: 11400000, guid: ca60487bebd611a4eb1ce4087235ca00, type: 2}
   - {fileID: 11400000, guid: 5a661593aba171b4ba5437fe621bef3e, type: 2}
-  - {fileID: 11400000, guid: 7d37f44340b4b1543a1760a06422c5fa, type: 2}
+  - {fileID: 11400000, guid: f846df2248920c9469af8505dfa87b3d, type: 2}
+  - {fileID: 11400000, guid: 3bd4f97ae3c55804cb5d6f500c47e0aa, type: 2}
+  - {fileID: 11400000, guid: 7f2af156791a4514ba3ac3038b711593, type: 2}

@@ -16,6 +16,6 @@ MonoBehaviour:
   _nameItem: Soul Gem
   type: 3
   _icon: {fileID: 21300000, guid: 75c7cebab43f0c249a712ebd08ffa2e3, type: 3}
-  _precioCompra: 3
-  _precioVenta: 5
+  _precioCompra: 5
+  _precioVenta: 3
   _cantidadXVenta: 1
