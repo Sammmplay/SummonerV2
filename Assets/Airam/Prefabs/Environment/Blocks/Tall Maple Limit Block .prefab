@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5741479955967634469}
     m_Modifications:
+    - target: {fileID: 4694828608613657703, guid: 4e4420384b5c8fd4ba56c5d7613a1b8f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7370074565865334487, guid: 4e4420384b5c8fd4ba56c5d7613a1b8f, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
@@ -64,7 +68,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tall Maple Tree
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4694828608613657703, guid: 4e4420384b5c8fd4ba56c5d7613a1b8f, type: 3}
+    - {fileID: 1465893919875123035, guid: 4e4420384b5c8fd4ba56c5d7613a1b8f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
