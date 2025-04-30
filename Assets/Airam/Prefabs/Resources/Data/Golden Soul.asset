@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: GS
   _nameItem: Golden Soul
-  _description: The soul of an enemy.
+  _description: The soul of an enemy. It shines.
   _type: 3
   _cantItems: 1
-  _precioCU: 5
+  _precioCU: 7
   _slotPosition: 0
   _sprite: {fileID: 21300000, guid: b4f1c09d52a12204586c2ecf4fd6ca88, type: 3}

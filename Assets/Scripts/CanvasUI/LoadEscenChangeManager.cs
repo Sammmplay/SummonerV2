@@ -53,6 +53,7 @@ namespace SD
             //esperar 0.5segundos adicionales despues de que la carga este completada
             yield return new WaitForSeconds(0.5f);
             //desactivar el objeto 
+            MainMenuManager.Instance.Inicializar();
             EsceneMenu.SetActive(false);
             
         }

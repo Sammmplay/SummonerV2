@@ -17,6 +17,6 @@ MonoBehaviour:
   _description: A bundle of red flowers.
   _type: 3
   _cantItems: 1
-  _precioCU: 1
+  _precioCU: 2
   _slotPosition: 0
   _sprite: {fileID: 21300000, guid: 565670d2706092b47a20387aece90527, type: 3}

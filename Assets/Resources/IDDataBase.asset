@@ -13,22 +13,34 @@ MonoBehaviour:
   m_Name: IDDataBase
   m_EditorClassIdentifier: 
   idInventory:
+  - WH
   - RF
+  - BF
   - MSH
+  - RS
   - GS
   - SG
   idShop:
+  - WH
   - RF
+  - BF
   - MSH
+  - RS
   - GS
   - SG
   IdsCraft:
+  - WH
   - RF
+  - BF
   - MSH
+  - RS
   - GS
   - SG
   names:
+  - Wild Herb
   - Red Flowers
+  - Blue Flowers
   - Mushrooms
+  - Rusty Soul
   - Golden Soul
   - Soul Gem
