@@ -64,7 +64,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tall Pine Tree
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3708333969386427054, guid: 70ce666a4628d004b886292f04ff481e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3708333969386427054, guid: 70ce666a4628d004b886292f04ff481e, type: 3}
+    - {fileID: 465485492389461672, guid: 70ce666a4628d004b886292f04ff481e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
