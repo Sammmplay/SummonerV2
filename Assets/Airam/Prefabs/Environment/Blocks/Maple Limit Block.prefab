@@ -64,7 +64,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maple Tree
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7632001607409883935, guid: 36f51adcefde34247a5b2656fb360504, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7632001607409883935, guid: 36f51adcefde34247a5b2656fb360504, type: 3}
+    - {fileID: 3811610234464524820, guid: 36f51adcefde34247a5b2656fb360504, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
