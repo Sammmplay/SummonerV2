@@ -3,24 +3,40 @@ using UnityEngine.EventSystems;
 
 public class SlotDropReceiver : MonoBehaviour, IDropHandler
 {
-   public void OnDrop(PointerEventData eventData) {
-        //Obtenemos el objeto arrastrado
-        GameObject itemArrastrado = eventData.pointerDrag;
-        if(itemArrastrado == null || itemArrastrado == this.gameObject) {
-            return;
-        }
-        //intercambiar posiciones visuales
-        Transform slotOrigen = itemArrastrado.transform.parent;
-        Transform slotDestino = this.transform;
+    public void OnDrop(PointerEventData eventData) {
+        GameObject objetoSoltado = eventData.pointerDrag;
+        if (objetoSoltado == null) return;
 
-        itemArrastrado.transform.SetParent(slotDestino);
-        itemArrastrado.transform.localPosition = Vector3.zero;
+        Transform objetoArrastrado = objetoSoltado.transform;
+        Transform slotOrigen = objetoArrastrado.GetComponent<DragItem>().originalParent;
+        Transform slotDestino = transform;
+        if (!objetoSoltado.TryGetComponent<UISlot>(out var uiSlot)) return;
 
-        if (slotOrigen.childCount > 0) {
-            Transform otroItem = slotDestino.GetChild(0);
-            otroItem.SetParent(slotOrigen);
+        Transform targetSlot = transform;
+        Transform originSlot = uiSlot.transform.parent;
+
+        // Si el slot destino ya tiene un hijo, intercambiamos
+        if (targetSlot.childCount > 0)
+        {
+            Transform otroItem = targetSlot.GetChild(0);
+            // intercambiar: el que esta en destino va al origen
+            otroItem.SetParent(originSlot);
             otroItem.localPosition = Vector3.zero;
+
+            // Actualizamos posición lógica
+            if (otroItem.TryGetComponent<UISlot>(out var uiSlotOtro))
+            {
+                uiSlotOtro.SaveData()._slotPosition = originSlot.GetSiblingIndex();
+            }
         }
 
+        // Mover el item arrastrado al nuevo slot
+        objetoArrastrado.SetParent(targetSlot);
+        objetoArrastrado.localPosition = Vector3.zero;
+
+        // Actualizamos también el dato del inventario
+        uiSlot.SaveData()._slotPosition = targetSlot.GetSiblingIndex();
+        Debug.Log("Dato de inventario Actualizado");
     }
+
 }
