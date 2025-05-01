@@ -104,7 +104,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -119,10 +119,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 969518600716116959}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f2e9c22d0b817e4ea8500090e699a7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 90d8e17d978c0ba48941ee7294fb10fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 8641316155758036538, guid: 6f0455d6888f48d7b23fbe57eb17f64d, type: 3}
+  baseDamage: 1
+  buffedDamage: 0
+  baseHP: 1
+  buffedHP: 0
 --- !u!195 &3396498013625019946
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -133,10 +136,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.1
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 360
+  m_AngularSpeed: 500
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

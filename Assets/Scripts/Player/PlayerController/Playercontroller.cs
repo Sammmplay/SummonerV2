@@ -4,17 +4,38 @@ using UnityEngine.InputSystem;
 public class Playercontroller : MonoBehaviour
 {
     public static Playercontroller Instance;
-     Transform targetCamera;
+    Transform targetCamera;
     public Vector2 _input;
     public float _velocity = 2.6f;
     public float smoothRotation = 10f;
     Rigidbody _rb;
-    private void Start() {
+    public float characterHP = 3f;
+
+    public bool invulnerable = false;
+    public float invulnerableCooldown = 2f;
+
+    public EnemiesController enemiesController;
+    private WavesUI wavesUI;
+
+    private void Start() 
+    {
+        enemiesController = GetComponent<EnemiesController>();
+        wavesUI = GetComponent<WavesUI>();
+
         _rb = GetComponent<Rigidbody>();
         targetCamera = Camera.main.transform;
     }
     private void Update() {
         Move();
+
+        if (invulnerable == true)
+        {
+            invulnerableCooldown -= Time.deltaTime;
+            if (invulnerableCooldown < 0)
+            {
+                invulnerable = false;
+            }
+        }
     }
     public void OnMove(InputValue value) {
         _input = value.Get<Vector2>();
@@ -32,11 +53,19 @@ public class Playercontroller : MonoBehaviour
         //aplicamos movimiento al rigibody
         _rb.linearVelocity = direction * _velocity;
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if (CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") && invulnerable == false)
+        {
+            characterHP -= collision.GetComponent<EnemiesController>().buffedDamage;
+            wavesUI.TextUpdate();
+            if (characterHP <= 0)
             {
-            Destroy(this);
+                Destroy(gameObject);
+                Debug.Log("Muerte");
             }
+            invulnerableCooldown = 2f;
+            invulnerable = true;
+        }
     }
 }
