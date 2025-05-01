@@ -8,7 +8,12 @@ public class DragItem : MonoBehaviour ,IBeginDragHandler,IDragHandler, IEndDragH
     CanvasGroup canvasGroup;
     RectTransform rectTransform;
 
+<<<<<<< Updated upstream
     Transform originalParent;
+=======
+   [HideInInspector]
+public Transform originalParent;
+>>>>>>> Stashed changes
     Vector2 originalPos;
 
     private void Awake() {
