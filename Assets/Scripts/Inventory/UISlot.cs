@@ -39,4 +39,7 @@ public class UISlot : MonoBehaviour
         ReferenceItem _ref = FindFirstObjectByType<ReferenceItem>();
         _ref.transform.GetChild(0).gameObject.SetActive(false);
     }
+    public saveData SaveData( ) {
+        return dataslot;
+    }
 }
