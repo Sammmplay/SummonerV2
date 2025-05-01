@@ -22,7 +22,7 @@ public class GridGenerator : MonoBehaviour
 
     private List<List<GameObject>> generatedGrid = new List<List<GameObject>>();
     
-    NavMeshSurface navMesh;
+    private NavMeshSurface navMesh;
 
     private void Awake()
     {
