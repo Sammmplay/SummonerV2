@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1799757537599423719}
   m_Layer: 0
   m_Name: Enemigo1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2e9c22d0b817e4ea8500090e699a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 680897046550098586, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
+  target: {fileID: 8641316155758036538, guid: 6f0455d6888f48d7b23fbe57eb17f64d, type: 3}
 --- !u!195 &1799757537599423719
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -132,16 +132,16 @@ NavMeshAgent:
   m_GameObject: {fileID: 969518600716116959}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
+  m_Height: 0.1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

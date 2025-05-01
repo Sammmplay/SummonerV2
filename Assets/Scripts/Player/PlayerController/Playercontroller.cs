@@ -32,4 +32,11 @@ public class Playercontroller : MonoBehaviour
         //aplicamos movimiento al rigibody
         _rb.linearVelocity = direction * _velocity;
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (CompareTag("Enemy"))
+            {
+            Destroy(this);
+            }
+    }
 }
