@@ -1,17 +1,21 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
-/// Mascota atacante que dispara un proyectil horizontal hacia el enemigo.
-/// El proyectil se autodestruye tras un tiempo.
+/// Mascota atacante que dispara proyectiles en línea recta, con animación y sonido.
 /// </summary>
 public class PetAttacker : PetBase
 {
     [Header("Ataque a distancia")]
-    [SerializeField] private float attackInterval = 1f;
-    [SerializeField] private float damage = 1f;
-    [SerializeField] private float projectileSpeed = 10f;
+    [SerializeField] public float attackInterval = 1f;
+    [SerializeField] public float damage = 1f;
+    [SerializeField] public float projectileSpeed = 10f;
     [SerializeField] private float projectileLifetime = 5f;
     [SerializeField] private Transform shootOrigin;
+
+    [Header("Animación y sonido")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shootClip;
 
     private float cooldown;
 
@@ -31,7 +35,6 @@ public class PetAttacker : PetBase
             return;
         }
 
-        // Rotar hacia el enemigo (horizontal)
         Vector3 lookDir = target.position - transform.position;
         lookDir.y = 0;
         if (lookDir != Vector3.zero)
@@ -42,6 +45,14 @@ public class PetAttacker : PetBase
         {
             cooldown = 0f;
             Disparar(target.position);
+
+            // ✅ Animación de disparo
+            if (animator != null)
+                animator.SetTrigger("Shoot");
+
+            // ✅ Sonido de disparo
+            if (audioSource != null && shootClip != null)
+                audioSource.PlayOneShot(shootClip);
         }
     }
 

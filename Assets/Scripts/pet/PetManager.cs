@@ -138,4 +138,23 @@ public class PetManager : MonoBehaviour
 
     public LayerMask EnemyLayer => enemyLayer;
     public LayerMask PetsLayer => petsLayer;
+    public void SpawnearPrefab(GameObject prefab)
+    {
+        if (NavMesh.SamplePosition(jugador.position + Random.insideUnitSphere * spawnRadius, out NavMeshHit hit, spawnRadius, NavMesh.AllAreas))
+        {
+            GameObject instancia = Instantiate(prefab, hit.position, Quaternion.identity);
+            ConfigurarPet(instancia);
+        }
+    }
+
+    public void RemoverMascota<T>() where T : PetBase
+    {
+        var pet = mascotasActivas.Find(p => p is T);
+        if (pet != null)
+        {
+            mascotasActivas.Remove(pet);
+            Destroy(pet.gameObject);
+        }
+    }
+
 }
