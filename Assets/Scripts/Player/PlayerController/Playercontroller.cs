@@ -20,7 +20,7 @@ public class Playercontroller : MonoBehaviour
     private void Start() 
     {
         enemiesController = GetComponent<EnemiesController>();
-        wavesUI = GetComponent<WavesUI>();
+        wavesUI = FindFirstObjectByType<WavesUI>();
 
         _rb = GetComponent<Rigidbody>();
         targetCamera = Camera.main.transform;

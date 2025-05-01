@@ -7,16 +7,10 @@ public class WavesUI : MonoBehaviour
     public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI hpText;
 
-    private WaveController waveController;
-    private Playercontroller playerController;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        waveController = GetComponent<WaveController>();
-        playerController = GetComponent<Playercontroller>();
-        TextUpdate();
-    }
-    public void Awake()
+    public WaveController waveController;
+    public Playercontroller playerController;
+
+    void Awake()
     {
         if (instance == null)
         {
@@ -25,9 +19,16 @@ public class WavesUI : MonoBehaviour
         else { Destroy(gameObject); }
     }
 
+    void Start()
+    {
+        waveController = FindFirstObjectByType<WaveController>();
+        playerController = FindFirstObjectByType<Playercontroller>();
+        TextUpdate();
+    }
+
     public void TextUpdate()
     {
-        waveNumberText.text = waveController.waveNumber.ToString();
-        hpText.text = playerController.characterHP.ToString();
+        waveNumberText.text = "Wave: " + waveController.waveNumber.ToString();
+        hpText.text = "HP: " + playerController.characterHP.ToString();
     }
 }

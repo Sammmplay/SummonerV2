@@ -21,9 +21,9 @@ public class WaveController : MonoBehaviour
     public void Start()
     {
         enemiesController = GetComponent<EnemiesController>();
-        wavesUI = GetComponent<WavesUI>();
+        wavesUI = FindFirstObjectByType<WavesUI>();
 
-        
+
     }
     // Update is called once per frame
     void Update()
