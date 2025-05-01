@@ -10,11 +10,11 @@ public class PetAssassin : PetBase
     [Header("Embestidas")]
     [SerializeField] public float dashSpeed = 15f;
     [SerializeField] public float reboteDelay = 0.15f;
+    [SerializeField] public float esperaEntreCadena = 2f;
     [SerializeField] public float damage = 1f;
-    [SerializeField] public float esperaEntreCadena = 1f;
 
     [Header("Animación y sonido")]
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animator; // Asigna el Animator del hijo 01_Spike_S aquí
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip dashClip;
 
@@ -23,6 +23,10 @@ public class PetAssassin : PetBase
 
     protected override void ComportamientoPersonalizado()
     {
+        // ✅ Actualiza velocidad para animación
+        if (animator != null)
+            animator.SetFloat("velocity", agente.velocity.magnitude);
+
         if (enAtaque) return;
 
         cooldown += Time.deltaTime;
@@ -46,6 +50,10 @@ public class PetAssassin : PetBase
         cooldown = 0f;
         agente.enabled = false;
 
+        // ✅ Activa trigger de dash
+        if (animator != null)
+            animator.SetBool("dash", true);
+
         List<Transform> enemigosOrdenados = new List<Transform>(enemigos);
         enemigosOrdenados.Sort((a, b) =>
             Vector3.Distance(transform.position, a.position)
@@ -61,11 +69,7 @@ public class PetAssassin : PetBase
             float duracion = Vector3.Distance(inicio, destino) / dashSpeed;
             float tiempo = 0f;
 
-            // ✅ Lanzar animación de dash
-            if (animator != null)
-                animator.SetTrigger("Dash");
-
-            // ✅ Reproducir sonido de dash
+            // ✅ Reproduce sonido de dash
             if (audioSource != null && dashClip != null)
                 audioSource.PlayOneShot(dashClip);
 
@@ -86,6 +90,11 @@ public class PetAssassin : PetBase
         }
 
         agente.enabled = true;
+
+        // ✅ Desactiva trigger de dash
+        if (animator != null)
+            animator.SetBool("dash", false);
+
         enAtaque = false;
     }
 }

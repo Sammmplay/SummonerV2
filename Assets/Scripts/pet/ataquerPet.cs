@@ -6,21 +6,26 @@
 public class PetAttacker : PetBase
 {
     [Header("Ataque a distancia")]
-    [SerializeField] public float attackInterval = 1f;
-    [SerializeField] public float damage = 1f;
-    [SerializeField] public float projectileSpeed = 10f;
-    [SerializeField] private float projectileLifetime = 5f;
-    [SerializeField] private Transform shootOrigin;
+    public float attackInterval = 1f;
+    public float damage = 1f;
+    public float projectileSpeed = 10f;
+    public float projectileLifetime = 5f;
+    public Transform shootOrigin;
 
     [Header("Animación y sonido")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip shootClip;
+    public Animator animator;
+    public AudioSource audioSource;
+    public AudioClip shootClip;
 
     private float cooldown;
 
     protected override void ComportamientoPersonalizado()
     {
+        // Calcula velocidad para animaciones
+        float velocity = agente.velocity.magnitude;
+        if (animator != null)
+            animator.SetFloat("velocity", velocity);
+
         if (enemigos == null || enemigos.Count == 0)
         {
             transform.LookAt(jugador);
@@ -28,7 +33,6 @@ public class PetAttacker : PetBase
         }
 
         Transform target = ObtenerEnemigoMasCercano();
-
         if (target == null)
         {
             transform.LookAt(jugador);
@@ -46,11 +50,11 @@ public class PetAttacker : PetBase
             cooldown = 0f;
             Disparar(target.position);
 
-            // ✅ Animación de disparo
+            // ✅ Animación disparo
             if (animator != null)
-                animator.SetTrigger("Shoot");
+                animator.SetTrigger("shoot");
 
-            // ✅ Sonido de disparo
+            // ✅ Sonido disparo
             if (audioSource != null && shootClip != null)
                 audioSource.PlayOneShot(shootClip);
         }

@@ -3,28 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Mascota guardiana que daña y ralentiza enemigos cercanos por contacto,
-/// con animación y sonido.
-/// Usa un cooldown por enemigo individual.
+/// Mascota guardiana que daña y ralentiza enemigos cercanos, con animación y sonido.
 /// </summary>
 public class PetGuardian : PetBase
 {
     [Header("Aura de contacto")]
-    [SerializeField] private float attackCooldown = 3f;
-    [SerializeField] private float slowMultiplier = 0.5f;
-    [SerializeField] private float slowDuration = 1f;
-
-    [Header("Daño")]
-    [Tooltip("Daño aplicado por contacto (modificable por PowerUps).")]
-    [SerializeField] public float damage = 1f;
+    public float attackCooldown = 3f;
+    public float slowMultiplier = 0.5f;
+    public float slowDuration = 1f;
+    public float damage = 1f;
 
     [Header("Animación y sonido")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip pushClip;
+    public Animator animator;
+    public AudioSource audioSource;
+    public AudioClip pushClip;
 
     [Header("Control de alcance")]
-    [SerializeField] private float detectionRadius = 5f;
+    public float detectionRadius = 5f;
 
     private Dictionary<Transform, float> cooldowns = new();
 
@@ -42,23 +37,19 @@ public class PetGuardian : PetBase
         {
             cooldowns[enemigo] = Time.time;
 
-            // ✅ Daño configurable
             stats.TakeDamage(damage);
             StartCoroutine(ReducirVelocidadTemporal(stats));
 
-            // ✅ Animación de empuje
+            // ✅ Animación empuje
             if (animator != null)
-                animator.SetTrigger("Push");
+                animator.SetTrigger("push");
 
-            // ✅ Sonido de empuje
+            // ✅ Sonido empuje
             if (audioSource != null && pushClip != null)
                 audioSource.PlayOneShot(pushClip);
         }
     }
 
-    /// <summary>
-    /// Reduce temporalmente la velocidad del enemigo.
-    /// </summary>
     private IEnumerator ReducirVelocidadTemporal(EnemyStats enemigo)
     {
         float original = enemigo.Speed;
@@ -70,13 +61,13 @@ public class PetGuardian : PetBase
             enemigo.Speed = original;
     }
 
-    /// <summary>
-    /// Ejecuta el comportamiento principal:
-    /// buscar al enemigo más cercano dentro del rango
-    /// y moverse hacia él, si no, seguir al jugador.
-    /// </summary>
     protected override void ComportamientoPersonalizado()
     {
+        // ✅ Detectar movimiento para Idle/Run
+        float velocity = agente.velocity.magnitude;
+        if (animator != null)
+            animator.SetFloat("velocity", velocity);
+
         Transform enemigo = ObtenerEnemigoMasCercanoEnRango();
 
         if (enemigo != null)
@@ -97,9 +88,6 @@ public class PetGuardian : PetBase
         }
     }
 
-    /// <summary>
-    /// Devuelve el enemigo más cercano dentro del rango de detección.
-    /// </summary>
     private Transform ObtenerEnemigoMasCercanoEnRango()
     {
         Transform cercano = null;
