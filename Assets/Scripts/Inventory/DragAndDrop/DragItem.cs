@@ -9,7 +9,12 @@ public class DragItem : MonoBehaviour ,IBeginDragHandler,IDragHandler, IEndDragH
     RectTransform rectTransform;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     Transform originalParent;
+=======
+   [HideInInspector]
+public Transform originalParent;
+>>>>>>> Stashed changes
 =======
    [HideInInspector]
 public Transform originalParent;
