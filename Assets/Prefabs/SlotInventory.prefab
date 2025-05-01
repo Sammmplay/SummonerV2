@@ -138,6 +138,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfc10048709d2be49b9bff174c8ca054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataslot:
+    _id: RF
+    _description: 
+    _nameItem: 
+    _type: 0
+    _cant: 0
+    _precioCU: 0
+    _slotPosition: 0
+    _sprite: {fileID: 0}
   _text: {fileID: 801595127122659067}
   _sprite: {fileID: 6395884607581165598}
 --- !u!114 &1147233921845513448
@@ -314,7 +323,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.45
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

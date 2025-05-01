@@ -7,7 +7,7 @@ public class Playercontroller : MonoBehaviour
      Transform targetCamera;
     public Vector2 _input;
     public float _velocity = 2.6f;
-    public float smothRotation = 10f;
+    public float smoothRotation = 10f;
     Rigidbody _rb;
     private void Start() {
         _rb = GetComponent<Rigidbody>();
@@ -26,7 +26,7 @@ public class Playercontroller : MonoBehaviour
             // calculamos la rotacion hacia la direccion 
             Quaternion targetRot = Quaternion.LookRotation(direction);
             //suavizamos la rotacion hacia el objetivo (giro fluido)
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * smothRotation);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * smoothRotation);
 
         }
         //aplicamos movimiento al rigibody

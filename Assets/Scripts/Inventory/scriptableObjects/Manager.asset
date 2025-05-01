@@ -15,7 +15,10 @@ MonoBehaviour:
   _items: []
   _slotPrefab: {fileID: 2521455196494121335, guid: 9b6941467da0cca4394fa6ffef0bbef4, type: 3}
   _itemsBase:
-  - {fileID: 11400000, guid: 4744532c41b16af4abf951bd74db0f16, type: 2}
-  - {fileID: 11400000, guid: c88e9172f6c71b74c9233eb8ad6f6106, type: 2}
-  - {fileID: 11400000, guid: c67e001777bcac14fba5a3c6501e1847, type: 2}
-  - {fileID: 11400000, guid: 0b5f6ffd2d3c2524daee83b42e96135d, type: 2}
+  - {fileID: 11400000, guid: dc1179d19a37b8d4692f288abfc8115d, type: 2}
+  - {fileID: 11400000, guid: 7d37f44340b4b1543a1760a06422c5fa, type: 2}
+  - {fileID: 11400000, guid: ca60487bebd611a4eb1ce4087235ca00, type: 2}
+  - {fileID: 11400000, guid: 5a661593aba171b4ba5437fe621bef3e, type: 2}
+  - {fileID: 11400000, guid: f846df2248920c9469af8505dfa87b3d, type: 2}
+  - {fileID: 11400000, guid: 3bd4f97ae3c55804cb5d6f500c47e0aa, type: 2}
+  - {fileID: 11400000, guid: 7f2af156791a4514ba3ac3038b711593, type: 2}

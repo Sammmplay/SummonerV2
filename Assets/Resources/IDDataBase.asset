@@ -13,38 +13,34 @@ MonoBehaviour:
   m_Name: IDDataBase
   m_EditorClassIdentifier: 
   idInventory:
-  - PVS
-  - PVM
-  - PMS
-  - PMM
+  - WH
   - RF
+  - BF
   - MSH
+  - RS
   - GS
   - SG
   idShop:
-  - PVS
-  - PVM
-  - PMS
-  - PMM
+  - WH
   - RF
+  - BF
   - MSH
+  - RS
   - GS
   - SG
   IdsCraft:
-  - PVS
-  - PVM
-  - PMS
-  - PMM
+  - WH
   - RF
+  - BF
   - MSH
+  - RS
   - GS
   - SG
   names:
-  - Posion de Vida (M)
-  - Posion de Vida (S)
-  - Posion de Mana (M)
-  - Posion de Mana (S)
+  - Wild Herb
   - Red Flowers
+  - Blue Flowers
   - Mushrooms
+  - Rusty Soul
   - Golden Soul
   - Soul Gem

@@ -1,0 +1,49 @@
+using JetBrains.Annotations;
+using UnityEditor.Recorder;
+using UnityEngine;
+
+public class EnemySpawner : MonoBehaviour
+{
+    public bool canStartWave = true;
+
+    [SerializeField] private float spawnRate = 5f;
+    private float timeTillSpawn = 5f;
+
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private int enemiesPerWave = 4;
+    private int enemiesLeftToSpawn;
+
+    private int waveNumber = 0;
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        timeTillSpawn -= Time.deltaTime;
+
+        if (canStartWave == true)
+        {
+            WaveStarts();
+        }
+    }
+    public void WaveStarts()
+    {
+        enemiesLeftToSpawn = enemiesPerWave;
+        if (timeTillSpawn <= 0)
+        {
+            Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            enemiesLeftToSpawn--;
+            timeTillSpawn = spawnRate;
+        }
+        if (enemiesLeftToSpawn == 0)
+        {
+            waveNumber += 1;
+            canStartWave = false;
+        }
+    }
+    public void startNextWave()
+    {
+        spawnRate -= waveNumber / 5f;
+        enemiesPerWave += waveNumber;
+    }
+}

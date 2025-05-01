@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class GridGenerator : MonoBehaviour
@@ -7,7 +8,7 @@ public class GridGenerator : MonoBehaviour
     [SerializeField]
     public int totalColumns;
     [SerializeField]
-    public int totalRow;
+    public int totalRows;
     [SerializeField]
     private float gridStartPosX;
     [SerializeField]
@@ -16,8 +17,26 @@ public class GridGenerator : MonoBehaviour
     private float gridStartPosZ;
     [SerializeField]
     private GameObject[] gridBlocks;
+    [SerializeField]
+    private GameObject[] gridLimitBlocks;
 
     private List<List<GameObject>> generatedGrid = new List<List<GameObject>>();
+    
+    NavMeshSurface navMesh;
+
+    private void Awake()
+    {
+        navMesh = GetComponent<NavMeshSurface>();
+    }
+
+    private void Start()
+    {
+        gridStartPosX = -totalColumns / 2f + 0.5f;
+        gridStartPosZ = totalRows / 2f - 0.5f;
+        GridSpawner();
+
+        navMesh.BuildNavMesh();
+    }
 
     public void GridSpawner()
     {
@@ -29,21 +48,33 @@ public class GridGenerator : MonoBehaviour
         for (int i = 0; i < totalColumns; i++)
         {
             generatedGrid.Add(new List<GameObject>());
-
-            for (int j = 0; j < totalRow; j++)
+            
+            for (int j = 0; j < totalRows; j++)
             {
                 Vector3 position = new Vector3(gridStartPosX, gridStartPosY, gridStartPosZ);
                 position.x = position.x + i;
                 position.z = position.z - j;
 
-                int blocksIndex = Random.Range(0, gridBlocks.Length);
-                GameObject gridCell = Instantiate(gridBlocks[blocksIndex], position, Quaternion.identity, transform);
+                GameObject gridCell;
+                int blocksIndex;
+                bool isLimit = i == 0f || i == totalColumns - 1 || j == 0f || j == totalRows - 1;
 
+                if (isLimit)
+                {
+                    blocksIndex = Random.Range(0, gridLimitBlocks.Length);
+                    gridCell = Instantiate(gridLimitBlocks[blocksIndex], position, Quaternion.identity, transform);
+                }
+                else
+                {
+                    blocksIndex = Random.Range(0, gridBlocks.Length);
+                    gridCell = Instantiate(gridBlocks[blocksIndex], position, Quaternion.identity, transform);
+                }
+                
                 generatedGrid[i].Add(gridCell);
             }
         }
-
     }
+
     public void DeleteGrid()
     {
         foreach (Transform child in transform)
