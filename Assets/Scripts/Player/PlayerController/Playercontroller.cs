@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class Playercontroller : MonoBehaviour
 {
     public static Playercontroller Instance;
+    public GameObject character;
     Transform targetCamera;
     public Vector2 _input;
     public float _velocity = 2.6f;
@@ -61,8 +62,10 @@ public class Playercontroller : MonoBehaviour
             wavesUI.TextUpdate();
             if (characterHP <= 0)
             {
-                Destroy(gameObject);
+                character.SetActive(false);
                 Debug.Log("Muerte");
+
+                //Queda Poner un panel de UI para volver a la aldea o pelear de nuevo
             }
             invulnerableCooldown = 2f;
             invulnerable = true;

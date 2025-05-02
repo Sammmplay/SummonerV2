@@ -6,14 +6,14 @@ public class WaveController : MonoBehaviour
 {
     public bool canStartWave = true;
 
-    [SerializeField] private float spawnRate = 10f;
-    private float timeTillSpawn = 10f;
+    private float spawnRate = 10f;
+    [SerializeField] private float timeTillSpawn = 10f;
 
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private int enemiesPerWave = 4;
-    private int enemiesLeftToSpawn;
+    public int enemiesLeftToSpawn;
 
-    public int waveNumber = 0;
+    public int waveNumber = 1;
 
     private EnemiesController enemiesController;
     private WavesUI wavesUI;
@@ -23,7 +23,7 @@ public class WaveController : MonoBehaviour
         enemiesController = GetComponent<EnemiesController>();
         wavesUI = FindFirstObjectByType<WavesUI>();
 
-
+        WaveStarts();
     }
     // Update is called once per frame
     void Update()
@@ -38,7 +38,7 @@ public class WaveController : MonoBehaviour
     public void WaveStarts()
     {
         enemiesLeftToSpawn = enemiesPerWave;
-        if (timeTillSpawn <= 0)
+        if (timeTillSpawn <= 0 && enemiesLeftToSpawn >= 0)
         {
             Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             enemiesLeftToSpawn--;
@@ -54,10 +54,10 @@ public class WaveController : MonoBehaviour
     }
     public void startNextWave()
     {
-        spawnRate -= waveNumber / 5f;
-        enemiesPerWave += waveNumber;
+        spawnRate -= waveNumber / 5;
+        enemiesPerWave += waveNumber * 4;
 
-        enemiesController.buffedDamage = enemiesController.baseDamage + waveNumber/2f;
+        enemiesController.buffedDamage = enemiesController.baseDamage + waveNumber/2;
         enemiesController.buffedHP = enemiesController.baseHP + waveNumber;
     }
 }
