@@ -29,15 +29,20 @@ public class GridGenerator : MonoBehaviour
         navMesh = GetComponent<NavMeshSurface>();
     }
 
+    /// <summary>
+    /// Se crea el grid y el navmesh según el tamaño asignado
+    /// </summary>
     private void Start()
     {
         gridStartPosX = -totalColumns / 2f + 0.5f;
         gridStartPosZ = totalRows / 2f - 0.5f;
-        GridSpawner();
 
         navMesh.BuildNavMesh();
     }
 
+    /// <summary>
+    /// Función que crea un grid o matriz, a partir de diferentes prefabs de forma aleatoria
+    /// </summary>
     public void GridSpawner()
     {
         foreach (Transform child in transform)
@@ -59,6 +64,7 @@ public class GridGenerator : MonoBehaviour
                 int blocksIndex;
                 bool isLimit = i == 0f || i == totalColumns - 1 || j == 0f || j == totalRows - 1;
 
+                //Se calcula si es el perímetro y se instancian prefabs específicos si lo es
                 if (isLimit)
                 {
                     blocksIndex = Random.Range(0, gridLimitBlocks.Length);

@@ -28,6 +28,9 @@ public class PlayerInteraction : MonoBehaviour
         PickUpResource();
     }
 
+    /// <summary>
+    /// Función que detecta en un área los objetos que tengan la interface y selecciona al más cercano al jugador
+    /// </summary>
     private void PickUpResource()
     {
        if (inputAction.playerInteract)
@@ -63,6 +66,9 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Función parecida a la anterior, que activa o desactiva el outline al estar dentro del área y ser el objeto más cercano
+    /// </summary>
     private void SelectableResource()
     {
         selectableResources.Clear();

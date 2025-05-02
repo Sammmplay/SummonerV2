@@ -15,6 +15,9 @@ public class ResourcesGenerator : MonoBehaviour
         ResourcesSpawn();
     }
 
+    /// <summary>
+    /// Función que instancia recursos al crearse el grid, de forma aleatoria
+    /// </summary>
     private void ResourcesSpawn()
     {
         if (spawnChance > Random.Range(0, 101))
