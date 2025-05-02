@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb756367164e6441ba7030040938334, type: 3}
-  m_Name: RedFlower
+  m_Name: Golden Soul
   m_EditorClassIdentifier: 
-  resultadoID: RF
+  resultadoID: GS
   resultadoCantidad: 3
   ingredientes:
   - itemID: RF
