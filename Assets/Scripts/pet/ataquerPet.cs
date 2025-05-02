@@ -1,22 +1,31 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
-/// Mascota atacante que dispara un proyectil horizontal hacia el enemigo.
-/// El proyectil se autodestruye tras un tiempo.
+/// Mascota atacante que dispara proyectiles en línea recta, con animación y sonido.
 /// </summary>
 public class PetAttacker : PetBase
 {
     [Header("Ataque a distancia")]
-    [SerializeField] private float attackInterval = 1f;
-    [SerializeField] private float damage = 1f;
-    [SerializeField] private float projectileSpeed = 10f;
-    [SerializeField] private float projectileLifetime = 5f;
-    [SerializeField] private Transform shootOrigin;
+    public float attackInterval = 1f;
+    public float damage = 1f;
+    public float projectileSpeed = 10f;
+    public float projectileLifetime = 5f;
+    public Transform shootOrigin;
+
+    [Header("Animación y sonido")]
+    public Animator animator;
+    public AudioSource audioSource;
+    public AudioClip shootClip;
 
     private float cooldown;
 
     protected override void ComportamientoPersonalizado()
     {
+        // Calcula velocidad para animaciones
+        float velocity = agente.velocity.magnitude;
+        if (animator != null)
+            animator.SetFloat("velocity", velocity);
+
         if (enemigos == null || enemigos.Count == 0)
         {
             transform.LookAt(jugador);
@@ -24,14 +33,12 @@ public class PetAttacker : PetBase
         }
 
         Transform target = ObtenerEnemigoMasCercano();
-
         if (target == null)
         {
             transform.LookAt(jugador);
             return;
         }
 
-        // Rotar hacia el enemigo (horizontal)
         Vector3 lookDir = target.position - transform.position;
         lookDir.y = 0;
         if (lookDir != Vector3.zero)
@@ -42,6 +49,14 @@ public class PetAttacker : PetBase
         {
             cooldown = 0f;
             Disparar(target.position);
+
+            // ✅ Animación disparo
+            if (animator != null)
+                animator.SetTrigger("shoot");
+
+            // ✅ Sonido disparo
+            if (audioSource != null && shootClip != null)
+                audioSource.PlayOneShot(shootClip);
         }
     }
 

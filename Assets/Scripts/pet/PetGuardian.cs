@@ -1,20 +1,25 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Mascota guardiana que da�a y ralentiza enemigos cercanos sin alejarse demasiado del jugador.
+/// Mascota guardiana que daña y ralentiza enemigos cercanos, con animación y sonido.
 /// </summary>
 public class PetGuardian : PetBase
 {
     [Header("Aura de contacto")]
-    [SerializeField] private float attackCooldown = 3f;
-    [SerializeField] private float slowMultiplier = 0.5f;
-    [SerializeField] private float slowDuration = 1f;
+    public float attackCooldown = 3f;
+    public float slowMultiplier = 0.5f;
+    public float slowDuration = 1f;
+    public float damage = 1f;
+
+    [Header("Animación y sonido")]
+    public Animator animator;
+    public AudioSource audioSource;
+    public AudioClip pushClip;
 
     [Header("Control de alcance")]
-    [Tooltip("Distancia m�xima que puede alejarse del jugador.")]
-    [SerializeField] private float detectionRadius = 5f;
+    public float detectionRadius = 5f;
 
     private Dictionary<Transform, float> cooldowns = new();
 
@@ -23,7 +28,6 @@ public class PetGuardian : PetBase
         if (((1 << other.gameObject.layer) & EnemyLayer) == 0) return;
 
         Transform enemigo = other.transform;
-
         var stats = enemigo.GetComponent<EnemyStats>();
         if (stats == null) return;
 
@@ -33,8 +37,16 @@ public class PetGuardian : PetBase
         {
             cooldowns[enemigo] = Time.time;
 
-            stats.TakeDamage(1f);
+            stats.TakeDamage(damage);
             StartCoroutine(ReducirVelocidadTemporal(stats));
+
+            // ✅ Animación empuje
+            if (animator != null)
+                animator.SetTrigger("push");
+
+            // ✅ Sonido empuje
+            if (audioSource != null && pushClip != null)
+                audioSource.PlayOneShot(pushClip);
         }
     }
 
@@ -51,6 +63,11 @@ public class PetGuardian : PetBase
 
     protected override void ComportamientoPersonalizado()
     {
+        // ✅ Detectar movimiento para Idle/Run
+        float velocity = agente.velocity.magnitude;
+        if (animator != null)
+            animator.SetFloat("velocity", velocity);
+
         Transform enemigo = ObtenerEnemigoMasCercanoEnRango();
 
         if (enemigo != null)

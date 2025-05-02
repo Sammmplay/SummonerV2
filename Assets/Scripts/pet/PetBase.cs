@@ -1,111 +1,98 @@
-// PetBase.cs
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections.Generic;
 
 /// <summary>
-/// Clase base abstracta para todas las mascotas.
-/// Gestiona el seguimiento al jugador, parámetros de navegación y
-/// expone la lista de enemigos proporcionada por el PetManager.
-/// Las subclases implementan su propio comportamiento en ComportamientoPersonalizado().
+/// Clase base para mascotas. Gestiona movimiento, detección y comportamiento.
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class PetBase : MonoBehaviour
 {
-    [Header("Parámetros de Seguimiento")]
-    [Tooltip("Distancia mínima que mantendrá respecto al jugador.")]
+    [Header("Parámetros")]
     [SerializeField] protected float distanciaAlJugador = 2f;
+    [SerializeField] protected float rangoDeteccion = 5f;
 
-    [Header("Parámetros de Navegación")]
-    [SerializeField] protected float velocidad = 3.5f;
-    [SerializeField] protected float aceleracion = 8f;
-    [SerializeField] protected float giro = 120f;
-
-    /// <summary>
-    /// Capa de enemigos para detección, asignada desde el PetManager.
-    /// </summary>
-    [HideInInspector] public LayerMask EnemyLayer;
-
-    // Referencias inyectadas por el PetManager
     protected Transform jugador;
     protected GameObject proyectilBase;
-    protected List<Transform> enemigos;
     protected PetManager petManager;
-
-    // Componente de navegación
     protected NavMeshAgent agente;
 
-    /// <summary>
-    /// Configura referencias globales: jugador, prefab de proyectil,
-    /// lista de enemigos y el propio PetManager.
-    /// </summary>
-    public virtual void Configurar(
-        Transform jugadorRef,
-        GameObject proyectilRef,
-        List<Transform> enemigosRef,
-        PetManager managerRef = null)
+    public LayerMask EnemyLayer { get; set; }
+    protected Transform enemigoActual;
+
+    public virtual void Configurar(Transform jugadorRef, GameObject proyectilRef, PetManager managerRef)
     {
         jugador = jugadorRef;
         proyectilBase = proyectilRef;
-        enemigos = enemigosRef;
         petManager = managerRef;
+
+        if (petManager != null)
+            EnemyLayer = petManager.EnemyLayer;
     }
 
-    /// <summary>
-    /// Inicializa y valida el NavMeshAgent; setea parámetros de movimiento.
-    /// </summary>
     protected virtual void Start()
     {
         agente = GetComponent<NavMeshAgent>();
         if (agente == null)
         {
-            Debug.LogError($"{name} requiere un NavMeshAgent.");
-            enabled = false;
-            return;
-        }
-        if (!agente.isOnNavMesh)
-        {
-            Debug.LogWarning($"{name} instanciado fuera del NavMesh.");
+            Debug.LogError($"{name} requiere NavMeshAgent.");
             enabled = false;
             return;
         }
 
         agente.stoppingDistance = distanciaAlJugador;
         agente.autoBraking = true;
-        agente.speed = velocidad;
-        agente.acceleration = aceleracion;
-        agente.angularSpeed = giro;
 
-        // Opcional: prioridad de evitación aleatoria para evitar amontonamiento
-        agente.avoidancePriority = Random.Range(0, 100);
+        if (petManager != null)
+        {
+            agente.speed = petManager.Velocidad;
+            agente.acceleration = petManager.Aceleracion;
+            agente.angularSpeed = petManager.Giro;
+        }
+
+        agente.avoidancePriority = UnityEngine.Random.Range(0, 100);
     }
 
-    /// <summary>
-    /// Cada frame mueve al agente hacia el destino calculado
-    /// y ejecuta el comportamiento específico de la subclase.
-    /// </summary>
-    protected virtual void Update() {
-        if (jugador == null || agente == null) return;
+    protected virtual void Update()
+    {
+        if (jugador == null || agente == null || !agente.isOnNavMesh)
+            return;
 
-        if (agente.isActiveAndEnabled && agente.isOnNavMesh) {
-            agente.SetDestination(CalcularDestino());
-        }
+        DetectarEnemigoCercano();
+        Vector3 destino = CalcularDestino();
+
+        if (Vector3.Distance(agente.destination, destino) > 0.5f)
+            agente.SetDestination(destino);
 
         ComportamientoPersonalizado();
     }
 
-    /// <summary>
-    /// Determina a dónde moverse; por defecto, sigue al jugador.
-    /// Las subclases pueden overridear para priorizar enemigos.
-    /// </summary>
-    protected virtual Vector3 CalcularDestino()
+    protected virtual void DetectarEnemigoCercano()
     {
-        return jugador.position;
+        Collider[] cols = Physics.OverlapSphere(transform.position, rangoDeteccion, EnemyLayer);
+        float distanciaMin = Mathf.Infinity;
+        enemigoActual = null;
+
+        foreach (var col in cols)
+        {
+            float dist = Vector3.Distance(transform.position, col.transform.position);
+            if (dist < distanciaMin)
+            {
+                distanciaMin = dist;
+                enemigoActual = col.transform;
+            }
+        }
     }
 
-    /// <summary>
-    /// Método abstracto que cada subclase debe implementar
-    /// para definir su comportamiento único (ataque, dash, empuje…).
-    /// </summary>
+    protected virtual Vector3 CalcularDestino()
+    {
+        if (enemigoActual != null)
+            return enemigoActual.position;
+
+        if (jugador != null)
+            return jugador.position;
+
+        return transform.position;
+    }
+
     protected abstract void ComportamientoPersonalizado();
 }
