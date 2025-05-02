@@ -10,6 +10,9 @@ public class EnemyDropsGenerator : MonoBehaviour
     [SerializeField]
     private Vector3 spawnPositionTweak;
 
+    /// <summary>
+    /// Función que genera un drop aleatorio
+    /// </summary>
     public void DropsSpawn()
     {
         if (spawnChance > Random.Range(0, 101))

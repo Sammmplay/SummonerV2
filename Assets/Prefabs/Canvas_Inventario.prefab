@@ -4363,7 +4363,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8236446529963442619}
         m_TargetAssemblyTypeName: CraftingManager, Assembly-CSharp
         m_MethodName: CraftearSelecionado
         m_Mode: 1
