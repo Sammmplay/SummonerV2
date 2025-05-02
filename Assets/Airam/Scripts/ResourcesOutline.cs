@@ -8,11 +8,15 @@ public class ResourcesOutline : MonoBehaviour
     [SerializeField]
     private Outline outline;
 
-    private void Start()
+    private void Awake()
     {
         outline = GetComponent<Outline>();
     }
 
+    /// <summary>
+    /// Función que controla si el objeto tiene el activo outline o no
+    /// </summary>
+    /// <param name="selectable"></param>
     public void IsSelectable(bool selectable)
     {
         if (outline != null)
