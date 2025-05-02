@@ -24,6 +24,9 @@ public class CameraLimits : MonoBehaviour
         gridGenerator = FindFirstObjectByType<GridGenerator>();
     }
 
+    /// <summary>
+    /// Guarda los límites de la cámara según el tamaño del grid y un valor calculado
+    /// </summary>
     private void Start()
     {
         xLimits = gridGenerator.totalColumns - 15f;
@@ -35,6 +38,9 @@ public class CameraLimits : MonoBehaviour
         CameraLimitsTweaks();
     }
 
+    /// <summary>
+    /// Función para aplicar los límites a la cámara
+    /// </summary>
     public void CameraLimitsTweaks()
     {
         cameraLimits.size = new Vector3 (xLimits, yLimits, zLimits);
