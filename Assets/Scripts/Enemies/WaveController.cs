@@ -2,20 +2,29 @@ using JetBrains.Annotations;
 using UnityEditor.Recorder;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class WaveController : MonoBehaviour
 {
     public bool canStartWave = true;
 
-    [SerializeField] private float spawnRate = 5f;
-    private float timeTillSpawn = 5f;
+    [SerializeField] private float spawnRate = 10f;
+    private float timeTillSpawn = 10f;
 
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private int enemiesPerWave = 4;
     private int enemiesLeftToSpawn;
 
-    private int waveNumber = 0;
+    public int waveNumber = 0;
+
+    private EnemiesController enemiesController;
+    private WavesUI wavesUI;
+
+    public void Start()
+    {
+        enemiesController = GetComponent<EnemiesController>();
+        wavesUI = FindFirstObjectByType<WavesUI>();
 
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -38,12 +47,17 @@ public class EnemySpawner : MonoBehaviour
         if (enemiesLeftToSpawn == 0)
         {
             waveNumber += 1;
+            wavesUI.TextUpdate();
             canStartWave = false;
+
         }
     }
     public void startNextWave()
     {
         spawnRate -= waveNumber / 5f;
         enemiesPerWave += waveNumber;
+
+        enemiesController.buffedDamage = enemiesController.baseDamage + waveNumber/2f;
+        enemiesController.buffedHP = enemiesController.baseHP + waveNumber;
     }
 }

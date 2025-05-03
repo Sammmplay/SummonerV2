@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyFollow : MonoBehaviour
+public class EnemiesController : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
     private NavMeshAgent agent;
+
+    public float baseDamage = 1;
+    public float buffedDamage;
+    public float baseHP = 1;
+    public float buffedHP;
 
     void Start()
     {
@@ -14,6 +19,9 @@ public class EnemyFollow : MonoBehaviour
         {
             target = player.transform;
         }
+
+        buffedDamage = baseDamage;
+        buffedHP = baseHP;
     }
 
     void Update()

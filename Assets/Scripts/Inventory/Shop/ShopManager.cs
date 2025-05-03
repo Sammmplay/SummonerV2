@@ -10,7 +10,7 @@ public class ShopManager : MonoBehaviour
     public List<ShopItemData> _itemsEnVenta;
     public GameObject _slptPrefab;
     public Transform _contentScroll;
-
+    public float sizeContent = 240.0f;
     [SerializeField] private Button _botonComprar;
 
     [Header("Seleccion de Item")]
@@ -33,7 +33,7 @@ public class ShopManager : MonoBehaviour
             GameObject slot = Instantiate(_slptPrefab, _contentScroll);
             RectTransform heigh = _contentScroll.GetComponent<RectTransform>();
             Vector2 size = heigh.sizeDelta; // obtener el tamaño actual
-            size.y += 210f; // modificar la altura
+            size.y += sizeContent; // modificar la altura
             heigh.sizeDelta = size;
 
             slot.GetComponent<ShopSlotUI>().Configurar(item);

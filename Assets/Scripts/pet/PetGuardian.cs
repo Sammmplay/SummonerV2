@@ -1,91 +1,92 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 /// <summary>
-/// Mascota guardiana que daña y ralentiza enemigos cercanos sin alejarse demasiado del jugador.
+/// Mascota tipo Defender que permanece cerca del jugador (máx. 1.5 m),
+/// detecta enemigos cercanos usando el sistema del PetBase
+/// y los empuja para proteger al jugador.
+/// Usa Animator para animaciones y AudioSource para sonido.
 /// </summary>
-public class PetGuardian : PetBase
+[RequireComponent(typeof(Animator), typeof(AudioSource))]
+public class PetDefender : PetBase
 {
-    [Header("Aura de contacto")]
-    [SerializeField] private float attackCooldown = 3f;
-    [SerializeField] private float slowMultiplier = 0.5f;
-    [SerializeField] private float slowDuration = 1f;
+    [Header("Defensa")]
+    [SerializeField] private float empujeIntervalo = 3f; // Tiempo entre empujes
+    [SerializeField] private float empujeFuerza = 1f;    // Daño aplicado al empujar
+    [SerializeField] private float distanciaMaximaJugador = 1.5f; // ~5 pies
 
-    [Header("Control de alcance")]
-    [Tooltip("Distancia máxima que puede alejarse del jugador.")]
-    [SerializeField] private float detectionRadius = 5f;
+    [Header("Audio y Animación")]
+    [SerializeField] private AudioClip impactoSonido; // Sonido al impactar enemigo
+    [SerializeField] private Animator animator;       // Animator de la pet
 
-    private Dictionary<Transform, float> cooldowns = new();
+    private float cooldown;
+    private AudioSource audioSource;
 
-    private void OnTriggerStay(Collider other)
+    /// <summary>
+    /// Inicializa componentes (Animator y AudioSource).
+    /// </summary>
+    protected override void Start()
     {
-        if (((1 << other.gameObject.layer) & EnemyLayer) == 0) return;
-
-        Transform enemigo = other.transform;
-
-        var stats = enemigo.GetComponent<EnemyStats>();
-        if (stats == null) return;
-
-        if (!cooldowns.ContainsKey(enemigo)) cooldowns[enemigo] = -attackCooldown;
-
-        if (Time.time - cooldowns[enemigo] >= attackCooldown)
-        {
-            cooldowns[enemigo] = Time.time;
-
-            stats.TakeDamage(1f);
-            StartCoroutine(ReducirVelocidadTemporal(stats));
-        }
+        base.Start();
+        audioSource = GetComponent<AudioSource>();
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
-    private IEnumerator ReducirVelocidadTemporal(EnemyStats enemigo)
-    {
-        float original = enemigo.Speed;
-        enemigo.Speed *= slowMultiplier;
-
-        yield return new WaitForSeconds(slowDuration);
-
-        if (enemigo != null)
-            enemigo.Speed = original;
-    }
-
+    /// <summary>
+    /// Controla el comportamiento principal:
+    /// mantener distancia al jugador, buscar enemigo más cercano
+    /// y empujarlo si está disponible.
+    /// </summary>
     protected override void ComportamientoPersonalizado()
     {
-        Transform enemigo = ObtenerEnemigoMasCercanoEnRango();
+        float distanciaAlJugador = Vector3.Distance(transform.position, jugador.position);
 
-        if (enemigo != null)
+        // Si se aleja demasiado, regresar al jugador
+        if (distanciaAlJugador > distanciaMaximaJugador)
         {
-            float distEnemigo = Vector3.Distance(jugador.position, enemigo.position);
+            agente.SetDestination(jugador.position);
+            animator.SetFloat("Speed", agente.velocity.magnitude);
+            return;
+        }
 
-            if (distEnemigo <= detectionRadius)
-                agente.SetDestination(enemigo.position);
-            else
-                agente.SetDestination(jugador.position);
+        if (enemigoActual != null)
+        {
+            agente.SetDestination(enemigoActual.position);
+            transform.LookAt(enemigoActual);
+            cooldown += Time.deltaTime;
+            animator.SetFloat("Speed", agente.velocity.magnitude);
 
-            transform.LookAt(enemigo);
+            if (cooldown >= empujeIntervalo)
+            {
+                cooldown = 0f;
+                EmpujarEnemigo(enemigoActual);
+                animator.SetTrigger("Push");
+            }
         }
         else
         {
+            // Si no hay enemigos, mantenerse cerca del jugador
             agente.SetDestination(jugador.position);
-            transform.LookAt(jugador);
+            animator.SetFloat("Speed", agente.velocity.magnitude);
         }
     }
 
-    private Transform ObtenerEnemigoMasCercanoEnRango()
+    /// <summary>
+    /// Aplica daño al enemigo y lo empuja ligeramente hacia afuera.
+    /// </summary>
+    /// <param name="enemigo">Enemigo objetivo.</param>
+    private void EmpujarEnemigo(Transform enemigo)
     {
-        Transform cercano = null;
-        float minDist = float.MaxValue;
-
-        foreach (var e in enemigos)
+        var stats = enemigo.GetComponent<EnemyStats>();
+        if (stats != null)
         {
-            float dist = Vector3.Distance(jugador.position, e.position);
-            if (dist <= detectionRadius && dist < minDist)
-            {
-                minDist = dist;
-                cercano = e;
-            }
+            stats.TakeDamage(empujeFuerza);
+            if (impactoSonido != null)
+                audioSource.PlayOneShot(impactoSonido);
         }
 
-        return cercano;
+        // Empuje ligero hacia afuera, solo en posición (sin física)
+        Vector3 awayFromPlayer = (enemigo.position - jugador.position).normalized;
+        enemigo.position += awayFromPlayer * 0.5f;
     }
 }

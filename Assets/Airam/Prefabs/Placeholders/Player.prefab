@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _input: {x: 0, y: 0}
   _velocity: 5
-  smothRotation: 10
+  smoothRotation: 10
 --- !u!114 &3346006797152943554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +214,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputAction: {fileID: 0}
-  interactionRadius: 1.75
+  interactionRadius: 1.25
+  selectableResources: []
+  closestResource: {fileID: 0}
 --- !u!1 &2650533394815753954
 GameObject:
   m_ObjectHideFlags: 0
