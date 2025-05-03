@@ -1,108 +1,92 @@
-ï»¿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
-/// Mascota guardiana que daÃ±a y ralentiza enemigos cercanos, con animaciÃ³n y sonido.
+/// Mascota tipo Defender que permanece cerca del jugador (máx. 1.5 m),
+/// detecta enemigos cercanos usando el sistema del PetBase
+/// y los empuja para proteger al jugador.
+/// Usa Animator para animaciones y AudioSource para sonido.
 /// </summary>
-public class PetGuardian : PetBase
+[RequireComponent(typeof(Animator), typeof(AudioSource))]
+public class PetDefender : PetBase
 {
-    [Header("Aura de contacto")]
-    public float attackCooldown = 3f;
-    public float slowMultiplier = 0.5f;
-    public float slowDuration = 1f;
-    public float damage = 1f;
+    [Header("Defensa")]
+    [SerializeField] private float empujeIntervalo = 3f; // Tiempo entre empujes
+    [SerializeField] private float empujeFuerza = 1f;    // Daño aplicado al empujar
+    [SerializeField] private float distanciaMaximaJugador = 1.5f; // ~5 pies
 
-    [Header("AnimaciÃ³n y sonido")]
-    public Animator animator;
-    public AudioSource audioSource;
-    public AudioClip pushClip;
+    [Header("Audio y Animación")]
+    [SerializeField] private AudioClip impactoSonido; // Sonido al impactar enemigo
+    [SerializeField] private Animator animator;       // Animator de la pet
 
-    [Header("Control de alcance")]
-    public float detectionRadius = 5f;
+    private float cooldown;
+    private AudioSource audioSource;
 
-    private Dictionary<Transform, float> cooldowns = new();
-
-    private void OnTriggerStay(Collider other)
+    /// <summary>
+    /// Inicializa componentes (Animator y AudioSource).
+    /// </summary>
+    protected override void Start()
     {
-        if (((1 << other.gameObject.layer) & EnemyLayer) == 0) return;
-
-        Transform enemigo = other.transform;
-        var stats = enemigo.GetComponent<EnemyStats>();
-        if (stats == null) return;
-
-        if (!cooldowns.ContainsKey(enemigo)) cooldowns[enemigo] = -attackCooldown;
-
-        if (Time.time - cooldowns[enemigo] >= attackCooldown)
-        {
-            cooldowns[enemigo] = Time.time;
-
-            stats.TakeDamage(damage);
-            StartCoroutine(ReducirVelocidadTemporal(stats));
-
-            // âœ… AnimaciÃ³n empuje
-            if (animator != null)
-                animator.SetTrigger("push");
-
-            // âœ… Sonido empuje
-            if (audioSource != null && pushClip != null)
-                audioSource.PlayOneShot(pushClip);
-        }
+        base.Start();
+        audioSource = GetComponent<AudioSource>();
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
-    private IEnumerator ReducirVelocidadTemporal(EnemyStats enemigo)
-    {
-        float original = enemigo.Speed;
-        enemigo.Speed *= slowMultiplier;
-
-        yield return new WaitForSeconds(slowDuration);
-
-        if (enemigo != null)
-            enemigo.Speed = original;
-    }
-
+    /// <summary>
+    /// Controla el comportamiento principal:
+    /// mantener distancia al jugador, buscar enemigo más cercano
+    /// y empujarlo si está disponible.
+    /// </summary>
     protected override void ComportamientoPersonalizado()
     {
-        // âœ… Detectar movimiento para Idle/Run
-        float velocity = agente.velocity.magnitude;
-        if (animator != null)
-            animator.SetFloat("velocity", velocity);
+        float distanciaAlJugador = Vector3.Distance(transform.position, jugador.position);
 
-        Transform enemigo = ObtenerEnemigoMasCercanoEnRango();
-
-        if (enemigo != null)
+        // Si se aleja demasiado, regresar al jugador
+        if (distanciaAlJugador > distanciaMaximaJugador)
         {
-            float distEnemigo = Vector3.Distance(jugador.position, enemigo.position);
+            agente.SetDestination(jugador.position);
+            animator.SetFloat("Speed", agente.velocity.magnitude);
+            return;
+        }
 
-            if (distEnemigo <= detectionRadius)
-                agente.SetDestination(enemigo.position);
-            else
-                agente.SetDestination(jugador.position);
+        if (enemigoActual != null)
+        {
+            agente.SetDestination(enemigoActual.position);
+            transform.LookAt(enemigoActual);
+            cooldown += Time.deltaTime;
+            animator.SetFloat("Speed", agente.velocity.magnitude);
 
-            transform.LookAt(enemigo);
+            if (cooldown >= empujeIntervalo)
+            {
+                cooldown = 0f;
+                EmpujarEnemigo(enemigoActual);
+                animator.SetTrigger("Push");
+            }
         }
         else
         {
+            // Si no hay enemigos, mantenerse cerca del jugador
             agente.SetDestination(jugador.position);
-            transform.LookAt(jugador);
+            animator.SetFloat("Speed", agente.velocity.magnitude);
         }
     }
 
-    private Transform ObtenerEnemigoMasCercanoEnRango()
+    /// <summary>
+    /// Aplica daño al enemigo y lo empuja ligeramente hacia afuera.
+    /// </summary>
+    /// <param name="enemigo">Enemigo objetivo.</param>
+    private void EmpujarEnemigo(Transform enemigo)
     {
-        Transform cercano = null;
-        float minDist = float.MaxValue;
-
-        foreach (var e in enemigos)
+        var stats = enemigo.GetComponent<EnemyStats>();
+        if (stats != null)
         {
-            float dist = Vector3.Distance(jugador.position, e.position);
-            if (dist <= detectionRadius && dist < minDist)
-            {
-                minDist = dist;
-                cercano = e;
-            }
+            stats.TakeDamage(empujeFuerza);
+            if (impactoSonido != null)
+                audioSource.PlayOneShot(impactoSonido);
         }
 
-        return cercano;
+        // Empuje ligero hacia afuera, solo en posición (sin física)
+        Vector3 awayFromPlayer = (enemigo.position - jugador.position).normalized;
+        enemigo.position += awayFromPlayer * 0.5f;
     }
 }

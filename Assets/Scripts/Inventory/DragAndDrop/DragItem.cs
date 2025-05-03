@@ -8,17 +8,8 @@ public class DragItem : MonoBehaviour ,IBeginDragHandler,IDragHandler, IEndDragH
     CanvasGroup canvasGroup;
     RectTransform rectTransform;
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    Transform originalParent;
-=======
-   [HideInInspector]
-public Transform originalParent;
->>>>>>> Stashed changes
-=======
-   [HideInInspector]
-public Transform originalParent;
->>>>>>> Stashed changes
+    [HideInInspector]
+    public Transform originalParent;
     Vector2 originalPos;
 
     private void Awake() {
@@ -29,19 +20,21 @@ public Transform originalParent;
         canvasGroup = GetComponent<CanvasGroup>();
     }
     public void OnBeginDrag(PointerEventData eventData) {
-        originalParent = transform.parent;              // Guarda el padre original del objeto
-        originalPos = rectTransform.anchoredPosition;   // Guarda la posición inicial
-
-        canvasGroup.blocksRaycasts = false;             // Desactiva raycasts para que no bloquee eventos de otros objetos
-        transform.SetParent(canvas.transform);          //se  mueve por encima de todo
+        originalParent = transform.parent;
+        transform.SetParent(canvas.transform); // mover al canvas root
+        canvasGroup.blocksRaycasts = false;
     }
     public void OnDrag(PointerEventData eventdata) {
         // Mueve el ítem con el mouse, ajustando por el factor de escala del Canvas
         rectTransform.anchoredPosition += eventdata.delta / canvas.scaleFactor;
     }
     public void OnEndDrag(PointerEventData eventData) {
-        transform.SetParent(originalParent);             // Vuelve a poner el objeto en su padre original
-        rectTransform.anchoredPosition = originalPos;   // Vuelve a la posición original (por ahora)
-        canvasGroup .blocksRaycasts = true;              // Reactiva los raycasts
+        canvasGroup.blocksRaycasts = true;
+
+        // Si no cambió de padre (no fue soltado en un slot válido), vuelve al original
+        if (transform.parent == canvas.transform) {
+            transform.SetParent(originalParent);
+            rectTransform.anchoredPosition = Vector2.zero;
+        }
     }
 }

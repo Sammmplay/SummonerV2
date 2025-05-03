@@ -1,160 +1,121 @@
-// PetManager.cs
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 
 /// <summary>
-/// Controlador central del sistema de mascotas.
-/// - Usa spawnRadius como área de spawn y detección.
-/// - Genera tamaño aleatorio entre minScale y maxScale.
-/// - Anima el spawn con LeanTween (escala + rotación).
-/// - Instancia y configura las mascotas, pasándoles referencias y lista de enemigos.
+/// Administra el spawn, configuración y gestión de mascotas activas.
 /// </summary>
 public class PetManager : MonoBehaviour
 {
-    [Header("Referencias Globales")]
-    [Tooltip("Transform del jugador que las mascotas seguirán.")]
+    [Header("Referencias globales")]
     [SerializeField] private Transform jugador;
-
-    [Tooltip("Prefab de proyectil que usarán Attacker/Assassin.")]
     [SerializeField] private GameObject proyectilBase;
 
-    [Header("Prefabs de Mascotas")]
-    [Tooltip("Prefabs de mascotas a instanciar.")]
+    [Header("Prefabs iniciales")]
     [SerializeField] private List<GameObject> mascotasIniciales;
 
-    [Header("Capa y Área")]
-    [Tooltip("Capa asignada a los enemigos (OverlapSphere).")]
+    [Header("Capas y área")]
     [SerializeField] private LayerMask enemyLayer;
-
-    [Tooltip("Capa asignada a las mascotas.")]
     [SerializeField] private LayerMask petsLayer;
+    [SerializeField] private float areaRadius = 5f;
 
-    [Tooltip("Radio usado tanto para spawn como para detección.")]
-    [SerializeField] private float spawnRadius = 5f;
+    [Header("NavMesh config global")]
+    [SerializeField] private float velocidad = 3.5f;
+    [SerializeField] private float aceleracion = 8f;
+    [SerializeField] private float giro = 120f;
 
-    [Header("Escala Aleatoria")]
-    [Tooltip("Escala mínima tras spawn.")]
+    [Header("Escala de spawn")]
     [SerializeField] private float minScale = 0.8f;
-
-    [Tooltip("Escala máxima tras spawn.")]
     [SerializeField] private float maxScale = 1.2f;
 
-    private List<PetBase> mascotasActivas = new();
-    private List<Transform> enemigosDetectados = new();
+    [System.NonSerialized] public List<GameObject> mascotasActivas = new List<GameObject>();
+
+    public float AreaRadius => areaRadius;
+    public LayerMask EnemyLayer => enemyLayer;
+    public LayerMask PetsLayer => petsLayer;
+    public float Velocidad => velocidad;
+    public float Aceleracion => aceleracion;
+    public float Giro => giro;
 
     private void Start()
     {
-        SpawnearYConfigurarPets();
+        SpawnearMascotasIniciales();
     }
 
-    private void Update()
+    private void SpawnearMascotasIniciales()
     {
-        ActualizarEnemigosCercanos();
-    }
-
-    /// <summary>
-    /// Instancia cada prefab en un punto aleatorio del NavMesh dentro de spawnRadius,
-    /// aplica animación de spawn y luego lo configura.
-    /// </summary>
-    private void SpawnearYConfigurarPets()
-    {
-        foreach (GameObject prefab in mascotasIniciales)
+        foreach (var prefab in mascotasIniciales)
         {
-            if (prefab == null) continue;
-
-            // Determina posición válida en NavMesh
-            Vector3 offset = Random.insideUnitSphere * spawnRadius;
-            offset.y = 0;
-            if (NavMesh.SamplePosition(jugador.position + offset, out NavMeshHit hit, spawnRadius, NavMesh.AllAreas))
-            {
-                GameObject instancia = Instantiate(prefab, hit.position, Quaternion.identity);
-
-                // Tamaño aleatorio
-                float targetScale = Random.Range(minScale, maxScale);
-                instancia.transform.localScale = Vector3.zero;
-
-                // Animación de spawn con LeanTween
-                float dur = 0.5f;
-                LeanTween.scale(instancia, Vector3.one * targetScale, dur)
-                         .setEaseOutBack();
-                LeanTween.rotateY(instancia, 360f, dur)
-                         .setEaseInOutQuad()
-                         .setOnComplete(() => instancia.transform.rotation = Quaternion.identity);
-
-                ConfigurarPet(instancia);
-            }
+            if (prefab != null)
+                AgregarMascotaRuntime(prefab, prefab.name);
         }
     }
 
-    /// <summary>
-    /// Inyecta referencias en la instancia de mascota.
-    /// </summary>
-    private void ConfigurarPet(GameObject instancia)
+    public GameObject AgregarMascotaRuntime(GameObject prefab, string nombre)
     {
-        PetBase pet = instancia.GetComponent<PetBase>();
-        if (pet == null) return;
+        if (NavMesh.SamplePosition(jugador.position + UnityEngine.Random.insideUnitSphere * areaRadius, out NavMeshHit hit, areaRadius, NavMesh.AllAreas))
+        {
+            GameObject instancia = Instantiate(prefab, hit.position, Quaternion.identity);
+            instancia.name = nombre;
 
-        pet.Configurar(jugador, proyectilBase, enemigosDetectados, this);
-        pet.EnemyLayer = enemyLayer;
-        mascotasActivas.Add(pet);
+            float targetScale = UnityEngine.Random.Range(minScale, maxScale);
+            instancia.transform.localScale = Vector3.one * targetScale;
+
+            var pet = instancia.GetComponent<PetBase>();
+            if (pet != null)
+                pet.Configurar(jugador, proyectilBase, this);
+
+            mascotasActivas.Add(instancia);
+            Debug.Log($"Mascota añadida: {nombre}");
+            return instancia;
+        }
+
+        Debug.LogWarning($"No se pudo spawnear la mascota '{nombre}': fuera del NavMesh.");
+        return null;
     }
 
-    /// <summary>
-    /// Actualiza la lista de enemigos dentro de spawnRadius alrededor del jugador.
-    /// </summary>
-    private void ActualizarEnemigosCercanos()
+    public void RemoverMascotaPorNombre(string nombre)
     {
-        enemigosDetectados.Clear();
-        Vector3 centro = jugador.position + Vector3.up * 1f;
-        Collider[] cols = Physics.OverlapSphere(centro, spawnRadius, enemyLayer);
-        foreach (var c in cols)
-            enemigosDetectados.Add(c.transform);
+        LimpiarListaMascotas();
+
+        GameObject mascotaARemover = mascotasActivas.Find(m => m != null && m.name.Contains(nombre));
+        if (mascotaARemover != null)
+        {
+            mascotasActivas.Remove(mascotaARemover);
+            Destroy(mascotaARemover);
+            Debug.Log($"Mascota eliminada: {nombre}");
+        }
+        else
+        {
+            Debug.LogWarning($"No se encontró mascota activa con el nombre: {nombre}");
+        }
     }
 
-    /// <summary>
-    /// Dibuja en el Editor el área de spawn/detección.
-    /// </summary>
+    public void RemoverTodasLasMascotas()
+    {
+        foreach (var mascota in mascotasActivas)
+        {
+            if (mascota != null)
+                Destroy(mascota);
+        }
+        mascotasActivas.Clear();
+        Debug.Log("Todas las mascotas fueron eliminadas.");
+    }
+
+    private void LimpiarListaMascotas()
+    {
+        mascotasActivas.RemoveAll(m => m == null);
+    }
+
+    public void AjustarAreaRadius(float nuevoRadio)
+    {
+        areaRadius = nuevoRadio;
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (jugador == null) return;
         Gizmos.color = Color.cyan;
-        Vector3 centro = jugador.position + Vector3.up * 1f;
-        Gizmos.DrawWireSphere(centro, spawnRadius);
+        Gizmos.DrawWireSphere(jugador.position + Vector3.up, areaRadius);
     }
-
-    /// <summary>
-    /// Radio usado para spawn y detección (read-only).
-    /// </summary>
-    public float SpawnAndDetectRadius => spawnRadius;
-
-    /// <summary>
-    /// Ajusta el radio en tiempo real (por ejemplo, power-up).
-    /// </summary>
-    public void AjustarSpawnAndDetectRadius(float nuevoRadio)
-    {
-        spawnRadius = nuevoRadio;
-    }
-
-    public LayerMask EnemyLayer => enemyLayer;
-    public LayerMask PetsLayer => petsLayer;
-    public void SpawnearPrefab(GameObject prefab)
-    {
-        if (NavMesh.SamplePosition(jugador.position + Random.insideUnitSphere * spawnRadius, out NavMeshHit hit, spawnRadius, NavMesh.AllAreas))
-        {
-            GameObject instancia = Instantiate(prefab, hit.position, Quaternion.identity);
-            ConfigurarPet(instancia);
-        }
-    }
-
-    public void RemoverMascota<T>() where T : PetBase
-    {
-        var pet = mascotasActivas.Find(p => p is T);
-        if (pet != null)
-        {
-            mascotasActivas.Remove(pet);
-            Destroy(pet.gameObject);
-        }
-    }
-
 }

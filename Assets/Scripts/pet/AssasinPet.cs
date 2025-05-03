@@ -1,100 +1,217 @@
-ï»¿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// Mascota asesina que embiste a enemigos en cadena, con animaciÃ³n y sonido.
+/// Mascota tipo Assassin que atraviesa enemigos en cadena,
+/// aplicando daño, mostrando un área de detección editable
+/// y alejándose tras impactar para evitar atascos.
 /// </summary>
+[RequireComponent(typeof(Collider), typeof(AudioSource), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody))]
 public class PetAssassin : PetBase
 {
-    [Header("Embestidas")]
-    [SerializeField] public float dashSpeed = 15f;
-    [SerializeField] public float reboteDelay = 0.15f;
-    [SerializeField] public float esperaEntreCadena = 2f;
-    [SerializeField] public float damage = 1f;
+    [Header("Parámetros de Embestida")]
+    [SerializeField] private float dashSpeed = 15f;
+    [SerializeField] private float esperaEntreCadenas = 5f;
+    [SerializeField] private float damage = 1f;
+    [SerializeField] private int maxRebotes = 3;
+    [SerializeField] private float detectionRadius = 3f;
+    [SerializeField] private float pushBackDistance = 1f; // distancia para alejarse tras golpear
 
-    [Header("AnimaciÃ³n y sonido")]
-    [SerializeField] private Animator animator; // Asigna el Animator del hijo 01_Spike_S aquÃ­
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip dashClip;
+    [Header("Gizmo Visual")]
+    [SerializeField] private Color gizmoColor = new Color(1f, 0f, 0f, 0.3f); // color editable en el editor
 
-    private bool enAtaque = false;
+    [Header("Audio y Animación")]
+    [SerializeField] private AudioClip impactoSonido;
+    [SerializeField] private Animator animator;
+
+    private bool isDashing = false;
     private float cooldown = 0f;
+    private int rebotesRestantes;
+    private AudioSource audioSource;
+    private Collider petCollider;
+    private Rigidbody rb;
+    private List<Transform> enemigosGolpeados = new();
 
+    /// <summary>
+    /// Inicializa componentes y valida referencias.
+    /// </summary>
+    protected override void Start()
+    {
+        base.Start();
+        audioSource = GetComponent<AudioSource>();
+        petCollider = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
+        petCollider.isTrigger = true;
+        rb.isKinematic = true;
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
+
+        rebotesRestantes = maxRebotes;
+    }
+
+    /// <summary>
+    /// Actualiza las animaciones y el estado cada frame.
+    /// </summary>
+    protected override void Update()
+    {
+        base.Update();
+        animator.SetFloat("Speed", agente.velocity.magnitude);
+        animator.SetBool("IsDashing", isDashing);
+    }
+
+    /// <summary>
+    /// Controla el comportamiento específico del Assassin:
+    /// seguir al jugador o iniciar el dash.
+    /// </summary>
     protected override void ComportamientoPersonalizado()
     {
-        // âœ… Actualiza velocidad para animaciÃ³n
-        if (animator != null)
-            animator.SetFloat("velocity", agente.velocity.magnitude);
-
-        if (enAtaque) return;
-
-        cooldown += Time.deltaTime;
-
-        if (enemigos != null && enemigos.Count > 0 && cooldown >= esperaEntreCadena)
+        if (isDashing)
         {
-            StartCoroutine(RealizarEmbestidas());
+            RealizarDash();
             return;
         }
 
-        if (agente.enabled)
+        cooldown += Time.deltaTime;
+
+        if (enemigoActual != null && cooldown >= esperaEntreCadenas)
         {
-            agente.SetDestination(jugador.position);
-            transform.LookAt(jugador);
+            IniciarDash();
         }
     }
 
-    private IEnumerator RealizarEmbestidas()
+    /// <summary>
+    /// Inicia la secuencia de embestidas.
+    /// </summary>
+    private void IniciarDash()
     {
-        enAtaque = true;
+        isDashing = true;
         cooldown = 0f;
-        agente.enabled = false;
+        rebotesRestantes = maxRebotes;
+        enemigosGolpeados.Clear();
+        agente.updatePosition = false;
+    }
 
-        // âœ… Activa trigger de dash
-        if (animator != null)
-            animator.SetBool("dash", true);
-
-        List<Transform> enemigosOrdenados = new List<Transform>(enemigos);
-        enemigosOrdenados.Sort((a, b) =>
-            Vector3.Distance(transform.position, a.position)
-            .CompareTo(Vector3.Distance(transform.position, b.position)));
-
-        foreach (Transform enemigo in enemigosOrdenados)
+    /// <summary>
+    /// Realiza el movimiento de dash hacia el enemigo actual.
+    /// </summary>
+    private void RealizarDash()
+    {
+        if (enemigoActual == null || rebotesRestantes <= 0)
         {
-            if (enemigo == null) continue;
-
-            Vector3 inicio = transform.position;
-            Vector3 destino = enemigo.position;
-
-            float duracion = Vector3.Distance(inicio, destino) / dashSpeed;
-            float tiempo = 0f;
-
-            // âœ… Reproduce sonido de dash
-            if (audioSource != null && dashClip != null)
-                audioSource.PlayOneShot(dashClip);
-
-            while (tiempo < duracion)
-            {
-                tiempo += Time.deltaTime;
-                transform.position = Vector3.Lerp(inicio, destino, tiempo / duracion);
-                yield return null;
-            }
-
-            transform.position = destino;
-
-            var stats = enemigo.GetComponent<EnemyStats>();
-            if (stats != null)
-                stats.TakeDamage(damage);
-
-            yield return new WaitForSeconds(reboteDelay);
+            TerminarDash();
+            return;
         }
 
-        agente.enabled = true;
+        Vector3 direccion = (enemigoActual.position - transform.position).normalized;
+        transform.position += direccion * dashSpeed * Time.deltaTime;
+        transform.LookAt(enemigoActual);
+    }
 
-        // âœ… Desactiva trigger de dash
-        if (animator != null)
-            animator.SetBool("dash", false);
+    /// <summary>
+    /// Detecta colisiones con enemigos durante el dash.
+    /// Aplica daño y busca el siguiente objetivo.
+    /// </summary>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isDashing) return;
+        if (((1 << other.gameObject.layer) & EnemyLayer.value) == 0) return;
 
-        enAtaque = false;
+        Transform enemigo = other.transform;
+        if (enemigosGolpeados.Contains(enemigo)) return;
+
+        var stats = enemigo.GetComponent<EnemyStats>();
+        if (stats != null)
+        {
+            stats.TakeDamage(damage);
+            if (impactoSonido != null)
+                audioSource.PlayOneShot(impactoSonido);
+        }
+
+        enemigosGolpeados.Add(enemigo);
+        AplicarEmpujeAtras(enemigo);
+
+        rebotesRestantes--;
+
+        if (rebotesRestantes > 0)
+        {
+            BuscarSiguienteEnemigo();
+            if (enemigoActual == null)
+                TerminarDash();
+        }
+        else
+        {
+            TerminarDash();
+        }
+    }
+
+    /// <summary>
+    /// Aplica un empuje hacia atrás para evitar quedarse atrapado.
+    /// </summary>
+    /// <param name="enemigo">El enemigo golpeado.</param>
+    private void AplicarEmpujeAtras(Transform enemigo)
+    {
+        Vector3 awayFromEnemy = (transform.position - enemigo.position).normalized;
+        transform.position += awayFromEnemy * pushBackDistance;
+    }
+
+    /// <summary>
+    /// Busca el siguiente enemigo dentro del radio de detección.
+    /// </summary>
+    private void BuscarSiguienteEnemigo()
+    {
+        Collider[] cols = Physics.OverlapSphere(transform.position, detectionRadius, EnemyLayer);
+        float minDist = Mathf.Infinity;
+        Transform siguiente = null;
+
+        foreach (var col in cols)
+        {
+            if (enemigosGolpeados.Contains(col.transform)) continue;
+
+            float dist = Vector3.Distance(transform.position, col.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                siguiente = col.transform;
+            }
+        }
+
+        enemigoActual = siguiente;
+    }
+
+    /// <summary>
+    /// Finaliza la secuencia de dash y regresa al estado normal.
+    /// </summary>
+    private void TerminarDash()
+    {
+        isDashing = false;
+        agente.updatePosition = true;
+        enemigoActual = null;
+    }
+
+    /// <summary>
+    /// Calcula el destino actual del Assassin (jugador o enemigo).
+    /// </summary>
+    /// <returns>Posición objetivo.</returns>
+    protected override Vector3 CalcularDestino()
+    {
+        if (!isDashing && jugador != null)
+            return jugador.position;
+
+        if (isDashing && enemigoActual != null)
+            return enemigoActual.position;
+
+        return jugador != null ? jugador.position : transform.position;
+    }
+
+    /// <summary>
+    /// Dibuja el radio de detección en el editor con color configurable.
+    /// </summary>
+    private void OnDrawGizmosSelected()
+    {
+        Color gizmoTransparent = new Color(gizmoColor.r, gizmoColor.g, gizmoColor.b, gizmoColor.a);
+        Gizmos.color = gizmoTransparent;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }

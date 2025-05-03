@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jugador: {fileID: 0}
-  prefabAssassin: {fileID: 0}
-  prefabAttacker: {fileID: 0}
-  prefabDefender: {fileID: 0}
+  petManager: {fileID: 0}
+  prefabAssassin: {fileID: 1616684454226722345, guid: 8b3fe3dfc2047694fa4861af423964be, type: 3}
+  prefabAttacker: {fileID: 1822982154116630964, guid: 4bed402db32f8bb4c848c9adf40ce78f, type: 3}
+  prefabDefender: {fileID: 8804702717666447721, guid: 01e9a0ec201971b4f880646b2cbe551f, type: 3}
   saludExtra: 50
   healingAmount: 30
   velocidadExtra: 2

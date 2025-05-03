@@ -173,8 +173,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 62.5, y: -32.723}
-  m_SizeDelta: {x: -125, y: 117.28}
+  m_AnchoredPosition: {x: 52.2574, y: -32.723}
+  m_SizeDelta: {x: -145.4852, y: 117.28}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8644752799720065876
 CanvasRenderer:
@@ -197,15 +197,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13562727, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 678c92572cc724845a460c87117f5353, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: -2047613651344142497, guid: e869268efd7d38745a52967381cef55f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -389,7 +389,7 @@ MonoBehaviour:
   icon_Result: {fileID: 5477537342035485412}
   _nameResult: {fileID: 6869088574916284826}
   botonSeleccionar: {fileID: 6455981489506560603}
-  receta: {fileID: 0}
+  _receta: {fileID: 0}
   ingredientesParent: {fileID: 3008369150841949839}
   ingredientePrefab: {fileID: 6794976517601765893, guid: 097a0ea0f4c4e0740ab72e8f5f6b00a3, type: 3}
 --- !u!1 &5370747780409367134
