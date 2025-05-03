@@ -10,6 +10,14 @@ public class WaveController2 : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] spawnPoints; // <- Los 4 puntos de spawn
 
+    [System.Serializable]
+    public class EnemySpawnData
+    {
+        public GameObject enemyPrefab;
+        [Range(0f, 1f)] public float spawnProbability; // Entre 0 y 1
+    }
+    [SerializeField] private EnemySpawnData[] enemyTypes;
+
     [SerializeField] private int enemiesPerWave = 4;
     private int enemiesLeftToSpawn;
 
@@ -57,15 +65,38 @@ public class WaveController2 : MonoBehaviour
         canStartWave = false;
     }
 
+    GameObject GetRandomEnemyPrefab()
+    {
+        float totalProbability = 0f;
+        foreach (var enemy in enemyTypes)
+        {
+            totalProbability += enemy.spawnProbability;
+        }
+
+        float randomPoint = Random.value * totalProbability; // Random entre 0 y totalProbability
+        float currentSum = 0f;
+
+        foreach (var enemy in enemyTypes)
+        {
+            currentSum += enemy.spawnProbability;
+            if (randomPoint <= currentSum)
+            {
+                return enemy.enemyPrefab;
+            }
+        }
+
+        // Por seguridad, si algo falla, devuelve el primero
+        return enemyTypes[0].enemyPrefab;
+    }
+
     void SpawnEnemy()
     {
-        // Selecciona el spawn point de forma cíclica
         Transform spawnPoint = spawnPoints[spawnPointIndex];
-        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        GameObject selectedEnemy = GetRandomEnemyPrefab();
+
+        Instantiate(selectedEnemy, spawnPoint.position, Quaternion.identity);
 
         enemiesLeftToSpawn--;
-
-        // Alterna al siguiente spawn point
         spawnPointIndex = (spawnPointIndex + 1) % spawnPoints.Length;
     }
 

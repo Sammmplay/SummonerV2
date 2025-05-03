@@ -222,6 +222,13 @@ MonoBehaviour:
   - {fileID: 1018736258}
   - {fileID: 201267879}
   - {fileID: 350669555}
+  enemyTypes:
+  - enemyPrefab: {fileID: 969518600716116959, guid: 261f6f09f1a81ba4faf3d2cb61713784, type: 3}
+    spawnProbability: 0.35
+  - enemyPrefab: {fileID: 969518600716116959, guid: 9c89bb15b6e74584db25801f8fea4fce, type: 3}
+    spawnProbability: 0.6
+  - enemyPrefab: {fileID: 969518600716116959, guid: d95d081a1b8580c44bc99cbef09a514b, type: 3}
+    spawnProbability: 0.15
   enemiesPerWave: 4
   waveNumber: 1
 --- !u!114 &191076469
@@ -602,7 +609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &403545053
 Transform:
   m_ObjectHideFlags: 0
