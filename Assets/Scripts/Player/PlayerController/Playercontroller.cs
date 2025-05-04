@@ -104,4 +104,7 @@ public class Playercontroller : MonoBehaviour
     public void DesblkoquearMovimiento() {
         bloqueado = false;
     }
+    public void Dead() {
+
+    }
 }
