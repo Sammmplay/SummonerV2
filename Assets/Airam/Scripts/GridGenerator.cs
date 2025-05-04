@@ -36,7 +36,7 @@ public class GridGenerator : MonoBehaviour
     {
         gridStartPosX = -totalColumns / 2f + 0.5f;
         gridStartPosZ = totalRows / 2f - 0.5f;
-
+        GridSpawner();
         navMesh.BuildNavMesh();
     }
 

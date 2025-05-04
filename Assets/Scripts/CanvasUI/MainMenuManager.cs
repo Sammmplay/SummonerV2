@@ -7,6 +7,7 @@ public class MainMenuManager : MonoBehaviour
     public static MainMenuManager Instance;
     public GameObject _mainMenu;
     public GameObject _menuPause;
+    public GameObject _menuEnd;
     private void Awake() {
         if (Instance == null) {
             Instance = this;
@@ -21,10 +22,12 @@ public class MainMenuManager : MonoBehaviour
             case 0:
                 _mainMenu.SetActive(true);
                 _menuPause.SetActive(false);
+                _menuEnd.SetActive(false);
                 break;
                 case 1:
                 _mainMenu.SetActive(false);
                 _menuPause.SetActive(false);
+                _menuEnd.SetActive(false);
                 break;
         }
     }

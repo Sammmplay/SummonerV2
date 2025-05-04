@@ -256,6 +256,27 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &728104285 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6550983514631719119, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1160080138 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1200460784899209212, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc85ab1e3fad6b4aa941de1580f1904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1359165119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1425311031749706649, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1656191061 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4324089050077573296, guid: b400501c39f5ab541bb35bc7b8d256a8, type: 3}
@@ -340,6 +361,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1834770590 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1308273468768982440, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &166684075470993974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -462,6 +488,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 719495733075284274, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 719495733075284274, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1160080138}
+    - target: {fileID: 719495733075284274, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Jugar
+      objectReference: {fileID: 0}
+    - target: {fileID: 719495733075284274, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200460784899209212, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      propertyPath: _menuEnd
+      value: 
+      objectReference: {fileID: 1834770590}
+    - target: {fileID: 1200460784899209212, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      propertyPath: _mainMenu
+      value: 
+      objectReference: {fileID: 1359165119}
+    - target: {fileID: 1200460784899209212, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      propertyPath: _menuPause
+      value: 
+      objectReference: {fileID: 728104285}
     - target: {fileID: 1425311031749706649, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
       propertyPath: m_IsActive
       value: 1

@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -58,6 +59,10 @@ public class PlayerInteraction : MonoBehaviour
             if (closestResource != null)
             {
                 closestPickUp.PickUpResource(this.gameObject);
+                //rotamos el player en direccion del objeto
+                FindAnyObjectByType<Playercontroller>().RotacionPlayerAObjetoColeccionable(closestResource);
+                // Aplicamos la animacion de nuestro player controller de Pickear el item
+                FindFirstObjectByType<Playercontroller>()?.AnimPickUpItem();
 
                 Debug.Log("Recolectando recurso más cercano:" + closestResource.name);
             }

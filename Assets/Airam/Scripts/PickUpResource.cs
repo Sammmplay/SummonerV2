@@ -16,6 +16,7 @@ public class PickUpResource : MonoBehaviour, IPickUp
         int soundsIndex = Random.Range(0, pickUpSounds.Length);
         AudioClip soundEffect = pickUpSounds[soundsIndex];
         AudioSource.PlayClipAtPoint(soundEffect, transform.position);
+        
         Instantiate(pickUpEffect, transform.position, pickUpEffect.transform.rotation);
 
         Destroy(this.gameObject);

@@ -1,9 +1,10 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_RecipeSlot : MonoBehaviour
+public class UI_RecipeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image icon_Result;
     public TextMeshProUGUI _nameResult;
@@ -38,5 +39,13 @@ public class UI_RecipeSlot : MonoBehaviour
                 Debug.Log("no asignado en itemsBase de tu managerInventario");
             }
         }
+    }
+
+public void OnPointerEnter(PointerEventData eventData) {
+        LeanTween.scale(gameObject, Vector3.one / 1.1f, .1f);
+    
+}
+public void OnPointerExit(PointerEventData eventData) {
+        LeanTween.scale(gameObject, Vector3.one, .1f);
     }
 }
