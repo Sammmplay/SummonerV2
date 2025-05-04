@@ -7,7 +7,6 @@ public class WaveController2 : MonoBehaviour
     public float spawnRate = 10f;
     private float timeTillNextSpawn;
 
-    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] spawnPoints; // <- Los 4 puntos de spawn
 
     [System.Serializable]
@@ -93,7 +92,8 @@ public class WaveController2 : MonoBehaviour
     {
         Transform spawnPoint = spawnPoints[spawnPointIndex];
         GameObject selectedEnemy = GetRandomEnemyPrefab();
-
+        Transform targetPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        
         Instantiate(selectedEnemy, spawnPoint.position, Quaternion.identity);
 
         enemiesLeftToSpawn--;
