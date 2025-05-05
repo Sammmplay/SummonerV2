@@ -12,7 +12,7 @@ public abstract class PetBase : MonoBehaviour
     [SerializeField] protected float rangoDeteccion = 5f;
 
     protected Transform jugador;
-    protected GameObject proyectilBase;
+    [SerializeField] protected GameObject proyectilBase;
     protected PetManager petManager;
     protected NavMeshAgent agente;
 
