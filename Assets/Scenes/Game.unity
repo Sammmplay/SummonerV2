@@ -2467,6 +2467,18 @@ PrefabInstance:
       propertyPath: jugador
       value: 
       objectReference: {fileID: 645110678}
+    - target: {fileID: 1249903728946183303, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
+      propertyPath: proyectilBase
+      value: 
+      objectReference: {fileID: 8126029594861363705, guid: 5e4dff3cd73c30145b0cba0a90e98c61, type: 3}
+    - target: {fileID: 1249903728946183303, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
+      propertyPath: mascotasIniciales.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1249903728946183303, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
+      propertyPath: 'mascotasIniciales.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8804702717666447721, guid: 01e9a0ec201971b4f880646b2cbe551f, type: 3}
     - target: {fileID: 2347233316504086670, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25
@@ -2513,7 +2525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4375999406962061870, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
