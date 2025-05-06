@@ -3,7 +3,15 @@ using UnityEngine;
 public class UI_Manager : MonoBehaviour
 {
     [SerializeField] GameObject mainMenu, title, menuEND, menuPause;
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            menuStop();
+        }
+    }
+
     private void Start()
     {
         mainMenu.SetActive(true);
@@ -22,9 +30,16 @@ public class UI_Manager : MonoBehaviour
         LeanTween.moveLocal(menuEND, new Vector3(0f, 0f, 0f), .75f).setDelay(.2f).setEase(LeanTweenType.easeOutElastic);
     }
 
-    private void menuStop()
+    public void menuStop()
     {
         menuPause.SetActive(true);
-        LeanTween.moveLocal(menuPause, new Vector3(0f, 0f, 0f), .75f).setDelay(.2f).setEase(LeanTweenType.easeOutElastic);
+        Time.timeScale = 0f;
+        LeanTween.moveLocal(menuPause, new Vector3(0f, 0f, 0f), .75f).setDelay(.2f).setEase(LeanTweenType.easeOutElastic).setIgnoreTimeScale(true);
+    }
+
+    public void Continue()
+    {
+        menuPause.SetActive(false);
+        Time.timeScale = 1f;
     }
 }
