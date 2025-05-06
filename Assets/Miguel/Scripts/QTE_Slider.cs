@@ -44,7 +44,7 @@ public class QTE_Slider : MonoBehaviour
 
     private void CheckSuccess()
     {
-        if ( RectTransformUtility.RectangleContainsScreenPoint(winZone, pointerTransform.position , null))
+        if (RectTransformUtility.RectangleContainsScreenPoint(winZone, pointerTransform.position , null))
         {
             Debug.Log("Success!");
         }

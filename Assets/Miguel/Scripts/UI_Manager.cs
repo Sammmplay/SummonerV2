@@ -27,7 +27,8 @@ public class UI_Manager : MonoBehaviour
     private void menuFinal()
     {
         menuEND.SetActive(true);
-        LeanTween.moveLocal(menuEND, new Vector3(0f, 0f, 0f), .75f).setDelay(.2f).setEase(LeanTweenType.easeOutElastic);
+        Time.timeScale = 0f;
+        LeanTween.moveLocal(menuEND, new Vector3(0f, 0f, 0f), .75f).setDelay(.2f).setEase(LeanTweenType.easeOutElastic).setIgnoreTimeScale(true);
     }
 
     public void menuStop()
