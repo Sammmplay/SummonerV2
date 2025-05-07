@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanciaAlJugador: 2
   rangoDeteccion: 5
-  proyectilBase: {fileID: 0}
+  proyectilBase: {fileID: 8126029594861363705, guid: 5e4dff3cd73c30145b0cba0a90e98c61, type: 3}
   attackInterval: 1
   shootOrigin: {fileID: 7527284915089273592}
   animator: {fileID: 7366086126987107167}
