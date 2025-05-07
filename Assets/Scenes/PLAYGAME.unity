@@ -9060,9 +9060,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 811279420263237519, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 844456710627761243, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
       propertyPath: m_Name
       value: EnemiesSpawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 1736224427623417485, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1914167153869498597, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9108,9 +9116,41 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 181871100}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: cellSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: gridWidth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: gridHeight
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: waveNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: minDistanceFromPlayer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6440770686851593821, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586255177019147168, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7493142707482435216, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8090044824875057977, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
       propertyPath: m_LocalPosition.z

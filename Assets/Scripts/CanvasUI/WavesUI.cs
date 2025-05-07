@@ -7,7 +7,7 @@ public class WavesUI : MonoBehaviour
     public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI hpText;
 
-    private WaveController2 waveController;
+    private WaveController waveController;
     private Playercontroller playerController;
     public GameObject losePanel;
 
@@ -22,7 +22,7 @@ public class WavesUI : MonoBehaviour
 
     void Start()
     {
-        waveController = FindFirstObjectByType<WaveController2>();
+        waveController = FindFirstObjectByType<WaveController>();
         playerController = FindFirstObjectByType<Playercontroller>();
         TextUpdate();
     }
