@@ -1,13 +1,12 @@
-/*using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UI_CraftProcess : MonoBehaviour , IPointerDownHandler
 {
     public void OnPointerDown(PointerEventData eventData)
     {
-        UI.instance.AttemptToCraft();
+        FindFirstObjectByType<UI_CraftButtons>()?.AttemptToCraft();
 
         gameObject.SetActive(false);
     }
-https://www.youtube.com/watch?v=H_UA5YEpbsw
 }

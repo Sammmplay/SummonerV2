@@ -1,11 +1,11 @@
-/*using Unity.VisualScripting;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UI_CraftButtons : MonoBehaviour
 {
     [Header("Buttons details")]
     [SerializeField] private BoxCollider2D craftWindow;
-    [SerializeField] private public CraftController craftController;
+    [SerializeField] private CraftingManager craftController;
     [SerializeField] private int craftSteps;
     [SerializeField] private UI_CraftProcess[] craftButtons;
 
@@ -36,7 +36,7 @@ public class UI_CraftButtons : MonoBehaviour
             craftSteps--;
         if (craftSteps <= 0)
         {
-            craftController.CraftFuntion();//Función de crafteo
-        }
+            craftController.CraftearSelecionado();
+        }   
     }
 }

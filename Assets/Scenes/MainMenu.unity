@@ -119,6 +119,189 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &144837519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8168263156258670901}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: UpScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670900}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: DownScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670900}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &326633623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8168263156258670897}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: UpScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670896}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: DownScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670896}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &342863096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8168263156258670907}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: UpScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670906}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: DownScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670906}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &379484693 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2128296907177871861, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
@@ -283,6 +466,67 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &617092232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8168263156258670905}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: UpScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670904}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: DownScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670904}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &945321873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6550983514631719119, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
@@ -372,6 +616,128 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2007471707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8168263156258670903}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: UpScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670902}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: DownScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670902}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2034842562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8168263156258670899}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: UpScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670898}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: DownScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670898}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &166684075470993974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -881,8 +1247,362 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 689896071487609250, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 342863096}
+    - targetCorrespondingSourceObject: {fileID: 2762149967038627608, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 617092232}
+    - targetCorrespondingSourceObject: {fileID: 2818270140272422502, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2007471707}
+    - targetCorrespondingSourceObject: {fileID: 2592616898859683883, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 144837519}
+    - targetCorrespondingSourceObject: {fileID: 3693708248693495239, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2034842562}
+    - targetCorrespondingSourceObject: {fileID: 1264161486115448441, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 326633623}
+    - targetCorrespondingSourceObject: {fileID: 6461971844383069428, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8168263156258670916}
+    - targetCorrespondingSourceObject: {fileID: 2914362585760869675, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8168263156258670915}
+    - targetCorrespondingSourceObject: {fileID: 4494853792400331377, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8168263156258670914}
   m_SourcePrefab: {fileID: 100100000, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+--- !u!1 &8168263156258670896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1264161486115448441, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168263156258670897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3143157230421584704, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8168263156258670898 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3693708248693495239, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168263156258670899 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8770964370655837721, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8168263156258670900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2592616898859683883, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168263156258670901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2659780784948046634, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8168263156258670902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2818270140272422502, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168263156258670903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5739087067001648746, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8168263156258670904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2762149967038627608, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168263156258670905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6791140300087203582, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8168263156258670906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 689896071487609250, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168263156258670907 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 719495733075284274, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8168263156258670908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4494853792400331377, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168263156258670909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6938053367086266658, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8168263156258670910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2914362585760869675, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168263156258670911 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4050945897584109131, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8168263156258670912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6461971844383069428, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8168263156258670913 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7063435286610927639, guid: c6d9530ae80ec6241b5ea5ab76b76803, type: 3}
+  m_PrefabInstance: {fileID: 8168263156258670895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8168263156258670914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8168263156258670909}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: UpScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670908}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: DownScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670908}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &8168263156258670915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8168263156258670911}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: UpScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: DownScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670910}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &8168263156258670916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168263156258670912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8168263156258670913}
+          m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_MethodName: Select
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: UpScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670912}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 379484693}
+          m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+          m_MethodName: DownScaleButton
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8168263156258670912}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

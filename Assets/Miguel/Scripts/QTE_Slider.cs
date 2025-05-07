@@ -13,12 +13,20 @@ public class QTE_Slider : MonoBehaviour
     private RectTransform pointerTransform;
 
     private Vector3 targetPosition;
-    
+
+    [SerializeField] private CraftingManager craftController;
+
+
     void Start()
     {
         pointerTransform = GetComponent<RectTransform>();
 
         targetPosition = pointB.position;
+    }
+
+    private void Awake()
+    {
+        craftController = FindFirstObjectByType<CraftingManager>();
     }
 
     // Update is called once per frame
@@ -46,11 +54,7 @@ public class QTE_Slider : MonoBehaviour
     {
         if (RectTransformUtility.RectangleContainsScreenPoint(winZone, pointerTransform.position , null))
         {
-            Debug.Log("Success!");
-        }
-        else
-        {
-            Debug.Log("Fail! You'r Maggot");
+            craftController.CraftearSelecionado();
         }
     }
 }
