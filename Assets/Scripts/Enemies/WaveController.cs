@@ -10,9 +10,12 @@ public class EnemySpawnData
 
 public class WaveController : MonoBehaviour
 {
+    public Playercontroller playerController;
+
     [Header("Wave Settings")]
     public bool canStartWave = true;
-    [SerializeField] private int enemiesPerWave = 4;
+    public int enemiesPerWave = 4;
+    public int defeatedEnemies;
     [SerializeField] private float spawnRate = 10f;
     private float timeTillSpawn;
     private int enemiesLeftToSpawn;
@@ -38,6 +41,7 @@ public class WaveController : MonoBehaviour
     {
         enemiesController = GetComponent<EnemiesController>();
         wavesUI = FindFirstObjectByType<WavesUI>();
+        playerController = GetComponent<Playercontroller>();
 
         GenerateGrid();
         timeTillSpawn = spawnRate;
@@ -56,9 +60,9 @@ public class WaveController : MonoBehaviour
             timeTillSpawn = spawnRate;
         }
 
-        if (enemiesLeftToSpawn == 0)
+        if ((enemiesLeftToSpawn == 0) && (defeatedEnemies == enemiesPerWave))
         {   
-            canStartWave = false;
+            canStartWave = false; //se termina la oleada
         }
     }
 
@@ -75,7 +79,7 @@ public class WaveController : MonoBehaviour
 
         if (validPositions.Count == 0)
         {
-            Debug.LogWarning("No hay posiciones válidas para spawnear enemigos.");
+            Debug.LogWarning("No hay posiciones vï¿½lidas para spawnear enemigos.");
             return;
         }
 
@@ -145,12 +149,14 @@ public class WaveController : MonoBehaviour
     public void startNextWave()
     {
         waveNumber++;
+        playerController.currentCharacterHP = playerController.characterHP;
         wavesUI.TextUpdate();
         spawnRate = Mathf.Max(1f, spawnRate - waveNumber / 5f);
         enemiesPerWave += waveNumber * 4;
 
-        enemiesController.buffedDamage = enemiesController.baseDamage + waveNumber / 2;
-        enemiesController.buffedHP = enemiesController.baseHP + waveNumber;
+        //stats aumentadas
+        enemiesController.buffedDamage += enemiesController.buffedDamage * 10/100;
+        enemiesController.buffedHP += enemiesController.buffedHP * 10 / 100;
     }
 
     // Visualiza el grid en el editor

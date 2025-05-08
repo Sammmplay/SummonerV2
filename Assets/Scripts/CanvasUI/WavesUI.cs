@@ -28,7 +28,7 @@ public class WavesUI : MonoBehaviour
     }
     private void Update()
     {
-        if (playerController.characterHP <= 0)
+        if (playerController.currentCharacterHP <= 0)
         {
             losePanel.SetActive(true);
         }
@@ -37,6 +37,6 @@ public class WavesUI : MonoBehaviour
     public void TextUpdate()
     {
         waveNumberText.text = "Wave: " + waveController.waveNumber.ToString();
-        hpText.text = "HP: " + playerController.characterHP.ToString();
+        hpText.text = "HP: " + playerController.currentCharacterHP.ToString() + "/" + playerController.characterHP.ToString();
     }
 }
