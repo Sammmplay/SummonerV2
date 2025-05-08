@@ -7,7 +7,7 @@ public class WavesUI : MonoBehaviour
     public TextMeshProUGUI waveNumberText;
     public TextMeshProUGUI hpText;
 
-    private WaveController2 waveController;
+    private WaveController waveController;
     private Playercontroller playerController;
     public GameObject losePanel;
 
@@ -22,13 +22,13 @@ public class WavesUI : MonoBehaviour
 
     void Start()
     {
-        waveController = FindFirstObjectByType<WaveController2>();
+        waveController = FindFirstObjectByType<WaveController>();
         playerController = FindFirstObjectByType<Playercontroller>();
         TextUpdate();
     }
     private void Update()
     {
-        if (playerController.characterHP <= 0)
+        if (playerController.currentCharacterHP <= 0)
         {
             losePanel.SetActive(true);
         }
@@ -37,6 +37,6 @@ public class WavesUI : MonoBehaviour
     public void TextUpdate()
     {
         waveNumberText.text = "Wave: " + waveController.waveNumber.ToString();
-        hpText.text = "HP: " + playerController.characterHP.ToString();
+        hpText.text = "HP: " + playerController.currentCharacterHP.ToString() + "/" + playerController.characterHP.ToString();
     }
 }

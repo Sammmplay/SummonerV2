@@ -10,7 +10,9 @@ public class Playercontroller : MonoBehaviour
     public float _velocity = 2.6f;
     public float smoothRotation = 10f;
     Rigidbody _rb;
-    public float characterHP = 3f;
+    public float characterHP = 10f;
+    public float currentCharacterHP;
+
 
     public bool invulnerable = false;
     public float invulnerableCooldown = 2f;
@@ -21,13 +23,14 @@ public class Playercontroller : MonoBehaviour
     Animator _anim;
     //Bloqueo de movimiento
     bool bloqueado = false;
-    private void Start() 
+    private void Start()
     {
         enemiesController = GetComponent<EnemiesController>();
         wavesUI = FindFirstObjectByType<WavesUI>();
 
         _rb = GetComponent<Rigidbody>();
         targetCamera = Camera.main.transform;
+        currentCharacterHP = characterHP;
     }
     private void Awake() {
         _anim = GetComponent<Animator>();
@@ -69,9 +72,9 @@ public class Playercontroller : MonoBehaviour
     {
         if (collision.CompareTag("Enemy") && invulnerable == false)
         {
-            characterHP -= collision.GetComponent<EnemiesController>().buffedDamage;
+            currentCharacterHP -= collision.GetComponent<EnemiesController>().buffedDamage;
             wavesUI.TextUpdate();
-            if (characterHP <= 0)
+            if (currentCharacterHP <= 0)
             {
                 character.SetActive(false);
                 Debug.Log("Muerte");
@@ -103,5 +106,8 @@ public class Playercontroller : MonoBehaviour
     //evento que se llamara en el final de la animacion 
     public void DesblkoquearMovimiento() {
         bloqueado = false;
+    }
+    public void Dead() {
+
     }
 }

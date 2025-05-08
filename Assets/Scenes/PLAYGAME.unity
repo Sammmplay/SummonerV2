@@ -5681,6 +5681,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7367655572391684618, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 181871092}
+    - target: {fileID: 7367655572391684618, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
+      propertyPath: characterHP
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7371692969636163773, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -8165,6 +8173,38 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.909804
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: InitialModule.startColor.minColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.9262568
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
       propertyPath: m_Name
       value: CFXR3 Magic Aura A (Runic)
@@ -8999,11 +9039,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 811279420263237519, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 844456710627761243, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
       propertyPath: m_Name
       value: EnemiesSpawn
       objectReference: {fileID: 0}
-    - target: {fileID: 844456710627761243, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+    - target: {fileID: 1736224427623417485, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -9051,9 +9095,49 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 181871100}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: cellSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: gridWidth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: gridHeight
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: waveNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: minDistanceFromPlayer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: enemyTypes.Array.data[0].spawnProbability
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749489428485526875, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: enemyTypes.Array.data[1].spawnProbability
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 6440770686851593821, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586255177019147168, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7493142707482435216, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8090044824875057977, guid: 129c0d813a2227d4e951e679ae203be9, type: 3}
       propertyPath: m_LocalPosition.z

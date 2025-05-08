@@ -43,7 +43,7 @@ public class bulletB : MonoBehaviour
         if (isDestroyed) return;
         if (((1 << other.gameObject.layer) & enemyLayer.value) == 0) return;
 
-        var stats = other.GetComponent<EnemyStats>();
+        var stats = other.GetComponent<EnemiesController>();
         if (stats != null)
             stats.TakeDamage(damage);
 

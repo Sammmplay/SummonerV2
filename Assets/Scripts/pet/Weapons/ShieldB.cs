@@ -61,7 +61,7 @@ public class ShieldB : MonoBehaviour
         if (hasHit) return;
         if (((1 << other.gameObject.layer) & enemyLayer.value) == 0) return;
 
-        var stats = other.GetComponent<EnemyStats>();
+        var stats = other.GetComponent<EnemiesController>();
         if (stats != null)
         {
             stats.TakeDamage(damage);
@@ -76,7 +76,6 @@ public class ShieldB : MonoBehaviour
             if (impactSound != null && audioSource != null)
                 audioSource.PlayOneShot(impactSound);
         }
-
         hasHit = true;
     }
 }
