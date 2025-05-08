@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Playercontroller : MonoBehaviour
 {
     public static Playercontroller Instance;
-    public GameObject character;
+    //public GameObject character;
     Transform targetCamera;
     public Vector2 _input;
     public float _velocity = 2.6f;
@@ -17,7 +17,6 @@ public class Playercontroller : MonoBehaviour
     public bool invulnerable = false;
     public float invulnerableCooldown = 2f;
 
-    public EnemiesController enemiesController;
     private WavesUI wavesUI;
     [Header("Animaciones")]
     Animator _anim;
@@ -25,7 +24,7 @@ public class Playercontroller : MonoBehaviour
     bool bloqueado = false;
     private void Start()
     {
-        enemiesController = GetComponent<EnemiesController>();
+        
         wavesUI = FindFirstObjectByType<WavesUI>();
 
         _rb = GetComponent<Rigidbody>();
@@ -76,7 +75,7 @@ public class Playercontroller : MonoBehaviour
             wavesUI.TextUpdate();
             if (currentCharacterHP <= 0)
             {
-                character.SetActive(false);
+                //character.SetActive(false);
                 Debug.Log("Muerte");
 
                 //Queda Poner un panel de UI para volver a la aldea o pelear de nuevo

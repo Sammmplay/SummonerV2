@@ -28,10 +28,10 @@ public class WavesUI : MonoBehaviour
     }
     private void Update()
     {
-        if (playerController.currentCharacterHP <= 0)
+        /*if (playerController.currentCharacterHP <= 0)
         {
             losePanel.SetActive(true);
-        }
+        }*/
     }
 
     public void TextUpdate()

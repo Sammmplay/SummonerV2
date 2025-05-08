@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8829928123007449682}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemiesSpawn (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 811279420263237519}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -30}
+  m_LocalPosition: {x: 0, y: 0, z: -22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1914167153869498597}
   - component: {fileID: 3749489428485526875}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemiesSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,14 +79,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd4982acea56724e85f8753ae792178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
   canStartWave: 1
+  enemiesPerWave: 4
+  defeatedEnemies: 0
   spawnRate: 3
-  enemyPrefab: {fileID: 969518600716116959, guid: 261f6f09f1a81ba4faf3d2cb61713784, type: 3}
-  spawnPoints:
-  - {fileID: 8090044824875057977}
-  - {fileID: 8829928123007449682}
-  - {fileID: 3199548425136248691}
-  - {fileID: 6440770686851593821}
+  waveNumber: 1
   enemyTypes:
   - enemyPrefab: {fileID: 969518600716116959, guid: 261f6f09f1a81ba4faf3d2cb61713784, type: 3}
     spawnProbability: 0.35
@@ -94,8 +92,11 @@ MonoBehaviour:
     spawnProbability: 0.6
   - enemyPrefab: {fileID: 969518600716116959, guid: d95d081a1b8580c44bc99cbef09a514b, type: 3}
     spawnProbability: 0.15
-  enemiesPerWave: 4
-  waveNumber: 1
+  gridWidth: 10
+  gridHeight: 10
+  cellSize: 1
+  minDistanceFromPlayer: 1
+  player: {fileID: 0}
 --- !u!1 &1736224427623417485
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8090044824875057977}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemiesSpawn (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +122,7 @@ Transform:
   m_GameObject: {fileID: 1736224427623417485}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 30}
+  m_LocalPosition: {x: 0, y: 0, z: 22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -136,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6440770686851593821}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemiesSpawn (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 6586255177019147168}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30, y: 0, z: 0}
+  m_LocalPosition: {x: -22, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -167,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3199548425136248691}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemiesSpawn (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +184,7 @@ Transform:
   m_GameObject: {fileID: 7493142707482435216}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 30, y: 0, z: 0}
+  m_LocalPosition: {x: 22, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

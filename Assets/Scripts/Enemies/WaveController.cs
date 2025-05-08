@@ -41,8 +41,11 @@ public class WaveController : MonoBehaviour
     {
         enemiesController = GetComponent<EnemiesController>();
         wavesUI = FindFirstObjectByType<WavesUI>();
-        playerController = GetComponent<Playercontroller>();
+        if (playerController == null) {
+            playerController = FindFirstObjectByType<Playercontroller>();
+        }
 
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         defeatedEnemies = enemiesPerWave;
 
         GenerateGrid();

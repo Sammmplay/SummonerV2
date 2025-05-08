@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Mascota tipo Assassin que atraviesa enemigos en cadena,
-/// aplicando daï¿½o, mostrando un ï¿½rea de detecciï¿½n editable
-/// y alejï¿½ndose tras impactar para evitar atascos.
+/// aplicando daño, mostrando un área de detección editable
+/// y alejándose tras impactar para evitar atascos.
 /// </summary>
 [RequireComponent(typeof(Collider), typeof(AudioSource), typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 public class PetAssassin : PetBase
 {
-    [Header("Parï¿½metros de Embestida")]
+    [Header("Parámetros de Embestida")]
     [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float esperaEntreCadenas = 5f;
     [SerializeField] private float damage = 1f;
@@ -21,7 +21,7 @@ public class PetAssassin : PetBase
     [Header("Gizmo Visual")]
     [SerializeField] private Color gizmoColor = new Color(1f, 0f, 0f, 0.3f); // color editable en el editor
 
-    [Header("Audio y Animaciï¿½n")]
+    [Header("Audio y Animación")]
     [SerializeField] private AudioClip impactoSonido;
     [SerializeField] private Animator animator;
 
@@ -62,7 +62,7 @@ public class PetAssassin : PetBase
     }
 
     /// <summary>
-    /// Controla el comportamiento especï¿½fico del Assassin:
+    /// Controla el comportamiento específico del Assassin:
     /// seguir al jugador o iniciar el dash.
     /// </summary>
     protected override void ComportamientoPersonalizado()
@@ -111,7 +111,7 @@ public class PetAssassin : PetBase
 
     /// <summary>
     /// Detecta colisiones con enemigos durante el dash.
-    /// Aplica daï¿½o y busca el siguiente objetivo.
+    /// Aplica daño y busca el siguiente objetivo.
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
@@ -147,7 +147,7 @@ public class PetAssassin : PetBase
     }
 
     /// <summary>
-    /// Aplica un empuje hacia atrï¿½s para evitar quedarse atrapado.
+    /// Aplica un empuje hacia atrás para evitar quedarse atrapado.
     /// </summary>
     /// <param name="enemigo">El enemigo golpeado.</param>
     private void AplicarEmpujeAtras(Transform enemigo)
@@ -157,7 +157,7 @@ public class PetAssassin : PetBase
     }
 
     /// <summary>
-    /// Busca el siguiente enemigo dentro del radio de detecciï¿½n.
+    /// Busca el siguiente enemigo dentro del radio de detección.
     /// </summary>
     private void BuscarSiguienteEnemigo()
     {
@@ -193,7 +193,7 @@ public class PetAssassin : PetBase
     /// <summary>
     /// Calcula el destino actual del Assassin (jugador o enemigo).
     /// </summary>
-    /// <returns>Posiciï¿½n objetivo.</returns>
+    /// <returns>Posición objetivo.</returns>
     protected override Vector3 CalcularDestino()
     {
         if (!isDashing && jugador != null)
@@ -206,7 +206,7 @@ public class PetAssassin : PetBase
     }
 
     /// <summary>
-    /// Dibuja el radio de detecciï¿½n en el editor con color configurable.
+    /// Dibuja el radio de detección en el editor con color configurable.
     /// </summary>
     private void OnDrawGizmosSelected()
     {

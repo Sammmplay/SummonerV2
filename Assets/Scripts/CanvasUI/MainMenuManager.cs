@@ -28,10 +28,14 @@ public class MainMenuManager : MonoBehaviour
                 _mainMenu.SetActive(false);
                 _menuPause.SetActive(false);
                 _menuEnd.SetActive(false);
+                GameManager.instance.StarGameIntro();
                 break;
         }
     }
     public void Jugar() {
         LoadEscenChangeManager.instance.LoadEscene(1);
+    }
+    public void Exit() {
+        Application.Quit();
     }
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7884096952586905147}
   m_Layer: 9
   m_Name: Guardian
-  m_TagString: Untagged
+  m_TagString: Pet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +85,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!195 &-5293375502386495331
 NavMeshAgent:
@@ -96,7 +96,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8804702717666447721}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 4
+  m_Radius: 0.9
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -105,7 +105,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 2.8
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

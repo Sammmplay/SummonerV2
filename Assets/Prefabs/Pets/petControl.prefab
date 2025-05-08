@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6882114413128916083}
   - component: {fileID: 8025838094285479429}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: powerupmanager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,9 +63,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2347233316504086670}
   - component: {fileID: 1249903728946183303}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: petControl
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

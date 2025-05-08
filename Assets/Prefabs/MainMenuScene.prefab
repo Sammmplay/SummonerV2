@@ -501,7 +501,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5063233856881048907}
-  - component: {fileID: 3590610444676336445}
   - component: {fileID: 2128296907177871861}
   - component: {fileID: 1200460784899209212}
   m_Layer: 0
@@ -527,18 +526,6 @@ Transform:
   - {fileID: 8278766458443507529}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3590610444676336445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2208365818397490747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74a00a95802169438d535251a0033dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2128296907177871861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,10 +538,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d8fb89bd6c75f41bf093611c4961bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1425311031749706649}
+  mainMenu: {fileID: 5752493210131396244}
   title: {fileID: 0}
-  menuEND: {fileID: 1308273468768982440}
-  menuPause: {fileID: 6550983514631719119}
+  menuEND: {fileID: 2091633420989087883}
+  menuPause: {fileID: 1412782030110355362}
+  scaled: 0
+  type: 0
 --- !u!114 &1200460784899209212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,8 +556,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc85ab1e3fad6b4aa941de1580f1904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainMenu: {fileID: 0}
-  _menuPause: {fileID: 0}
+  _mainMenu: {fileID: 1425311031749706649}
+  _menuPause: {fileID: 6550983514631719119}
+  _menuEnd: {fileID: 1308273468768982440}
 --- !u!1 &2223313269588134773
 GameObject:
   m_ObjectHideFlags: 0
