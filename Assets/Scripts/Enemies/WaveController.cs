@@ -43,6 +43,8 @@ public class WaveController : MonoBehaviour
         wavesUI = FindFirstObjectByType<WavesUI>();
         playerController = GetComponent<Playercontroller>();
 
+        defeatedEnemies = enemiesPerWave;
+
         GenerateGrid();
         timeTillSpawn = spawnRate;
         WaveStarts();
@@ -69,6 +71,7 @@ public class WaveController : MonoBehaviour
     void WaveStarts()
     {
         enemiesLeftToSpawn = enemiesPerWave;
+        defeatedEnemies = enemiesPerWave;
     }
 
     void SpawnEnemy()
@@ -155,8 +158,9 @@ public class WaveController : MonoBehaviour
         enemiesPerWave += waveNumber * 4;
 
         //stats aumentadas
-        enemiesController.buffedDamage += enemiesController.buffedDamage * 10/100;
+        enemiesController.buffedDamage += enemiesController.buffedDamage * 10 / 100;
         enemiesController.buffedHP += enemiesController.buffedHP * 10 / 100;
+        WaveStarts();
     }
 
     // Visualiza el grid en el editor

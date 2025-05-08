@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI, Gorund, Camera Limits, enemy, pet
 - Active game object:
-  - Name: PlayerController
-  - Tag: Player
-  - Layer: Default
+  - Name: Canvas (1)
+  - Tag: Untagged
+  - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
