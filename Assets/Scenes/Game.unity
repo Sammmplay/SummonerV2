@@ -1343,6 +1343,14 @@ PrefabInstance:
       propertyPath: jugador
       value: 
       objectReference: {fileID: 645110678}
+    - target: {fileID: 1249903728946183303, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
+      propertyPath: 'mascotasIniciales.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8804702717666447721, guid: 01e9a0ec201971b4f880646b2cbe551f, type: 3}
+    - target: {fileID: 1249903728946183303, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
+      propertyPath: 'mascotasIniciales.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1822982154116630964, guid: 4bed402db32f8bb4c848c9adf40ce78f, type: 3}
     - target: {fileID: 2347233316504086670, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25
@@ -1386,6 +1394,10 @@ PrefabInstance:
     - target: {fileID: 4375999406962061870, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
       propertyPath: m_Name
       value: petControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375999406962061870, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

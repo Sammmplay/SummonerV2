@@ -9,24 +9,24 @@
 public class PetGuardian : PetBase
 {
     [Header("Escudo")]
-    [SerializeField] private GameObject shieldPrefab;
-    [SerializeField] private Transform shieldSpawnPoint;
-    [SerializeField] private float shieldCooldown = 5f;
-    [SerializeField] private float detectionRadius = 3f;
+    [SerializeField] private GameObject shieldPrefab;           // Prefab del escudo que se instancia
+    [SerializeField] private Transform shieldSpawnPoint;        // Punto desde donde se lanza el escudo
+    [SerializeField] private float shieldCooldown = 5f;         // Tiempo entre cada escudo
+    [SerializeField] private float detectionRadius = 3f;        // Área en la que detecta enemigos
 
     [Header("Comportamiento")]
-    [SerializeField] private bool enableRodeo = false;
-    [SerializeField] private float rodeoAngleSpeed = 30f;
+    [SerializeField] private bool enableRodeo = false;          // Si rodea o no al jugador
+    [SerializeField] private float rodeoAngleSpeed = 30f;       // Velocidad del rodeo (si está activado)
 
     [Header("Animación")]
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animator;                 // Referencia al Animator de la mascota
 
-    private float cooldownTimer;
-    private bool escudoActivo = false;
-    private float currentAngle = 0f;
+    private float cooldownTimer;                                // Temporizador de cooldown del escudo
+    private bool escudoActivo = false;                          // Si ya hay un escudo activo o no
+    private float currentAngle = 0f;                            // Ángulo actual para el rodeo circular
 
     /// <summary>
-    /// Inicializa componentes.
+    /// Inicializa referencias y componentes del Guardian.
     /// </summary>
     protected override void Start()
     {
@@ -36,7 +36,7 @@ public class PetGuardian : PetBase
     }
 
     /// <summary>
-    /// Actualiza lógica de animación.
+    /// Actualiza animación de velocidad cada frame.
     /// </summary>
     protected override void Update()
     {
@@ -45,7 +45,9 @@ public class PetGuardian : PetBase
     }
 
     /// <summary>
-    /// Comportamiento principal del Guardian.
+    /// Comportamiento principal del Guardian:
+    /// - Lanza el escudo si hay enemigo en rango y el cooldown ha terminado.
+    /// - Mira al jugador por defecto, pero mira al enemigo si puede lanzar el escudo.
     /// </summary>
     protected override void ComportamientoPersonalizado()
     {
@@ -59,7 +61,6 @@ public class PetGuardian : PetBase
             cooldownTimer = shieldCooldown;
         }
 
-        // Decide hacia dónde mirar
         if (!escudoActivo && enemigoEnRango && cooldownTimer <= 0f && enemigoActual != null)
         {
             // Mira al enemigo solo si puede lanzar escudo
@@ -67,13 +68,15 @@ public class PetGuardian : PetBase
         }
         else
         {
-            // Siempre mira al jugador si no hay cargas
+            // Siempre mira al jugador si no hay cargas disponibles
             MirarA(jugador.position);
         }
     }
 
     /// <summary>
-    /// Calcula destino: jugador + opcional rodeo.
+    /// Calcula el destino deseado de movimiento:
+    /// - Si enableRodeo está activo, se mueve en círculo alrededor del jugador.
+    /// - Si no, se mantiene cerca del jugador directamente.
     /// </summary>
     protected override Vector3 CalcularDestino()
     {
@@ -93,7 +96,8 @@ public class PetGuardian : PetBase
     }
 
     /// <summary>
-    /// Comprueba si hay enemigos cerca.
+    /// Detecta el enemigo más cercano dentro del radio de detección.
+    /// Guarda su Transform en enemigoActual.
     /// </summary>
     private bool EnemigoEnRango()
     {
@@ -115,13 +119,17 @@ public class PetGuardian : PetBase
     }
 
     /// <summary>
-    /// Activa escudo y marca como activo.
+    /// Activa el escudo y marca que hay uno activo.
+    /// Usa la posición del jugador (etiqueta "Player") para instanciarlo ligeramente elevado.
     /// </summary>
     private void ActivarEscudo()
     {
         if (shieldPrefab != null && shieldSpawnPoint != null)
         {
-            GameObject shield = Instantiate(shieldPrefab, shieldSpawnPoint.position, transform.rotation);
+            GameObject shield = Instantiate(shieldPrefab);
+            Transform posPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+            Vector3 posFrontalViewPlayer = new Vector3(posPlayer.position.x, posPlayer.position.y + 1, posPlayer.position.z);
+            shield.transform.position = posFrontalViewPlayer;
             escudoActivo = true;
             shield.GetComponent<ShieldB>().OnShieldDestroyed = () => escudoActivo = false;
             animator.SetTrigger("Push");
@@ -129,7 +137,8 @@ public class PetGuardian : PetBase
     }
 
     /// <summary>
-    /// Hace que el Guardian mire suavemente a un objetivo.
+    /// Rota suavemente al Guardian hacia un objetivo dado.
+    /// El eje Y se ignora para mantener la rotación en el plano horizontal.
     /// </summary>
     private void MirarA(Vector3 objetivo)
     {
@@ -143,7 +152,7 @@ public class PetGuardian : PetBase
     }
 
     /// <summary>
-    /// Dibuja el radio de detección en el editor.
+    /// Dibuja en el editor el radio de detección de enemigos del Guardian.
     /// </summary>
     private void OnDrawGizmosSelected()
     {
