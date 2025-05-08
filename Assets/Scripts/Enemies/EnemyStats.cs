@@ -60,6 +60,8 @@ public class EnemyStats : MonoBehaviour
         LeanTween.scale(gameObject, Vector3.zero, deathShrinkTime)
                  .setEase(LeanTweenType.easeInBack)
                  .setOnComplete(() => Destroy(gameObject));
+
+        Transform posPlayer = GameObject.FindGameObjectWithTag("Player").transform;
     }
 }
 

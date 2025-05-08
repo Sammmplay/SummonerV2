@@ -31,4 +31,7 @@ public class EnemiesController : MonoBehaviour
             agent.SetDestination(target.position);
         }
     }
+    public void Death() {
+
+    }
 }

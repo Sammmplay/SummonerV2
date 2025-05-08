@@ -50,10 +50,15 @@ public class CraftingManager : MonoBehaviour
         //crear un nuevo itemsData con los datos del resultado 
         itemsData nuevoItem = ScriptableObject.CreateInstance<itemsData>();
         nuevoItem._id = resultadoItem._id;
+        nuevoItem._nameItem = resultadoItem._nameItem;
+        nuevoItem._description = resultadoItem._description;
         nuevoItem._type = resultadoItem._type;
-        nuevoItem._precioCU = resultadoItem._precioCU;
-        nuevoItem._sprite = resultadoItem._sprite;
         nuevoItem._cantItems = receta.resultadoCantidad * cantidadVeces;
+        nuevoItem._precioCU = resultadoItem._precioCU;
+        nuevoItem._slotPosition = resultadoItem._slotPosition;
+        nuevoItem._sprite = resultadoItem._sprite;
+       
+        
         //lo agregamos al inventario
         InventoryManager.Instance.AddItem(nuevoItem);
     }

@@ -21,7 +21,6 @@ public class UISlot : MonoBehaviour
         
         dataslot = dataSlot;
         _sprite.sprite = dataSlot._sprite;
-        dataslot._nameItem = dataSlot._nameItem;
         //dataslot._slotPosition = InventoryManager.Instance.GetFreeSlotPosition()-1;
         _text.text = dataSlot._cant.ToString();
     }
@@ -31,7 +30,8 @@ public class UISlot : MonoBehaviour
     public void HideRefererence() {
         ReferenceItem _ref = FindFirstObjectByType<ReferenceItem>();
         _ref.transform.GetChild(0).gameObject.SetActive(true);
-        _ref._name.text = dataslot._id;
+        _ref._name.text = dataslot._nameItem;
+        _ref._description.text = dataslot._description.ToString();
         _ref._icon.sprite = dataslot._sprite;
         _ref._valor.text = dataslot._precioCU.ToString();
     }

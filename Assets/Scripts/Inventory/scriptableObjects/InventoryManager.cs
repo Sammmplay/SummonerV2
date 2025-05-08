@@ -76,6 +76,7 @@ public class InventoryManager : MonoBehaviour
     public saveData ConvertirASaveData(itemsData data) {
         return new saveData {
             _id = data._id,
+            _nameItem = data._nameItem,
             _type = data._type,
             _cant = data._cantItems,
             _precioCU = data._precioCU,
