@@ -34,8 +34,12 @@ public class MainMenuManager : MonoBehaviour
     }
     public void Jugar() {
         LoadEscenChangeManager.instance.LoadEscene(1);
+        
     }
     public void Exit() {
         Application.Quit();
+    }
+    public void Restar() {
+        LoadEscenChangeManager.instance.LoadEscene(0);
     }
 }

@@ -27,7 +27,7 @@ public class Playercontroller : MonoBehaviour
     bool bloqueado = false;
     private void Start()
     {
-        manager = GetComponent<UI_Manager>();
+        manager = FindFirstObjectByType<UI_Manager>();
 
         wavesUI = FindFirstObjectByType<WavesUI>();
 
@@ -92,8 +92,9 @@ public class Playercontroller : MonoBehaviour
     void Dead() {
         this.enabled = false;
         //¿Que mierda es esto que hacer que el PJ se caiga al infinito cuando la endiñe?
-        /*Collider col = this.GetComponent<Collider>();
-        col.enabled = false;*/
+        Collider col = this.GetComponent<Collider>();
+        col.enabled = false;
+        _rb.isKinematic = true;
         _anim.SetTrigger("Dead");
         //Aqui se llama al menú de ENDpantalla, la función "menuLose"
         manager.menuLose();
