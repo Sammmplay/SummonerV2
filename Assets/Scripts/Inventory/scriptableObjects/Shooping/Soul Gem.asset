@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: SG
   _nameItem: Soul Gem
+  _description: The cristalized soul of an enemy.
   type: 3
   _icon: {fileID: 21300000, guid: 75c7cebab43f0c249a712ebd08ffa2e3, type: 3}
   _precioCompra: 5

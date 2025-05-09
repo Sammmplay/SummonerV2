@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: RF
   _nameItem: Red Flowers
+  _description: A bundle of red flowers.
   type: 3
   _icon: {fileID: 21300000, guid: 565670d2706092b47a20387aece90527, type: 3}
   _precioCompra: 7
