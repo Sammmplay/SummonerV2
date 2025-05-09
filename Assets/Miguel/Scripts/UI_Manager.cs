@@ -3,7 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
 {
-    [SerializeField] RectTransform mainMenu, title, menuEND, menuPause;
+    public static UI_Manager manager;
+
+    [SerializeField] RectTransform mainMenu, title, menuEND, menuPause, endContinueButton;
 
     [SerializeField] float scaled;
     [SerializeField] LeanTweenType type;
@@ -23,18 +25,25 @@ public class UI_Manager : MonoBehaviour
         
     }
 
-    private void menuFinal()
+    public void menuFinal()
+    {
+        menuEND.gameObject.SetActive(true);
+        endContinueButton.gameObject.SetActive(false);
+        Time.timeScale = 0f;
+        LeanTween.move(menuEND, new Vector3(0f, 0f), .75f).setDelay(.2f).setEase(LeanTweenType.easeOutElastic).setIgnoreTimeScale(true);
+    }
+
+    public void menuLose()
     {
         menuEND.gameObject.SetActive(true);
         Time.timeScale = 0f;
-        LeanTween.move(menuEND, new Vector3(0f, 0f, 0f), .75f).setDelay(.2f).setEase(LeanTweenType.easeOutElastic).setIgnoreTimeScale(true);
+        LeanTween.move(menuEND, new Vector3(0f, 0f), .75f).setDelay(.1f).setEase(LeanTweenType.easeOutElastic).setIgnoreTimeScale(true);
     }
-
     public void menuStop()
     {
         menuPause.gameObject.SetActive(true);
         Time.timeScale = 0f;
-        LeanTween.move(menuPause, new Vector3(0f, 0f, 0f), .75f).setDelay(.2f).setEase(LeanTweenType.easeOutElastic).setIgnoreTimeScale(true);
+        LeanTween.move(menuPause, new Vector3(0f, 0f), .75f).setDelay(.2f).setEase(LeanTweenType.easeOutElastic).setIgnoreTimeScale(true);
     }
 
     public void Continue()

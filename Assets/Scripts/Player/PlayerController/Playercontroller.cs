@@ -20,11 +20,15 @@ public class Playercontroller : MonoBehaviour
     private WavesUI wavesUI;
     [Header("Animaciones")]
     Animator _anim;
+
+    UI_Manager manager;
+
     //Bloqueo de movimiento
     bool bloqueado = false;
     private void Start()
     {
-        
+        manager = GetComponent<UI_Manager>();
+
         wavesUI = FindFirstObjectByType<WavesUI>();
 
         _rb = GetComponent<Rigidbody>();
@@ -87,9 +91,12 @@ public class Playercontroller : MonoBehaviour
     }
     void Dead() {
         this.enabled = false;
-        Collider col = this.GetComponent<Collider>();
-        col.enabled = false;
+        //¿Que mierda es esto que hacer que el PJ se caiga al infinito cuando la endiñe?
+        /*Collider col = this.GetComponent<Collider>();
+        col.enabled = false;*/
         _anim.SetTrigger("Dead");
+        //Aqui se llama al menú de ENDpantalla, la función "menuLose"
+        manager.menuLose();
     }
     public void RespawnPlayer() {
         
@@ -115,8 +122,13 @@ public class Playercontroller : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, Time.deltaTime * 90.0f);
         }
     }
-    //evento que se llamara en el final de la animacion 
+    //evento que se llamara en el final de la animacion
     public void DesblkoquearMovimiento() {
         bloqueado = false;
+    }
+
+    public void BloquearMovimiento()
+    {
+        bloqueado = true;
     }
 }

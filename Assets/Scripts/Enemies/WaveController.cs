@@ -70,6 +70,7 @@ public class WaveController : MonoBehaviour
             FindFirstObjectByType<Manager_canvas_Inventario>().PanelShop().SetActive(true);
             SaleManager.instance.CargarItemVenta();
             GameManager.instance.ActiveNextWavePanel();
+            playerController.BloquearMovimiento();
         }
     }
 
@@ -163,6 +164,7 @@ public class WaveController : MonoBehaviour
         enemiesPerWave += waveNumber * 4;
         defeatedEnemies = 0;
         canStartWave = true;
+        playerController.DesblkoquearMovimiento();
         //stats aumentadas
         foreach(var enemies in enemyTypes) {
             EnemiesController enemiesController = enemies.enemyPrefab.GetComponent<EnemiesController>();
