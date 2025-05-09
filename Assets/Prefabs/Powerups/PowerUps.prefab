@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1668705594435954376}
-  - component: {fileID: 6063446735400855998}
+  - component: {fileID: 8126243129214774293}
   m_Layer: 0
   m_Name: PowerUps
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6063446735400855998
+--- !u!114 &8126243129214774293
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3371245129076688379}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4de198ac31bba5440a4de67f53b98a88, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a84ee8bb3513604ea05d6a461cbfa0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   jugador: {fileID: 0}
   petManager: {fileID: 0}
-  prefabAttacker: {fileID: 0}
   prefabAssassin: {fileID: 0}
-  prefabDefender: {fileID: 0}
+  prefabAttacker: {fileID: 1822982154116630964, guid: 4bed402db32f8bb4c848c9adf40ce78f, type: 3}
+  prefabDefender: {fileID: 8804702717666447721, guid: 01e9a0ec201971b4f880646b2cbe551f, type: 3}
+  saludExtra: 50
+  healingAmount: 30
+  velocidadExtra: 2
+  areaExtra: 1

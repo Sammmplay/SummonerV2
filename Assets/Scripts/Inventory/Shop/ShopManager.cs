@@ -12,7 +12,8 @@ public class ShopManager : MonoBehaviour
     public Transform _contentScroll;
     public float sizeContent = 240.0f;
     [SerializeField] private Button _botonComprar;
-
+    [Header("PowerUpManager")]
+    [SerializeField] private PowerUpManager powerUpManager;
     [Header("Seleccion de Item")]
     [SerializeField] private ShopSlotUI _itemSeleccionado;
     //[SerializeField] private TextMeshProUGUI _precioSeleccionado;
@@ -55,6 +56,13 @@ public class ShopManager : MonoBehaviour
             Debug.LogWarning("Item no encontrado en:" + InventoryManager.Instance._items._itemsBase);
             return;
         }
+        if(nuevo._type== TypeItem.PowerUp) {
+            ActivarPowerUp(nuevo._id);
+            return;
+        }
+        if(nuevo._type == TypeItem.Pet) {
+            BuyPet(nuevo._id); return;  
+        }
         nuevo._cantItems = cantidad;
         // agregamos a nuestro inventario
         InventoryManager.Instance.AddItem(nuevo);
@@ -74,5 +82,56 @@ public class ShopManager : MonoBehaviour
         _itemSeleccionado = slot;
 
         _botonComprar.interactable = true;
+    }
+    void ActivarPowerUp(string id) {
+        if(powerUpManager == null) {
+            powerUpManager = FindFirstObjectByType<PowerUpManager>();
+        }
+        
+        switch (id) {
+            case "SpeedBoost":
+                powerUpManager.ImproveVelocity();
+                break;
+            case "HealthUp":
+                powerUpManager.ImproveHealth();
+                break;
+            case "Heal":
+                powerUpManager.Healing();
+                break;
+            case "AreaUp":
+                powerUpManager.ImproveArea();
+                break;
+            case "SummonAssassin":
+                powerUpManager.SummonAssassin();
+                break;
+            case "SummonAttacker":
+                powerUpManager.SummonAttacker();
+                break;
+            case "SummonDefender":
+                powerUpManager.SummonDefender();
+                break;
+            default:
+                Debug.LogWarning("PowerUp no reconocido: " + id);
+                break;
+        }
+    }
+    void BuyPet(string id) {
+        if (powerUpManager == null) {
+            powerUpManager = FindFirstObjectByType<PowerUpManager>();
+        }
+        switch (id) {
+            case "SummonAssassin":
+                powerUpManager.SummonAssassin();
+                break;
+            case "SummonAttacker":
+                powerUpManager.SummonAttacker();
+                break;
+            case "SummonDefender":
+                powerUpManager.SummonDefender();
+                break;
+            default:
+                Debug.LogWarning("PowerUp no reconocido: " + id);
+                break;
+        }
     }
 }

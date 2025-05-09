@@ -118,7 +118,7 @@ public class EnemiesController : MonoBehaviour
     }
     IEnumerator WaitingForDestroy() {
         yield return new WaitForSeconds(3);
-        waveController.defeatedEnemies -= 1;
+        waveController.defeatedEnemies ++;
         Destroy(gameObject);
     }
     public void ComenzarPersecucion() {

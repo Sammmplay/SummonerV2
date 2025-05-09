@@ -28,6 +28,9 @@ MonoBehaviour:
   - RS
   - GS
   - SG
+  - IH
+  - IV
+  - SummonDefender
   IdsCraft:
   - WH
   - RF
@@ -44,3 +47,6 @@ MonoBehaviour:
   - Rusty Soul
   - Golden Soul
   - Soul Gem
+  - HealthUp
+  - SpeedBoost
+  - SummonDefender

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f787c866e8197df4a976beaa1aae51dc, type: 3}
-  m_Name: BlueFlowers
+  m_Name: Pet
   m_EditorClassIdentifier: 
-  _id: WH
-  _nameItem: Blue Flowers
-  _description: 
-  type: 3
-  _icon: {fileID: 21300000, guid: 069d647797c04824abfc871987543883, type: 3}
-  _precioCompra: 10
-  _precioVenta: 5
+  _id: SummonDefender
+  _nameItem: SummonDefender
+  _description: un pet de defensa
+  type: 5
+  _icon: {fileID: -7314038943984137149, guid: 888bc6c3bee4a644894eb075d8d389f5, type: 3}
+  _precioCompra: 80
+  _precioVenta: 3
   _cantidadXVenta: 1

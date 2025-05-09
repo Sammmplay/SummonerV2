@@ -4,7 +4,9 @@ public enum TypeItem {
     None,
     Hierbas,
     posion,
-    resources
+    resources,
+    PowerUp,
+    Pet
 }
 
 [Serializable]

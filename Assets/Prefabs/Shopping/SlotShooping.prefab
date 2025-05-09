@@ -213,7 +213,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 40.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1676,6 +1676,7 @@ MonoBehaviour:
   icon: {fileID: 6880565161572932100}
   nameItem: {fileID: 4518483131915441871}
   _precioText: {fileID: 5871436287169240882}
+  _description: {fileID: 3769139834018044184}
   inputCantidad: {fileID: 5050925678278522120}
   data: {fileID: 0}
   botonSumar: {fileID: 4493925952067555011}
@@ -1849,7 +1850,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.7
+  m_fontSize: 40.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

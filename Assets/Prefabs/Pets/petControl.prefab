@@ -39,13 +39,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3317028851459465657}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a84ee8bb3513604ea05d6a461cbfa0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   jugador: {fileID: 0}
-  petManager: {fileID: 0}
+  petManager: {fileID: 1249903728946183303}
   prefabAssassin: {fileID: 0}
   prefabAttacker: {fileID: 0}
   prefabDefender: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4375999406962061870}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95d2816a4d71314468dac4c8254b0576, type: 3}
   m_Name: 

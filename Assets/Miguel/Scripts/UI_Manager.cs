@@ -10,7 +10,7 @@ public class UI_Manager : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1) {
+        if (SceneManager.GetActiveScene().buildIndex == 0) {
             mainMenu.gameObject.SetActive(true);
             menuEND.gameObject.SetActive(false);
             menuPause.gameObject.SetActive(false);
@@ -48,8 +48,13 @@ public class UI_Manager : MonoBehaviour
         LeanTween.scale(button, Vector3.one * scaled, 0.1f).setEase(type).setIgnoreTimeScale(true);
     }
 
-    public void DownScaleButton(GameObject button)
-    {
+    public void DownScaleButton(GameObject button) {
         LeanTween.scale(button, Vector3.one, 0.1f).setEase(type).setIgnoreTimeScale(true);
+    }
+    public void ContinueNextWavePointerEnter(RectTransform button) {
+        LeanTween.move(button, new Vector2(-310, 0), .5f).setIgnoreTimeScale(true);
+    }
+    public void RestarPositionButtonNextWave(RectTransform button) {
+        LeanTween.move(button, new Vector2(0, 0), .5f).setOnComplete(()=>button.gameObject.SetActive(false)).setIgnoreTimeScale(true);
     }
 }

@@ -8,6 +8,7 @@ public class ShopSlotUI : MonoBehaviour
     public Image icon;
     public TextMeshProUGUI nameItem;
     public TextMeshProUGUI _precioText;
+    public TextMeshProUGUI _description;
     public TMP_InputField inputCantidad;
 
     public ShopItemData data;
@@ -24,6 +25,7 @@ public class ShopSlotUI : MonoBehaviour
     public void Configurar(ShopItemData item) {
         data = item;
         nameItem.text = item.name;
+        _description.text = item._description;
         icon.sprite = item._icon;
         _precioText.text = item._precioCompra.ToString();
         inputCantidad.text = "1"; //default

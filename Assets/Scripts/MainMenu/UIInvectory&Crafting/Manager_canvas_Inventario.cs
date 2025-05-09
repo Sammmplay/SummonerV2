@@ -36,4 +36,7 @@ public class Manager_canvas_Inventario : MonoBehaviour
     public bool tiendaActiva() {
         return _panelShop.activeSelf;
     }
+    public GameObject PanelShop() {
+        return _panelShop;
+    }
 }

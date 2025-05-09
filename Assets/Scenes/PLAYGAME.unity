@@ -642,10 +642,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerController
       objectReference: {fileID: 0}
-    - target: {fileID: 4139354219616657153, guid: f8c19dd2bdd25f0408c2dc3934636284, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1154,20 +1150,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1318935079978438870, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
-      propertyPath: playOnAwake
-      value: 0
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318935079978438870, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3280519133223516628, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
-      propertyPath: playOnAwake
-      value: 0
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280519133223516628, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
-      propertyPath: playOnAwake
-      value: 0
+      propertyPath: lengthInSec
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
       propertyPath: startDelay.scalar
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
       propertyPath: m_Name
@@ -1218,45 +1222,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6679182840704168355, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
-      propertyPath: playOnAwake
-      value: 0
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679182840704168355, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+      propertyPath: startDelay.scalar
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3280519133430969738, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1335934569}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
---- !u!1 &1335934568 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3280519133430969738, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
-  m_PrefabInstance: {fileID: 1335934567}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1335934569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335934568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 0
 --- !u!1 &1448810149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,41 +1537,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUps
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6063446735400855998, guid: be8cb3d9ab3ffc14da04efa318b6763d, type: 3}
+    - target: {fileID: 8126243129214774293, guid: be8cb3d9ab3ffc14da04efa318b6763d, type: 3}
+      propertyPath: jugador
+      value: 
+      objectReference: {fileID: 181871092}
+    - target: {fileID: 8126243129214774293, guid: be8cb3d9ab3ffc14da04efa318b6763d, type: 3}
+      propertyPath: petManager
+      value: 
+      objectReference: {fileID: 1811242730}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3371245129076688379, guid: be8cb3d9ab3ffc14da04efa318b6763d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1524437408}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be8cb3d9ab3ffc14da04efa318b6763d, type: 3}
---- !u!1 &1524437407 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3371245129076688379, guid: be8cb3d9ab3ffc14da04efa318b6763d, type: 3}
-  m_PrefabInstance: {fileID: 1524437406}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1524437408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524437407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a84ee8bb3513604ea05d6a461cbfa0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jugador: {fileID: 181871092}
-  petManager: {fileID: 1811242730}
-  prefabAssassin: {fileID: 0}
-  prefabAttacker: {fileID: 1822982154116630964, guid: 4bed402db32f8bb4c848c9adf40ce78f, type: 3}
-  prefabDefender: {fileID: 8804702717666447721, guid: 01e9a0ec201971b4f880646b2cbe551f, type: 3}
-  saludExtra: 50
-  healingAmount: 30
-  velocidadExtra: 2
-  areaExtra: 1
 --- !u!1 &1526015049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,10 +1738,6 @@ PrefabInstance:
       propertyPath: jugador
       value: 
       objectReference: {fileID: 181871100}
-    - target: {fileID: 1249903728946183303, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2347233316504086670, guid: e84bc3bdad3918945b33d5482ae282dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.25

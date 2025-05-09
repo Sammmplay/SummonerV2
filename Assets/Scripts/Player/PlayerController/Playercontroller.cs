@@ -76,6 +76,7 @@ public class Playercontroller : MonoBehaviour
             if (currentCharacterHP <= 0)
             {
                 //character.SetActive(false);
+                Dead();
                 Debug.Log("Muerte");
 
                 //Queda Poner un panel de UI para volver a la aldea o pelear de nuevo
@@ -83,6 +84,18 @@ public class Playercontroller : MonoBehaviour
             invulnerableCooldown = 2f;
             invulnerable = true;
         }
+    }
+    void Dead() {
+        this.enabled = false;
+        Collider col = this.GetComponent<Collider>();
+        col.enabled = false;
+        _anim.SetTrigger("Dead");
+    }
+    public void RespawnPlayer() {
+        
+        Collider col = this.GetComponent<Collider>();
+        col.enabled = true;
+       
     }
     public void AnimPickUpItem() {
         bloqueado = true; //bloquea el movimiento
@@ -105,8 +118,5 @@ public class Playercontroller : MonoBehaviour
     //evento que se llamara en el final de la animacion 
     public void DesblkoquearMovimiento() {
         bloqueado = false;
-    }
-    public void Dead() {
-
     }
 }

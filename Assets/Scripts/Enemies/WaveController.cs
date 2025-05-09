@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class EnemySpawnData
@@ -34,19 +35,18 @@ public class WaveController : MonoBehaviour
     private List<Vector3> gridPositions = new List<Vector3>();
 
     [Header("References")]
-    private EnemiesController enemiesController;
     private WavesUI wavesUI;
 
     void Start()
     {
-        enemiesController = GetComponent<EnemiesController>();
+        
         wavesUI = FindFirstObjectByType<WavesUI>();
         if (playerController == null) {
             playerController = FindFirstObjectByType<Playercontroller>();
         }
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        defeatedEnemies = enemiesPerWave;
+        
 
         GenerateGrid();
         timeTillSpawn = spawnRate;
@@ -65,16 +65,18 @@ public class WaveController : MonoBehaviour
             timeTillSpawn = spawnRate;
         }
 
-        if ((enemiesLeftToSpawn == 0) && (defeatedEnemies == enemiesPerWave))
-        {   
+        if ((enemiesLeftToSpawn == 0) && (defeatedEnemies == enemiesPerWave)) {
             canStartWave = false; //se termina la oleada
+            FindFirstObjectByType<Manager_canvas_Inventario>().PanelShop().SetActive(true);
+            SaleManager.instance.CargarItemVenta();
+            GameManager.instance.ActiveNextWavePanel();
         }
     }
 
     void WaveStarts()
     {
         enemiesLeftToSpawn = enemiesPerWave;
-        defeatedEnemies = enemiesPerWave;
+        
     }
 
     void SpawnEnemy()
@@ -159,10 +161,15 @@ public class WaveController : MonoBehaviour
         wavesUI.TextUpdate();
         spawnRate = Mathf.Max(1f, spawnRate - waveNumber / 5f);
         enemiesPerWave += waveNumber * 4;
-
+        defeatedEnemies = 0;
+        canStartWave = true;
         //stats aumentadas
-        enemiesController.buffedDamage += enemiesController.buffedDamage * 10 / 100;
-        enemiesController.buffedHP += enemiesController.buffedHP * 10 / 100;
+        foreach(var enemies in enemyTypes) {
+            EnemiesController enemiesController = enemies.enemyPrefab.GetComponent<EnemiesController>();
+            enemiesController.buffedDamage += enemiesController.buffedDamage * 10 / 100;
+            enemiesController.buffedHP += enemiesController.buffedHP * 10 / 100;
+        }
+        
         WaveStarts();
     }
 
