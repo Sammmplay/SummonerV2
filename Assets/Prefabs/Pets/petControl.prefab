@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6882114413128916083}
-  - component: {fileID: 8025838094285479429}
+  - component: {fileID: 2182413207058355622}
   m_Layer: 9
   m_Name: powerupmanager
   m_TagString: Untagged
@@ -32,23 +32,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2347233316504086670}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8025838094285479429
+--- !u!114 &2182413207058355622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3317028851459465657}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a84ee8bb3513604ea05d6a461cbfa0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   jugador: {fileID: 0}
-  petManager: {fileID: 1249903728946183303}
+  petManager: {fileID: 0}
   prefabAssassin: {fileID: 0}
-  prefabAttacker: {fileID: 0}
-  prefabDefender: {fileID: 0}
+  prefabAttacker: {fileID: 1822982154116630964, guid: 4bed402db32f8bb4c848c9adf40ce78f, type: 3}
+  prefabDefender: {fileID: 8804702717666447721, guid: 01e9a0ec201971b4f880646b2cbe551f, type: 3}
   saludExtra: 50
   healingAmount: 30
   velocidadExtra: 2
@@ -101,7 +101,6 @@ MonoBehaviour:
   jugador: {fileID: 0}
   proyectilBase: {fileID: 8126029594861363705, guid: 5e4dff3cd73c30145b0cba0a90e98c61, type: 3}
   mascotasIniciales:
-  - {fileID: 1822982154116630964, guid: 4bed402db32f8bb4c848c9adf40ce78f, type: 3}
   - {fileID: 8804702717666447721, guid: 01e9a0ec201971b4f880646b2cbe551f, type: 3}
   enemyLayer:
     serializedVersion: 2
